@@ -1,0 +1,80 @@
+@import '../variables';
+/*
+ * Media Query
+*/
+// 모바일 사이즈
+@mixin xxs {
+  // 갤럭시 폴드 folded size
+  @media (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+// 태블릿 사이즈 - max-width 640
+@mixin sm {
+  @media (min-width: 481px) and (max-width: 768px) {
+    @content;
+  }
+}
+
+// 노트북 사이즈, desktop - max-width 960
+@mixin md {
+  @media (min-width: 769px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+// 기본 모니터 max-width 1100
+@mixin lg {
+  @media (min-width: 1025px) and (max-width: 1279px) {
+    @content;
+  }
+}
+
+// 큰 모니터 - max-width 1200
+@mixin xl {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin xs-to-sm {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin md-to-xl {
+  @media (min-width: 769px) {
+    @content;
+  }
+}
+
+/** Scroll container */
+@mixin scrollbar {
+  overflow: auto;
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+    transition: all 1s;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray-4;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: $gray-4;
+  }
+}

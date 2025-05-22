@@ -1,0 +1,41 @@
+@import "@ui/scss/base.scss";
+
+.container {
+    width: 482px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 1024px) and (max-width: 1279px) {
+        width: 420px;
+        height: 260px;
+    }
+
+    @media (max-width: 1023px) {
+        width: 100%;
+        height: 100%;   
+    }
+
+    .wrapper {
+        width: 482px;
+        height: 276px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        outline: none;
+    
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            width: 420px;
+            height: 240px;
+        }
+    
+        @media (max-width: 1023px) {
+            width: 320px;
+            height: 183px;   
+        }
+    }
+}
+
+
+

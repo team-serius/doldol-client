@@ -1,0 +1,45 @@
+@import "@ui/scss/base.scss";
+
+.container{
+    width: fit-content;
+    position: relative;
+
+    .profileContainer{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+
+        .profileImage{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--size);
+            height: var(--size);;
+            border-radius: 50%;
+            border: 1px solid $green-brand;
+            position: relative;
+            overflow: hidden;
+            background-color: $black;
+
+
+            .image{
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+
+        .icon{
+
+            transition: all ease 0.5s;
+
+            &.isOpen {
+                transform: rotate(-180deg);
+            }
+        }
+
+        
+        
+    }
+}

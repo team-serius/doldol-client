@@ -1,0 +1,54 @@
+@import "@ui/scss/base.scss";
+
+.container{
+  width: fit-content;
+    position: relative;
+    display: flex;
+    gap: $spacing-6;
+    align-items: flex-start;
+
+    .popOver {
+      @include b12;
+
+      display: none;
+      transition: all 0.3s ease-in-out;
+      text-align: left;
+      background-color: $white;
+      border: 1px solid $gray-3;
+      position: absolute;
+      min-width: 180px;
+      max-width: 240px;
+      min-height: 120px;
+      height: fit-content;
+      padding: $spacing-12 $spacing-16;
+      border-radius: 4px;
+      text-wrap: normal;
+      animation: fadeIn 0.2s ease-in;
+      z-index: 9;
+
+      &.left {
+        left: 0;
+      }
+
+      &.right {
+        right: 0;
+      }
+  }
+
+    &:hover{
+        .popOver {
+            display: block;
+        }
+    }
+  }
+
+    
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

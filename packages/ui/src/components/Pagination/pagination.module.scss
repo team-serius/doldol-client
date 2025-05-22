@@ -1,0 +1,63 @@
+@import "@ui/scss/base.scss";
+
+.container {
+  width: 100%;
+
+  .items {
+    width: 100%;
+  }
+
+  .pagination {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+}
+
+.styledButton {
+  width: 40px;
+  height: 40px;
+  color: $gray-2;
+
+  @include b16-bold;
+
+  &:hover {
+    color: $green-dark-1;
+  }
+
+  &:active {
+    color: $green-dark-2;
+  }
+
+  &.isActive {
+    color: $green-brand;
+  }
+}
+
+.skeletonContainer{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.skeleton{
+  width: 100%;
+  height: 280px;
+  border-radius: 8px;
+  background-color: #efefef;
+  background: linear-gradient(-90deg, #efefef 0%, #fcfcfc 50%, #efefef 100%);
+  background-size: 400% 400%;
+  animation: pulse 1.2s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%
+  }
+  100% {
+    background-position: -135% 0%
+  }
+}

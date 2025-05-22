@@ -1,0 +1,265 @@
+@import "@ui/scss/base.scss";
+
+/** 공통 **/
+.button {
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+
+  @include default-transition(color, background-color);
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+/******************************************/
+/** loading **/
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading:before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  animation: rotating 1s infinite;
+}
+
+/******************************************/
+/** 모양 **/
+.rectangle {
+  border-radius: 0.5rem;
+}
+
+.circle {
+  border-radius: 50px;
+}
+
+/******************************************/
+/** 아이콘 - 텍스트 간격 **/
+.startIcon,
+.endIcon,
+.loading {
+  column-gap: $spacing-8;
+
+  &.wide,
+  &.small {
+    column-gap: $spacing-4;
+  }
+}
+
+/******************************************/
+/** Wide **/
+.wide {
+  width: 100%;
+}
+
+/******************************************/
+/** Size **/
+.large {
+  @include b18-medium;
+  line-height: 1;
+
+  height: 3.5rem;
+  min-width: 3.5rem;
+
+  &:not(.iconOnly) {
+    padding-left: $spacing-16;
+    padding-right: $spacing-16;
+  }
+}
+
+.medium {
+  @include b16-medium;
+  line-height: 1;
+
+  height: 2.5rem;
+  min-width: 2.5rem;
+
+  &:not(.iconOnly) {
+    padding-left: $spacing-12;
+    padding-right: $spacing-12;
+  }
+}
+
+.small {
+  @include b14-medium;
+  line-height: 1;
+
+  height: 2rem;
+  min-width: 2rem;
+
+  &:not(.iconOnly) {
+    padding-left: $spacing-8;
+    padding-right: $spacing-8;
+  }
+}
+
+/******************************************/
+/** Variant **/
+.primary {
+  background-color: $green-brand;
+  color: $white;
+  border-color: transparent;
+
+  &.loading:before {
+    border-top-color: $white;
+  }
+
+  &:hover:not(.disabled) {
+    background-color: $green-dark-1;
+  }
+
+  &:active,
+  &.isActive {
+    border-color: transparent;
+    background-color: $green-dark-2;
+  }
+
+  &.disabled {
+    border-color: transparent;
+    background-color: $gray-4;
+    color: $gray-3;
+  }
+}
+
+.outlined {
+  background-color: $white;
+  border-color: $black;
+  color: $black;
+
+  &.loading:before {
+    border-top-color: $black;
+  }
+
+  &:hover:not(.disabled) {
+    background-color: $black;
+    color: $white;
+  }
+
+  &:active,
+  &.isActive {
+    background-color: $gray-2;
+    color: $white;
+    border-color: $gray-1;
+  }
+
+  &.disabled {
+    border-color: transparent;
+    background-color: $gray-4;
+    color: $gray-3;
+  }
+}
+
+.ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: $black;
+
+  &.loading:before {
+    border-top-color: $black;
+  }
+
+  &:hover:not(.disabled) {
+    color: $green-brand;
+  }
+
+  &:active,
+  &.isActive {
+    color: $green-dark-1;
+  }
+
+  &.disabled {
+    color: $gray-3;
+  }
+}
+
+.secondary {
+  background-color: $black;
+  border-color: $black;
+  color: $white;
+
+  &.loading:before {
+    border-top-color: $white;
+  }
+
+  &:hover:not(.disabled) {
+    border-color: $black;
+    background-color: $white;
+    color: $black;
+  }
+
+  &:active,
+  &.isActive {
+    border-color: $gray-2;
+    background-color: $gray-1;
+  }
+
+  &.disabled {
+    border-color: transparent;
+    background-color: $gray-4;
+    color: $gray-3;
+  }
+}
+
+.secondary-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: $gray-2;
+
+  &.loading:before {
+    border-top-color: $black;
+  }
+
+  &:hover:not(.disabled) {
+    color: $gray-1;
+  }
+
+  &.isActive,
+  &:active {
+    color: $black;
+  }
+
+  &.disabled {
+    color: $gray-3;
+  }
+}
+
+.error {
+  background-color: $red-1;
+  color: $white;
+  border-color: transparent;
+
+  &.loading:before {
+    border-top-color: $white;
+  }
+
+  &:hover:not(.disabled) {
+    border-color: $red-1;
+    color: $red-1;
+    background-color: $white;
+  }
+
+  &:active,
+  &.isActive {
+    opacity: 0.8;
+  }
+
+  &.disabled {
+    border-color: transparent;
+    background-color: $gray-4;
+    color: $gray-3;
+  }
+}

@@ -15,6 +15,7 @@
     "next": "15.3.2"
   },
   "devDependencies": {
+    "@doldol-package/ui": "*",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",

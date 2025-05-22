@@ -1,0 +1,24 @@
+@import "@ui/scss/base.scss";
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  height: 28px;
+  position: relative;
+  margin-bottom: 8px;
+  color: $gray-2;
+  
+  .icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    &:hover {
+      background-color: $gray-4;
+      border-radius: 50%;
+    }
+  }
+}

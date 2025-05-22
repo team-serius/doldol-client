@@ -1,0 +1,210 @@
+@import "../../scss/base.scss";
+
+// 기본
+.typography {
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+// 한 줄 말줄임
+.lineEllipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 여러 줄 말줄임
+.multilineEllipsis {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.inline {
+  display: inline;
+}
+
+.h36 {
+  @include h36;
+}
+
+.h36-bold {
+  @include h36-bold;
+}
+
+.h32 {
+  @include h36;
+}
+
+.h32-bold {
+  @include h36-bold;
+}
+
+.h24 {
+  @include h24;
+}
+
+.h24-medium {
+  @include h24-medium;
+}
+
+.h24-bold {
+  @include h24-bold;
+}
+
+.b20 {
+  @include b20;
+}
+
+.b20-medium {
+  @include b20-medium;
+}
+
+.b20-bold {
+  @include b20-bold;
+}
+
+.b18 {
+  @include b18;
+}
+
+.b18-medium {
+  @include b18-medium;
+}
+
+.b18-bold {
+  @include b18-bold;
+}
+
+.b16 {
+  @include b16;
+}
+
+.b16-medium {
+  @include b16-medium;
+}
+
+.b16-bold {
+  @include b16-bold;
+}
+
+.b15 {
+  @include b15;
+}
+
+.b15-medium {
+  @include b15-medium;
+}
+
+.b15-bold {
+  @include b15-bold;
+}
+
+.b14 {
+  @include b14;
+}
+
+.b14-medium {
+  @include b14-medium;
+}
+
+.b14-bold {
+  @include b14-bold;
+}
+
+.b13 {
+  @include b13;
+}
+
+.b13-medium {
+  @include b13-medium;
+}
+
+.b13-bold {
+  @include b13-bold;
+}
+
+.b12 {
+  @include b12;
+}
+
+.b12-medium {
+  @include b12-medium;
+}
+
+.b12-bold {
+  @include b12-bold;
+}
+
+.green-light1 {
+  color: $green-light-1;
+}
+
+.green-brand {
+  color: $green-brand;
+}
+
+.green-dark1 {
+  color: $green-dark-1;
+}
+
+.green-dark2 {
+  color: $green-dark-2;
+}
+
+.yellow-1 {
+  color: $yellow-1;
+}
+
+.yellow-2 {
+  color: $yellow-2;
+}
+
+.blue-1 {
+  color: $blue-1;
+}
+
+.blue-2 {
+  color: $blue-2;
+}
+
+.blue-3 {
+  color: $blue-3;
+}
+
+.blue-4 {
+  color: $blue-4;
+}
+
+.red-1 {
+  color: $red-1;
+}
+
+.white {
+  color: $white;
+}
+
+.gray-1 {
+  color: $gray-1;
+}
+
+.gray-2 {
+  color: $gray-2;
+}
+
+.gray-3 {
+  color: $gray-3;
+}
+
+.gray-4 {
+  color: $gray-4;
+}
+
+.gray-5 {
+  color: $gray-5;
+}

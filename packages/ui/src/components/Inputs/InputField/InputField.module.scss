@@ -1,0 +1,77 @@
+@import "@ui/scss/base.scss";
+
+.field {
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-16;
+  height: 40px;
+  padding: 0 $spacing-16;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  border-color: $gray-3;
+  background-color: $white;
+
+  &:hover:not(.disabled, :focus-within) {
+    border-color: $gray-2;
+  }
+
+  &.error {
+    border-color: $red-1;
+  }
+
+  &:focus-within {
+    border-color: $green-brand;
+  }
+}
+
+.input {
+  padding: 0;
+  flex: 1;
+
+  @include b15;
+}
+
+.field {
+  input {
+    width: 100%;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  // reset
+  input:focus,
+  input:focus-visible,
+  input:focus-within,
+  input:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  input {
+    border: none;
+    outline: none;
+    background-color: $white;
+  }
+
+  // placeholder
+  input::placeholder {
+    color: $gray-2;
+  }
+
+  input::-moz-placeholder {
+    color: $gray-2;
+  }
+
+  input::-webkit-input-placeholder {
+    color: $gray-2;
+  }
+
+  input:disabled {
+    background-color: $gray-5;
+    border-color: $gray-4;
+    color: $gray-3;
+  }
+
+  &.disabled {
+    background-color: $gray-5;
+    border-color: $gray-4;
+    color: $gray-3;
+  }
+}

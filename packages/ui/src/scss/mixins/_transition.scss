@@ -1,0 +1,14 @@
+$transition-duration: 100ms;
+$transition-function: cubic-bezier(0, 0, 0.4, 1);
+
+/** Transition */
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
+@mixin default-transition($property...) {
+  @include transition($property $transition-duration $transition-function);
+}

@@ -1,0 +1,92 @@
+@import "@ui/scss/base.scss";
+
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $black;
+    opacity: 0;
+    padding: 24px;
+    transition: all .5s ease-in-out;
+    will-change: opacity;
+  }
+
+  .wrapper {
+    position: absolute;
+    overflow: scroll;
+    width: fit-content;
+    left: 0;
+    min-width: 200px;
+    max-width: 90%;
+    min-height: 100vh;
+    height: 100%;
+    padding: 24px;
+    background-color: $white;
+    transition: all .5s ease-in-out;
+    will-change: transform, opacity;
+    -webkit-transform: translateX(-100%);
+		transform: translateX(-100%);
+  }
+}
+
+.drawerEnterActive {
+  .overlay{
+    opacity: 0.3;
+  }
+  .wrapper{
+    opacity: 1;
+    -webkit-transform: translateX(0);
+		transform: translateX(0);
+  } 
+}
+
+.drawerEnterDone {
+  .overlay{
+    opacity: 0.3;
+  }
+  .wrapper{
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+.drawerExit {
+  .overlay{
+    opacity: 0.3;
+  }
+  .wrapper{
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+.drawerExitActive {
+  .overlay{
+    opacity: 0;
+  }
+  .wrapper{
+    opacity: 0.4;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+.drawerExitDone {
+  .overlay{
+    opacity: 0;
+  }
+  .wrapper{
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}

@@ -1,0 +1,165 @@
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+@mixin h36 {
+  font-size: 36px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.5 !important;
+}
+
+@mixin h36-medium {
+  @include h36;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin h36-bold {
+  @include h36;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin h32 {
+  font-size: 32px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.5 !important;
+}
+
+@mixin h32-medium {
+  @include h32;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin h32-blod {
+  @include h32;
+  font-weight: $font-weight-bold !important;
+}
+
+
+@mixin h24 {
+  font-size: 24px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.5 !important;
+}
+
+@mixin h24-medium {
+  @include h24;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin h24-bold {
+  @include h24;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin b20 {
+  font-size: 20px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.5 !important;
+}
+
+@mixin b20-medium {
+  @include b20;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b20-bold {
+  @include b20;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin b18 {
+  font-size: 18px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.5 !important;
+}
+
+@mixin b18-medium {
+  @include b18;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b18-bold {
+  @include b18;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin b16 {
+  font-size: 16px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.5 !important;
+}
+
+@mixin b16-medium {
+  @include b16;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b16-bold {
+  @include b16;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin b15 {
+  font-size: 15px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.71 !important;
+}
+
+@mixin b15-medium {
+  @include b15;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b15-bold {
+  @include b15;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin b14 {
+  font-size: 14px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.71 !important;
+}
+
+@mixin b14-medium {
+  @include b14;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b14-bold {
+  @include b14;
+  font-weight: $font-weight-bold !important;
+}
+
+
+@mixin b13 {
+  font-size: 13px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.75 !important;
+}
+
+@mixin b13-medium {
+  @include b13;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b13-bold {
+  @include b13;
+  font-weight: $font-weight-bold !important;
+}
+
+@mixin b12 {
+  font-size: 12px !important;
+  font-weight: $font-weight-regular !important;
+  line-height: 1.75 !important;
+}
+
+@mixin b12-medium {
+  @include b12;
+  font-weight: $font-weight-medium !important;
+}
+
+@mixin b12-bold {
+  @include b12;
+  font-weight: $font-weight-bold !important;
+}

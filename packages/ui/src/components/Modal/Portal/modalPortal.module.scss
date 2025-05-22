@@ -1,0 +1,66 @@
+@import "@ui/scss/base.scss";
+
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    opacity: 0.3;
+    padding: 24px;
+  }
+
+  .wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    min-width: 240px;
+    max-width: 1024px;
+    min-height: 200px;
+    height: fit-content;
+    max-height: 80vh;
+    padding: 12px;
+    background-color: $white;
+    border-radius: 12px;
+  }
+}
+
+.modalEnter {
+  transform: opacity(0);
+  animation: fadeIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.modalExit {
+  transform: opacity(1);
+  animation: fadeOut 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

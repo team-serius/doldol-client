@@ -1,0 +1,29 @@
+@import "@ui/scss/base.scss";
+
+.container {
+  width: 100%;
+}
+
+// 메세지가 표시될 자리에 미리 여백줌
+.gutterBottom {
+  min-height: 64px;
+}
+
+// label Component 또는 help component 가 있을 경우
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textfield .label {
+  margin-bottom: $spacing-8;
+}
+
+.multilineTextfield .label {
+  margin-bottom: $spacing-4;
+}
+
+.multilineTextfield .label.flexEnd {
+  justify-content: flex-end;
+}

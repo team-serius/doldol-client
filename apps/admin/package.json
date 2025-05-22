@@ -15,8 +15,6 @@
     "next": "15.3.2"
   },
   "devDependencies": {
-    "@doldol-package/eslint-config": "workspace:*",
-    "@doldol-package/typescript-config": "workspace:*",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",

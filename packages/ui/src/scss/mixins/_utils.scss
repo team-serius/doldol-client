@@ -1,0 +1,28 @@
+// 텍스트 Selection 기능 막기
+@mixin disable-selectable {
+  // Disable Text Selection
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+/** Elevation */
+@mixin elevation-0 {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+@mixin elevation-1 {
+  box-shadow: 0px 4x 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+@mixin elevation-2 {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+@mixin elevation-3 {
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2) !important;
+}

@@ -1,0 +1,17 @@
+@import "@ui/scss/base.scss";
+
+.styledButton {
+    width: 100%;
+    padding: $spacing-6 $spacing-12;
+    color: $black;
+    border-radius: 4px;
+    flex-shrink: 0;
+
+    &:hover {
+        background-color: $gray-4;
+    }
+
+    &:active {
+        background-color: $gray-3;
+    }
+}

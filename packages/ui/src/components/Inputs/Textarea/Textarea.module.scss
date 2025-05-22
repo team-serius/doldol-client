@@ -1,0 +1,57 @@
+@import "@ui/scss/base.scss";
+
+.textarea {
+  @include scrollbar;
+
+  width: 100%;
+  resize: none;
+  box-sizing: border-box;
+
+  @include b16;
+  color: $black;
+  padding: $spacing-12 $spacing-16;
+  border: 1px solid $gray-3;
+  border-radius: 0.25rem;
+  background-color: $white;
+
+  &:focus-within {
+    border-color: $green-brand;
+  }
+
+  &::placeholder {
+    color: $gray-2;
+  }
+
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    outline: none;
+    background-color: $white;
+  }
+
+  // placeholder
+  &::placeholder {
+    color: $gray-2;
+  }
+
+  &::-moz-placeholder {
+    color: $gray-2;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $gray-2;
+  }
+
+  &:hover:not(.disabled) {
+    border-color: $gray-5;
+  }
+
+  &.disabled {
+    color: $gray-5;
+    background-color: $white;
+  }
+
+  &.error {
+    border-color: $red-1;
+  }
+}
