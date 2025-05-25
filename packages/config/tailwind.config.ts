@@ -1,10 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-// const spacing = require("./design-tokens/atoms/spacing");
 
 module.exports = {
   content: [
     './src/**/*.{ts,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
+    './apps/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     '../../packages/libs/src/utils/**/*.{js,ts,jsx,tsx}',
     '../../packages/ui/src/components/**/*.{js,ts,jsx,tsx}',
@@ -81,7 +80,7 @@ module.exports = {
         desktop: '1280px',
       },
       width: {
-        logo: '289px',
+        logo: '71px',
         desktop: '1280px',
         lg: '1024px',
         md: '768px',
@@ -91,7 +90,7 @@ module.exports = {
         drawer: '180px',
       },
       height: {
-        logo: '59px',
+        logo: '32px',
       },
       maxWidth: {
         center: '620px',

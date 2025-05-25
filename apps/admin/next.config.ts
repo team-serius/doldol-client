@@ -1,19 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const {
-  PHASE_DEVELOPMENT_SERVER,
-  PHASE_PRODUCTION_BUILD,
-} = require('next/constants');
+const { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } = require('next/constants');
 
 module.exports = (phase: any) => {
   // when started in development mode `next dev` or `npm run dev` regardless of the value of STAGING environment variable
-  const isDev =
-    phase === PHASE_DEVELOPMENT_SERVER || process.env.ENVIRONMENT == 'dev';
+  const isDev = phase === PHASE_DEVELOPMENT_SERVER || process.env.ENVIRONMENT == 'dev';
   // when `next build` or `npm run build` is used
-  const isProd =
-    !isDev && phase === PHASE_PRODUCTION_BUILD && process.env.STAGING !== '1';
+  const isProd = !isDev && phase === PHASE_PRODUCTION_BUILD && process.env.STAGING !== '1';
   // when `next build` or `npm run build` is used
-  const isStaging =
-    phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
+  const isStaging = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
 
   console.log('API_URI', process.env.API_URI);
 
@@ -29,7 +23,7 @@ module.exports = (phase: any) => {
       NOTION_PRIVACY_POLICY_URL: process.env.NOTION_PRIVACY_POLICY_URL,
       SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL,
     },
-    transpilePackages: ['@repo/ui'],
+    transpilePackages: ['@doldol-package/ui'],
     reactStrictMode: false,
     images: {
       // TODO: uri 수정

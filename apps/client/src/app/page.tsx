@@ -7,6 +7,9 @@ import { Icon } from '@ui/components/Icon';
 import { ArrowSLineUp } from '@icons/ArrowSLineUp';
 import Dropdown from '@ui/Dropdown/Dropdown';
 import { TEST_SORT } from '@/common/constants/menu';
+import PopOver from '@ui/components/PopOver/PopOver';
+import { Logo } from '@/components/common/Logo';
+import { PasswordField } from '@ui/components';
 
 export default function Home() {
   return (
@@ -108,7 +111,6 @@ export default function Home() {
         <Checkbox label={'테스트'} name={''} onChange={() => alert('테스트')} />
         <Checkbox label={'테스트'} checked name={''} onChange={() => alert('테스트')} />
         <Checkbox label={'테스트'} disabled name={''} onChange={() => alert('테스트')} />
-        <InputField name={''}></InputField>
       </div>
       <div className="flex gap-4 mt-8">
         <Dropdown items={TEST_SORT} displayKey="label" valueKey="id" placeholder="정렬" />
@@ -119,6 +121,14 @@ export default function Home() {
           <Icon icon={ArrowSLineUp} className="text-white" />
         </Button>
       </div>
+
+      <InputField name={''} />
+      <PasswordField name={''} />
+
+      <PopOver description={'테스트입니다.'} from="left">
+        ?
+      </PopOver>
+      <Logo size="large" />
     </main>
   );
 }

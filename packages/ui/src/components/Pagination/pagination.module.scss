@@ -1,4 +1,4 @@
-@import "@ui/scss/base.scss";
+@use "../../scss/base.scss" as *;
 
 .container {
   width: 100%;
@@ -32,7 +32,7 @@
   }
 
   &.isActive {
-    color: $primary;
+    color: $primary-brand;
   }
 }
 

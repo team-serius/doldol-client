@@ -5,11 +5,9 @@ const importedConfig = require('../../packages/config/tailwind.config');
 module.exports = {
   ...importedConfig,
   content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{ts,tsx}',
     '../../packages/libs/src/utils/**/*.{js,ts,jsx,tsx}',
     '../../packages/ui/src/components/**/*.{js,ts,jsx,tsx}',
     '../../packages/icons/src/icons/**/*.{js,ts,jsx,tsx}',
-    '../../packages/config/tailwind.config',
   ],
 };

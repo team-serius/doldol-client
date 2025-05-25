@@ -9,4 +9,3 @@ export { Pagination } from './Pagination';
 export * from './Dropdown';
 export * from './Toast';
 export * from './Drawer';
-export * from './Datepicker';

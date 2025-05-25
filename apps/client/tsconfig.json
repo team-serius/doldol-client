@@ -26,11 +26,22 @@
       "@interface/*": ["src/interface/*"],
       "@common/*": ["src/common/*"],
       "@ui/*": ["../../packages/ui/src/*", "../../packages/ui/src/components/*"],
+      "@ui/Carousel/*": ["../../packages/ui/src/components/Carousel/*"],
       "@icons/*": ["../../packages/icons/src/icons/*"],
       "@libs/*": ["../../packages/libs/src/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@config/*": ["../../packages/config/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "tailwind.config.ts",
+    "../../packages/ui/src/**/*", // ✅ 이거 추가!
+    "../../packages/icons/src/**/*",
+    "../../packages/libs/src/**/*"
+  ],
   "exclude": ["node_modules"]
 }
