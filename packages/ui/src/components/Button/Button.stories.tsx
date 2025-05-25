@@ -30,46 +30,29 @@ const ButtonsTemplate: ComponentStory<typeof Button> = ({ variant, ...args }) =>
 );
 export const Buttons = ButtonsTemplate.bind({});
 
-const TextTemplate: ComponentStory<typeof Button> = ({
-  variant = 'primary',
-  size = 'small',
-  ...args
-}) => (
+const TextTemplate: ComponentStory<typeof Button> = ({ variant = 'primary', size = 'small', ...args }) => (
   <Button variant={variant} size={size} {...args}>
     텍스트
   </Button>
 );
 export const TextButton = TextTemplate.bind({});
 
-const IconBeforeTextTemplate: ComponentStory<typeof Button> = ({
-  variant = 'primary',
-  size = 'small',
-  ...args
-}) => (
-  <Button
-    icon={{ DefaultComponent: ThumbUpFill, placement: 'start' }}
-    variant={variant}
-    size={size}
-    {...args}
-  >
+const IconBeforeTextTemplate: ComponentStory<typeof Button> = ({ variant = 'primary', size = 'small', ...args }) => (
+  <Button icon={{ DefaultComponent: ThumbUpFill, placement: 'start' }} variant={variant} size={size} {...args}>
     텍스트
   </Button>
 );
 
 export const IconBeforeTextButton = IconBeforeTextTemplate.bind({});
 
-const IconAfterTextTemplate: ComponentStory<typeof Button> = ({
-  variant = 'primary',
-  size = 'small',
-  ...args
-}) => (
+const IconAfterTextTemplate: ComponentStory<typeof Button> = ({ variant = 'primary', size = 'small', ...args }) => (
   <Button
     icon={{
       placement: 'end',
       DefaultComponent: ThumbUpLine,
       ActiveComponent: ThumbUpFill,
       color: 'secondary-blue',
-      // activeColor: "green-brand",
+      // activeColor: "primary",
     }}
     variant={variant}
     size={size}
@@ -81,11 +64,7 @@ const IconAfterTextTemplate: ComponentStory<typeof Button> = ({
 
 export const IconAfterTextButton = IconAfterTextTemplate.bind({});
 
-const IconOnlyTemplate: ComponentStory<typeof Button> = ({
-  variant = 'primary',
-  size = 'small',
-  ...args
-}) => (
+const IconOnlyTemplate: ComponentStory<typeof Button> = ({ variant = 'primary', size = 'small', ...args }) => (
   <Button
     icon={{
       placement: 'start',

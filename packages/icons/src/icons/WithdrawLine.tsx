@@ -1,0 +1,5 @@
+// THIS FILE IS AUTO GENERATED
+import { GenIcon, IconBaseProps } from '../IconBase'
+export function WithdrawLine (props: IconBaseProps) {
+   return GenIcon({"tag":"svg","attr":{"xmlns":"http://www.w3.org/2000/svg","fill":"none","viewBox":"0 0 24 24"},"child":[{"tag":"path","attr":{"strokeLinecap":"round","strokeWidth":"2","d":"M7 12.23H17"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeWidth":"2","d":"M8 9L10 15.9993"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeWidth":"2","d":"M14 15.999L16 8.9997"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeWidth":"2","d":"M10 15.999L12 9.53811"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeWidth":"2","d":"M12.001 9.53906L14.001 16"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M22 12C22 17.5241 17.5241 22 12 22C6.47586 22 2 17.5241 2 12C2 6.47586 6.47586 2 12 2C15.3586 2 18.331 3.65517 20.1448 6.1931"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M17.1738 6.82738H20.6221V2.68945"},"child":[]}]})(props);
+}

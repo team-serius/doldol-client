@@ -7,8 +7,8 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     '../../packages/libs/src/utils/**/*.{js,ts,jsx,tsx}',
-    '../../packages/1bee-ui/src/components/**/*.{js,ts,jsx,tsx}',
-    '../../packages/1bee-icons/src/icons/**/*.{js,ts,jsx,tsx}',
+    '../../packages/ui/src/components/**/*.{js,ts,jsx,tsx}',
+    '../../packages/icons/src/icons/**/*.{js,ts,jsx,tsx}',
     '../../packages/config/tailwind.config',
   ],
   future: {
@@ -19,20 +19,11 @@ module.exports = {
       white: '#ffffff',
       black: '#000000',
       transparent: 'transparent',
-      green: {
-        'light-1': '#5cca52',
-        brand: '#00cd3c',
+      primary: {
+        light1: '#5cca52',
+        brand: '#4EB5B5',
         dark1: '#5aa470',
         dark2: '#54765E',
-      },
-      blue: {
-        1: '#55b0f0',
-        2: '#30dce8',
-        3: '#d9ebff',
-        4: '#0174be',
-      },
-      red: {
-        1: '#fc2e6c',
       },
       gray: {
         1: '#454f5d',
@@ -41,16 +32,21 @@ module.exports = {
         4: '#eaedef',
         5: '#f5f6f7',
       },
+      green: {
+        1: '#72C2A8',
+      },
       purple: {
-        1: '#9167fd',
+        1: '#B7A4F5',
+      },
+      red: {
+        1: '#FC2E6C',
       },
       yellow: {
-        1: '#ffed01',
-        2: '#fbb03b',
+        1: '#FFE48A',
       },
       opaque: {
-        green4: 'rgba(0, 205, 60, 0.04)',
-        green20: 'rgba(0, 205, 60, 0.2)',
+        primary4: 'rgba(0, 205, 60, 0.04)',
+        primary20: 'rgba(0, 205, 60, 0.2)',
         yellow20: 'rgba(255, 237, 1, 0.2)',
         purple20: 'rgba(145, 103, 253, 0.2)',
         blue20: 'rgba(85, 176, 240, 0.2)',

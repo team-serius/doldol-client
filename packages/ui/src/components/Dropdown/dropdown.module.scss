@@ -20,7 +20,7 @@
       border-radius: 5px 5px 0 0;
     }
     &.isSelect {
-      color: $green-brand;
+      color: $primary-brand;
     }
     &.disabled {
       cursor: not-allowed;
@@ -67,11 +67,11 @@
       cursor: pointer;
 
       &.selectedItem {
-        color: $green-brand;
+        color: $primary-brand;
       }
 
       &:hover {
-        color: $green-dark-1;
+        color: $primary-dark1;
       }
     }
   }

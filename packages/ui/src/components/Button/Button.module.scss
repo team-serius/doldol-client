@@ -110,7 +110,7 @@
 /******************************************/
 /** Variant **/
 .primary {
-  background-color: $green-brand;
+  background-color: $primary-brand;
   color: $white;
   border-color: transparent;
 
@@ -119,13 +119,13 @@
   }
 
   &:hover:not(.disabled) {
-    background-color: $green-dark-1;
+    background-color: $primary-dark1;
   }
 
   &:active,
   &.isActive {
     border-color: transparent;
-    background-color: $green-dark-2;
+    background-color: $primary-dark2;
   }
 
   &.disabled {
@@ -173,12 +173,12 @@
   }
 
   &:hover:not(.disabled) {
-    color: $green-brand;
+    color: $primary-brand;
   }
 
   &:active,
   &.isActive {
-    color: $green-dark-1;
+    color: $primary-dark1;
   }
 
   &.disabled {

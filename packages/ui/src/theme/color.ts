@@ -1,25 +1,15 @@
 export const ColorPalette = {
-  /** Green */
-  'green-light1': '#5CCA52',
-  'green-brand': '#00CD3C',
-  'green-dark1': '#5AA470',
-  'green-dark2': '#54765E',
+  /** Brand */
+  'primary-brand': '#4EB5B5',
+  'primary-light1': 'D1E0E3',
+  'primary-dark1': '40A1A1',
+  'primary-dark2': '#348D8D',
 
-  /** Blue */
-  'blue-1': '#55B0F0',
-  'blue-2': '#30DCE8',
-  'blue-3': '#D9EBFF',
-  'blue-4': '#0174BE',
-
-  /** Red */
+  /** Sub */
+  'green-1': '#72C2A8',
+  'purple-1': '#B7A4F5',
   'red-1': '#FC2E6C',
-
-  /** Purple */
-  'purple-1': '#9167FD',
-
-  /** Yellow */
-  'yellow-1': '#FFED01',
-  'yellow-2': '#FBB03B',
+  'yellow-1': '#FFE48A',
 
   /** Gray Scale */
   black: '#000000',

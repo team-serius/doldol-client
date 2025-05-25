@@ -1,0 +1,29 @@
+{
+  "name": "icons",
+  "private": true,
+  "version": "0.0.0",
+  "description": "아이콘 모음",
+  "author": "wha1e",
+  "license": "ISC",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "build:icon": "node scripts/build.js"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@svgr/rollup": "^8.1.0",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "cheerio": "^1.0.0-rc.12",
+    "glob-promise": "^6.0.7",
+    "rollup": "^4.41.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.8.3"
+  }
+}

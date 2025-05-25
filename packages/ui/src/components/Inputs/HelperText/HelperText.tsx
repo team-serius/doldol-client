@@ -14,7 +14,7 @@ export const HelperText = ({ placement, message = '', className, error = false }
   return (
     <Typography
       variant="b12"
-      color={error ? 'red-1' : 'green-brand'}
+      color={error ? 'red-1' : 'primary-brand'}
       className={cx(styles.text, styles[placement], className)}
     >
       <span> • </span>

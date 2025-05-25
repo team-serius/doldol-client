@@ -24,15 +24,15 @@
   @include b16-bold;
 
   &:hover {
-    color: $green-dark-1;
+    color: $primary-dark1;
   }
 
   &:active {
-    color: $green-dark-2;
+    color: $primary-dark2;
   }
 
   &.isActive {
-    color: $green-brand;
+    color: $primary;
   }
 }
 

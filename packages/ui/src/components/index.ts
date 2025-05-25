@@ -7,7 +7,6 @@ export * from './Chip';
 export * from './Carousel';
 export { Pagination } from './Pagination';
 export * from './Dropdown';
-export * from './Menu';
 export * from './Toast';
 export * from './Drawer';
 export * from './Datepicker';

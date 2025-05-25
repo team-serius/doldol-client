@@ -46,11 +46,11 @@
 }
 
 input:checked + .slider {
-  background-color: $green-brand;
+  background-color: $primary-brand;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px $green-brand;
+  box-shadow: 0 0 1px $primary-brand;
 }
 
 input:disabled + .slider {

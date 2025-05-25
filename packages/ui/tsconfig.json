@@ -34,8 +34,8 @@
     "alwaysStrict": true,
     "noEmit": true,
     "paths": {
-      "@ui/*": ["src/*", "src/components/*"]
-      // "@icons/*": ["../1bee-icons/src/icons/*"],
+      "@ui/*": ["src/*", "src/components/*"],
+      "@icons/*": ["../icons/src/icons/*"]
       // "@noti/*": ["../1bee-noti/src/*"],
       // "@libs/*": ["../libs/src/*"]
     }
