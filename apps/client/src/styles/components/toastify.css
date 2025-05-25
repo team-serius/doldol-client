@@ -1,0 +1,33 @@
+.Toastify__toast-container {
+  width: fit-content;
+  min-width: 240px;
+  max-width: 1024px;
+  margin: 0 auto;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Toastify__toast {
+  border-radius: 50px;
+  text-align: center;
+  padding: 0 40px;
+  min-height: 40px;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(-45deg, #00cd3c 0%, #30dce8 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 150%;
+  word-break: keep-all;
+}
+
+.Toastify__toast--error {
+  background-color: #fc2e6c;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 150%;
+}

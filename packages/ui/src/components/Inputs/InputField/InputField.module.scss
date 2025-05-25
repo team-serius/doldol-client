@@ -1,4 +1,4 @@
-@import "@ui/scss/base.scss";
+@use "@ui/scss/base" as *;
 
 .field {
   display: flex;
@@ -6,8 +6,7 @@
   column-gap: $spacing-16;
   height: 40px;
   padding: 0 $spacing-16;
-  border: 1px solid;
-  border-radius: 0.25rem;
+  border-bottom: 1px solid;
   border-color: $gray-3;
   background-color: $white;
 
@@ -27,7 +26,7 @@
 .input {
   padding: 0;
   flex: 1;
-
+  color: $black;
   @include b15;
 }
 

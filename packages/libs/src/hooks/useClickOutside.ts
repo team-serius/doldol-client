@@ -1,3 +1,5 @@
+'use client';
+
 import { RefObject, useEffect, useRef } from 'react';
 
 const useClickOutside = <T extends HTMLElement>(func: () => void, detectCondition = false): RefObject<T | null> => {

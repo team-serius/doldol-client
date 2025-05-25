@@ -1,9 +1,8 @@
-@import "@ui/scss/base.scss";
+@use "@ui/scss/base" as *;
 
 /** 공통 **/
 .button {
   box-sizing: border-box;
-
   display: flex;
   align-items: center;
   justify-content: center;

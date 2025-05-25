@@ -1,0 +1,5 @@
+// THIS FILE IS AUTO GENERATED
+import { GenIcon, IconBaseProps } from '../IconBase'
+export function FileLine (props: IconBaseProps) {
+   return GenIcon({"tag":"svg","attr":{"xmlns":"http://www.w3.org/2000/svg","fill":"none","viewBox":"0 0 24 24"},"child":[{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M8.02978 13.788L14.1472 7.90416C14.1472 7.90416 15.2872 6.80767 16.6664 8.13504C18.0456 9.46159 16.9064 10.616 16.9064 10.616L8.6897 18.519C8.6897 18.519 5.93043 21.0571 3.23139 18.4611C0.532344 15.8651 3.11179 13.0382 3.11179 13.0382L11.9282 4.5584C11.9282 4.5584 16.0065 0.866734 20.1449 4.84721C24.2834 8.82769 20.2052 12.9811 20.2052 12.9811L11.868 21"},"child":[]}]})(props);
+}

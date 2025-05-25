@@ -1,4 +1,4 @@
-@import "@ui/scss/base.scss";
+@use "@ui/scss/base.scss" as *;
 
 .checkbox {
   display: flex;
@@ -11,6 +11,10 @@
 
   &.disabled {
     cursor: not-allowed;
+    
+    p {
+      color: $gray-4;
+    }
   }
 }
 

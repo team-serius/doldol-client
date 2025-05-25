@@ -34,10 +34,10 @@
     "alwaysStrict": true,
     "noEmit": true,
     "paths": {
-      "@ui/*": ["src/*", "src/components/*"],
-      "@icons/*": ["../icons/src/icons/*"]
+      "@ui/*": ["src/*", "src/components/*", "./src"],
+      "@icons/*": ["../icons/src/icons/*"],
       // "@noti/*": ["../1bee-noti/src/*"],
-      // "@libs/*": ["../libs/src/*"]
+      "@libs/*": ["../libs/src/*"]
     }
   },
   "include": ["src/**/*", "scss/*", "**/*.ts", "**/*.tsx"],

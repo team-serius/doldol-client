@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ComponentProps, forwardRef, ReactNode, useEffect, useRef } from 'react';
 import styles from './Checkbox.module.scss';
 import { Icon } from '../../Icon';
@@ -34,6 +36,7 @@ export const Checkbox = forwardRef<HTMLInputElement, Props>(({ name, label, onTo
         type="checkbox"
         ref={inputEl}
         name={name}
+        defaultChecked={props.defaultChecked}
         checked={props.checked}
         onChange={onToggle || props.onChange}
         className={classes?.input}
@@ -45,7 +48,7 @@ export const Checkbox = forwardRef<HTMLInputElement, Props>(({ name, label, onTo
         size={24}
         color={props.disabled ? 'gray-5' : props.checked ? 'primary-brand' : 'gray-3'}
       />
-      <p className={cx(classes?.text, props.disabled && 'text-gray-4')}>{label}</p>
+      <p className={cx(classes?.text)}>{label}</p>
     </div>
   );
 });

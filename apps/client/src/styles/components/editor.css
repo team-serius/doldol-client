@@ -1,0 +1,14 @@
+.ql-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.ql-editor {
+  min-height: 200px;
+}
+
+.ql-tooltip {
+  position: absolute;
+  left: 0px !important;
+  top: 0px !important;
+}

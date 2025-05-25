@@ -1,0 +1,41 @@
+.slick-list {
+  width: 482px;
+}
+
+.customDot {
+  display: flex;
+  z-index: 30;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  display: flex !important;
+  column-gap: 8px;
+  transform: translateX(-50%);
+
+  > li {
+    height: 4px;
+  }
+  .slick-active {
+    left: 50%;
+
+    > button {
+      width: 16px;
+      background-color: #000000;
+    }
+  }
+
+  button {
+    width: 4px;
+    height: 4px;
+    padding: 0;
+    color: transparent;
+    cursor: pointer;
+    background: #ffffff;
+    border: none;
+    border-radius: 4px;
+    transition: width 0.3s ease-in;
+  }
+}

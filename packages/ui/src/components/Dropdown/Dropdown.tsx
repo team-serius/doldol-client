@@ -1,3 +1,5 @@
+'use client';
+
 import React, { memo, useEffect, useState } from 'react';
 
 import cx from 'clsx';
@@ -62,13 +64,13 @@ const Dropdown = <T extends Record<string, any>>({
           styles.selected,
           { [styles.isOpen]: isOpen },
           { [styles.isSelect]: selected },
-          { [styles.disabled]: disalbed }
+          { [styles.disabled]: disalbed },
         )}
         role="presentation"
         onClick={onOpen}
         aria-disabled={disalbed}
       >
-        {selected ? selected[displayKey ?? valueKey] : placeholder ?? '선택해주세요.'}
+        {selected ? selected[displayKey ?? valueKey] : (placeholder ?? '선택해주세요.')}
         {isOpen ? (
           <Icon icon={ArrowSLineUp} size={12} color="black" />
         ) : (

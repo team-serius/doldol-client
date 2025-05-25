@@ -1,0 +1,5 @@
+// THIS FILE IS AUTO GENERATED
+import { GenIcon, IconBaseProps } from '../IconBase'
+export function PageLine (props: IconBaseProps) {
+   return GenIcon({"tag":"svg","attr":{"xmlns":"http://www.w3.org/2000/svg","fill":"none","viewBox":"0 0 24 24"},"child":[{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M9.02857 2L4 6.85294V22H20V2H9.02857Z"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M4 7.25294H9.14286V2"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M7.42871 10.2349H16.0001"},"child":[]},{"tag":"path","attr":{"strokeLinecap":"round","strokeLinejoin":"round","strokeWidth":"2","d":"M7.42871 14.353H12.0001"},"child":[]}]})(props);
+}

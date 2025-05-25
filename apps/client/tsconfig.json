@@ -25,14 +25,12 @@
       "@containers/*": ["src/containers/*"],
       "@interface/*": ["src/interface/*"],
       "@common/*": ["src/common/*"],
-      "@ui/*": [
-        "../../packages/ui/src/*",
-        "../../packages/ui/src/components/*"
-      ],
-      "@icons/*": ["../../packages/icons/src/icons/*"]
-      // "@libs/*": ["../../packages/libs/src/*"]
+      "@ui/*": ["../../packages/ui/src/*", "../../packages/ui/src/components/*"],
+      "@icons/*": ["../../packages/icons/src/icons/*"],
+      "@libs/*": ["../../packages/libs/src/*"],
+      "@styles/*": ["src/styles/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.ts"],
   "exclude": ["node_modules"]
 }
