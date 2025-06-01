@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useEffect } from 'react';
 import cx from 'clsx';
 
@@ -60,7 +62,7 @@ const Pagination: FC<Props> = ({ items, total, page, limit, setPage }) => {
             ...Array(
               Math.ceil(total / limit) - tens * pageLimit >= 0
                 ? pageLimit
-                : Math.max(0, Math.ceil(total / limit) - (tens - 1) * pageLimit)
+                : Math.max(0, Math.ceil(total / limit) - (tens - 1) * pageLimit),
             ),
           ].map((_, idx) => (
             <button
@@ -72,7 +74,7 @@ const Pagination: FC<Props> = ({ items, total, page, limit, setPage }) => {
             >
               {(tens - 1) * pageLimit + idx + 1}
             </button>
-          ))
+          )),
         )}
 
         {Math.floor(total / limit) - tens * pageLimit > 0 && (

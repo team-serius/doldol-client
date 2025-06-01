@@ -1,4 +1,6 @@
-import React, { MouseEventHandler, ReactNode, useEffect, useRef, useState } from 'react';
+'use client';
+
+import React, { MouseEventHandler, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
@@ -42,7 +44,7 @@ const DrawerPortal = ({ isOpen, onClose, children }: Props) => {
             <div className={styles.wrapper}>{children}</div>
           </aside>
         </CSSTransition>,
-        document.getElementById('drawer-root') as HTMLDivElement
+        document.getElementById('drawer-root') as HTMLDivElement,
       )}
     </>
   );

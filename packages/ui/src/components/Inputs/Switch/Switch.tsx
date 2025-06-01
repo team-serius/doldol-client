@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef } from 'react';
 import styles from './Switch.module.scss';
 import cx from 'clsx';
@@ -23,14 +25,7 @@ export const Switch = ({ checked, onToggle, disabled, label, labelChecked, name 
           }
         }}
       >
-        <input
-          name={name}
-          type="checkbox"
-          checked={checked}
-          onChange={onToggle}
-          disabled={disabled}
-          ref={ref}
-        />
+        <input name={name} type="checkbox" checked={checked} onChange={onToggle} disabled={disabled} ref={ref} />
         <span className={styles.slider}></span>
       </div>
       {label && (
