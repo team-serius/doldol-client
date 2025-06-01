@@ -10,9 +10,12 @@
     "test": "echo \"[client] test 코드 실행 ✅\""
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.79.0",
+    "axios": "^1.9.0",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@doldol-package/config": "*",
