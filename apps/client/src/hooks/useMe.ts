@@ -1,11 +1,15 @@
-import { useQuery, useQueryClient, type QueryObserverResult, type UseQueryOptions } from '@tanstack/react-query';
+import {
+  useQuery,
+  useQueryClient,
+  type QueryObserverResult,
+  type UseQueryOptions,
+} from '@tanstack/react-query';
 
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from 'src/lib/store/auth';
-import { User } from '@common/types/user';
-import { removeTokens } from 'src/utils/token';
+import { User } from 'src/types/user';
 import { isClient } from 'src/utils/client';
-import { getMeApi } from 'src/services/user';
+// import { getMeApi } from 'src/services/user';
 import { Notify } from '@ui/components';
 import { HELPER_MESSAGES } from '@libs/utils/message';
 
@@ -34,8 +38,13 @@ const useMe = (options?: Option): UseMe => {
     queryKey: ['getMe'],
     queryFn: async () => {
       try {
-        const res = await getMeApi();
-        const data = res.data;
+        // const res = await getMeApi();
+        // const data = res.data;
+        const data: User = {
+          id: '1',
+          name: 'John Doe',
+          email: 'john@naver.com',
+        };
 
         setUserData(data);
 
@@ -45,10 +54,12 @@ const useMe = (options?: Option): UseMe => {
 
         return data;
       } catch (err) {
-        removeTokens();
         setUserData(null);
 
-        const message = err instanceof Error ? err.message : 'An error occurred while fetching user data';
+        const message =
+          err instanceof Error
+            ? err.message
+            : 'An error occurred while fetching user data';
 
         Notify.error(message);
         throw err;
@@ -62,7 +73,6 @@ const useMe = (options?: Option): UseMe => {
 
   const onLogout = () => {
     router.replace('/auth/login');
-    removeTokens();
     setUserData(null);
     queryClient.clear();
     Notify.success(HELPER_MESSAGES.logoutSuccess);
