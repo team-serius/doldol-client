@@ -16,9 +16,9 @@ export const CommonLayout: React.FC<Props> = ({
   return (
     <div className={`flex flex-col min-h-screen ${className}`}>
       <Header isLogoVisible={isLogoVisible} />
-      <main className="flex-grow p-4">{children}</main>
+      <main className="max-w-md w-full mx-auto p-6 pt-16">{children}</main>
       {isFooterVisible && (
-        <footer className="bg-gray-800 text-white p-4">
+        <footer className="bg-gray4 text-white p-4">
           <p>&copy; 2023 MyApp</p>
         </footer>
       )}
