@@ -3,7 +3,7 @@ import { MouseEventHandler } from 'react';
 import { SocialType } from 'src/enum/social.enum';
 
 import Image from 'next/image';
-import { SocialTheme } from 'src/interface/social.interface';
+import { SocialTheme } from '@/interface/auth/social.interface';
 import cx from 'clsx';
 import { API_URI } from 'src/lib/config/env';
 
