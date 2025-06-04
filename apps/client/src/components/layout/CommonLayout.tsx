@@ -1,0 +1,27 @@
+import { Header } from './Header';
+
+interface Props {
+  className?: string;
+  children?: React.ReactNode;
+  isFooterVisible?: boolean;
+  isLogoVisible?: boolean;
+}
+
+export const CommonLayout: React.FC<Props> = ({
+  className,
+  children,
+  isLogoVisible = false,
+  isFooterVisible,
+}) => {
+  return (
+    <div className={`flex flex-col min-h-screen ${className}`}>
+      <Header isLogoVisible={isLogoVisible} />
+      <main className="flex-grow p-4">{children}</main>
+      {isFooterVisible && (
+        <footer className="bg-gray-800 text-white p-4">
+          <p>&copy; 2023 MyApp</p>
+        </footer>
+      )}
+    </div>
+  );
+};

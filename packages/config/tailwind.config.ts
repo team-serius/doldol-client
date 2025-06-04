@@ -19,7 +19,7 @@ module.exports = {
       black: '#000000',
       transparent: 'transparent',
       primary: {
-        light1: '#5cca52',
+        light1: '#D1E0E3',
         brand: '#4EB5B5',
         dark1: '#5aa470',
         dark2: '#54765E',
