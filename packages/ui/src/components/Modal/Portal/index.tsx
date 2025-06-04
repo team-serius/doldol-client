@@ -1,3 +1,5 @@
+'use client';
+
 import React, { MouseEventHandler, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
