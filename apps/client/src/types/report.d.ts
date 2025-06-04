@@ -1,22 +1,22 @@
 export interface ReportResponseList{
-    messageId:Number;
-    title:String;
-    content:String;
-    createdAt:String;
-    isAnswered:Boolean;
+    messageId:number;
+    title:string;
+    content:string;
+    createdAt:string;
+    isAnswered:boolean;
 }
 
 export interface ReportRequest{
-    messageId:Number;
-    title:String;
-    content:String;
-    createdAt:String;
+    messageId:number;
+    title:string;
+    content:string;
+    createdAt:string;
 }
 
 export interface ReportResponse{
-    messageId:Number;
-    title:String;
-    content:String;
-    createdAt:String;
-    isAnswered:Boolean;
+    messageId:number;
+    title:string;
+    content:string;
+    createdAt:string;
+    isAnswered:boolean;
 }

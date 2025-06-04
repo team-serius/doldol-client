@@ -16,5 +16,5 @@ export interface MessageResponse{
 export interface MessageRequest{
     messageId:number;
     content:string;
-    from:String;
+    from:string;
 }
