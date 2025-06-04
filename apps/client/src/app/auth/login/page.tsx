@@ -3,8 +3,10 @@
 import { Logo } from '@/components/common/Logo';
 import { OAuthButton } from '@/components/login/OAuthButton';
 import { SocialType } from '@/enum/social.enum';
-import { Button, InputField, PasswordField, Typography } from '@ui/components';
+import { Button, Typography } from '@ui/components';
 import Link from 'next/link';
+
+// TODO: 최근 로그인 관련 내용 추가
 
 const LoginPage: React.FC = () => {
   return (
