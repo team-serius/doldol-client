@@ -1,10 +1,11 @@
 'use client';
 
 import { Logo } from '@/components/common/Logo';
-import { OAuthButton } from '@/components/login/OAuthButton';
+import { OAuthButton } from '@/components/auth/OAuthButton';
 import { SocialType } from '@/enum/social.enum';
 import { Button, Typography } from '@ui/components';
 import Link from 'next/link';
+import { SupportMenu } from '@/components/auth/SupportMenu';
 
 // TODO: 최근 로그인 관련 내용 추가
 
@@ -25,23 +26,7 @@ const LoginPage: React.FC = () => {
         </Link>
         <OAuthButton social={SocialType.Kakao}></OAuthButton>
       </div>
-      <div className="flex justify-center items-center mt-4">
-        <Button variant={'secondary-ghost'} size={'small'}>
-          아이디 찾기
-        </Button>
-        <Typography variant="b14" color="gray-2">
-          |
-        </Typography>
-        <Button variant={'secondary-ghost'} size={'small'}>
-          비밀번호 초기화
-        </Button>
-        <Typography variant="b14" color="gray-2">
-          |
-        </Typography>
-        <Button variant={'secondary-ghost'} size={'small'}>
-          회원가입
-        </Button>
-      </div>
+      <SupportMenu className="mt-4" />
     </div>
   );
 };
