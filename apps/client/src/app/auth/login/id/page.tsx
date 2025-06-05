@@ -1,13 +1,10 @@
 'use client';
 
+import { SupportMenu } from '@/components/auth/SupportMenu';
 import { CommonLoginForm } from '@/interface/auth/login.interface';
-import {
-  Button,
-  InputField,
-  PasswordField,
-  TextField,
-  Typography,
-} from '@ui/components';
+import { PASSWORD_REGEX } from '@libs/constants/regex';
+import { ERROR_MESSAGES } from '@libs/utils/message';
+import { Button, PasswordField, TextField, Typography } from '@ui/components';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -15,7 +12,6 @@ const LoginIdPage: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<CommonLoginForm>();
 
@@ -34,12 +30,7 @@ const LoginIdPage: React.FC = () => {
           errorMessage={errors.id?.message}
           gutterBottom
           {...register('id', {
-            // required: ERROR_MESSAGES.usernameRequired,
-            // validate: (value) => {
-            //   if (!EMAIL_REGEX.test(value)) {
-            //     return ERROR_MESSAGES.emailInvalid;
-            //   }
-            // },
+            required: ERROR_MESSAGES.usernameRequired,
           })}
         />
         <PasswordField
@@ -48,12 +39,12 @@ const LoginIdPage: React.FC = () => {
           errorMessage={errors.password?.message}
           gutterBottom
           {...register('password', {
-            // required: ERROR_MESSAGES.passwordRequired,
-            // validate: (value) => {
-            //   if (!PASSWORD_REGEX.test(value)) {
-            //     return ERROR_MESSAGES.passwordInvalid;
-            //   }
-            // },
+            required: ERROR_MESSAGES.passwordRequired,
+            validate: (value) => {
+              if (!PASSWORD_REGEX.test(value)) {
+                return ERROR_MESSAGES.passwordInvalid;
+              }
+            },
           })}
         />
         <Button
@@ -66,6 +57,7 @@ const LoginIdPage: React.FC = () => {
           로그인
         </Button>
       </form>
+      <SupportMenu className="mt-4" />
     </div>
   );
 };

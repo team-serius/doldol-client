@@ -1,6 +1,6 @@
 export const ERROR_MESSAGES = {
   /** 로그인 */
-  usernameRequired: '이메일을 입력해주세요.',
+  usernameRequired: '아이디를 입력해주세요.',
   passwordRequired: '비밀번호를 입력해주세요.',
 
   /** 회원가입 */
