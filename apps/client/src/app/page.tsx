@@ -14,7 +14,7 @@ import { PasswordField } from '@ui/components';
 export default function Home() {
   return (
     <main className="w-full p-8">
-      <div className="flex gap-4 pt-8">
+      {/* <div className="flex gap-4 pt-8">
         <Button variant={'primary'} size={'small'}>
           테스트
         </Button>
@@ -129,6 +129,8 @@ export default function Home() {
         ?
       </PopOver>
       <Logo size="large" />
+       */}
+      {/* TODO: 세연이랑 채은이가 개발해야 되는 곳 */}
     </main>
   );
 }

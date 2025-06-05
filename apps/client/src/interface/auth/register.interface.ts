@@ -9,3 +9,8 @@ export interface RegisterForm {
   privacyPolicy: boolean;
   isOlderThan14: boolean;
 }
+
+export interface RegisterEmailCodeForm {
+  email: string;
+  code: string;
+}
