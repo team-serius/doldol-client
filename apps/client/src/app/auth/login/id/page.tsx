@@ -33,6 +33,7 @@ const LoginIdPage: React.FC = () => {
             required: ERROR_MESSAGES.usernameRequired,
           })}
         />
+        <Typography variant="b16">비밀번호</Typography>
         <PasswordField
           placeholder="비밀번호를 입력해주세요."
           error={errors.password ? true : false}
