@@ -1,48 +1,40 @@
-import {MessageResponse} from './message';
+import { MessageResponse } from './message';
 
 export interface RollingPaper {
-        name:string;
-        description:string;
-        participantsCount:number;
-        messageCount:number;
-        openDate:string;
+  paperId: number;
+  name: string;
+  description: string;
+  participantsCount: number;
+  messageCount: number;
+  openDate: string;
 }
 
-export interface PaperListResponse{
-    paperCount:number;
-    rollingPaper:RollingPaper;
+export interface RollingPaperPagination {
+  data: RollingPaper[];
+  size: number;
+  nextCursor: number;
+  hasNext: boolean;
+  empty: boolean;
 }
 
-export interface PaperRequest{
-    name:string;
-    description:string;
-    openDate:string;
+export interface PaperListData {
+  paperCount: number;
+  rollingPaper: RollingPaperPagination;
 }
 
-export interface PaperResponse{
-    name:String;
-    description:String;
-    openDate:String;
+export interface PaperRequest {
+  name: string;
+  description: string;
+  openDate: string;
 }
 
-export interface JoinPaperRequest{
-    invitationCode:String;
+export interface PaperResponse {
+  name: string;
+  description: string;
+  openDate: string;
+  link: string;
 }
 
-
-export interface MessageListResponse{
-    messageCount:Number;
-    url:String;
-    isMaster:Boolean;
-    message:MessageResponse[];
-}
-
-
-//? 이름이 같은데?
-export interface PaperResponse{
-    name:String;
-    description:String;
-    participantsCount:Number;
-    messageCount:String;
-    openDate:String;
+export interface JoinPaperRequest {
+  invitationCode: string;
 }
