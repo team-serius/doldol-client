@@ -1,29 +1,14 @@
-import { RegisterForm } from '@/interface/auth/register.interface';
+import { useRegisterForm } from '@/hooks/form/useRegisterForm';
 import { ArrowSLineRight } from '@icons/ArrowSLineRight';
-import {
-  PASSWORD_REGEX,
-  PHONE_REGEX,
-  EMAIL_REGEX,
-} from '@libs/constants/regex';
+import { PASSWORD_REGEX, PHONE_REGEX, EMAIL_REGEX } from '@libs/constants/regex';
 import { ERROR_MESSAGES } from '@libs/utils/message';
-import {
-  Typography,
-  TextField,
-  Button,
-  PasswordField,
-  Checkbox,
-} from '@ui/components';
+import { Typography, TextField, Button, PasswordField, Checkbox } from '@ui/components';
 import { Icon } from '@ui/components/Icon';
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
 
 const CommonRegisterContainer = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<RegisterForm>();
+  const { register, errors, onSubmit, handleSubmit, watch, onToggle, onToggleAll, onCheckIdDuplicate } =
+    useRegisterForm();
 
   return (
     <div>
@@ -32,7 +17,7 @@ const CommonRegisterContainer = () => {
         <br />
         진심을 전해볼까요?
       </Typography>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="b20-medium" className="mt-10">
           계정 정보
         </Typography>
@@ -44,6 +29,7 @@ const CommonRegisterContainer = () => {
             placeholder="아이디를 입력해주세요."
             error={errors.id ? true : false}
             errorMessage={errors.id?.message}
+            helperMessage={watch('idCheck') ? '사용 가능한 아이디입니다.' : undefined}
             gutterBottom
             {...register('id', {
               required: ERROR_MESSAGES.usernameRequired,
@@ -55,8 +41,7 @@ const CommonRegisterContainer = () => {
             size={'medium'}
             disabled={!watch('id')}
             type="button"
-            // TODO: API 연동 후 중복 확인 로직 추가
-            onClick={() => console.log('중복 확인')}
+            onClick={onCheckIdDuplicate}
           >
             중복 확인
           </Button>
@@ -152,16 +137,22 @@ const CommonRegisterContainer = () => {
           })}
         />
 
-        {/* TODO: 약관동의 관련 로직 추가 */}
         <Typography variant="b20-medium" className="mt-10 mb-4">
           약관 동의
         </Typography>
-        <Checkbox name={''} label="전체 동의합니다." />
+        <Checkbox
+          name={'all'}
+          label="전체 동의합니다."
+          onToggle={onToggleAll}
+          checked={watch('termsOfUse') && watch('privacyPolicy') && watch('isOlderThan14')}
+        />
         <div className="my-2 border-b border-gray-3" />
         <div className="flex justify-between items-center">
           <Checkbox
-            name={''}
+            name={'termsOfUse'}
             label="개인정보 수집 및 이용에 동의합니다. (필수)"
+            onToggle={onToggle}
+            checked={watch('termsOfUse')}
           />
           <Link href={'naver.com'} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
@@ -170,8 +161,10 @@ const CommonRegisterContainer = () => {
 
         <div className="flex justify-between items-center">
           <Checkbox
-            name={''}
+            name={'privacyPolicy'}
             label="이용약관에 동의 합니다. (필수)"
+            onToggle={onToggle}
+            checked={watch('privacyPolicy')}
             classes={{ root: 'mt-2' }}
           />
           <Link href={'naver.com'} target="_blank" className="ml-auto">
@@ -180,17 +173,13 @@ const CommonRegisterContainer = () => {
         </div>
 
         <Checkbox
-          name={''}
+          name={'isOlderThan14'}
           label="만 14세 이상입니다. (필수)"
+          onToggle={onToggle}
+          checked={watch('isOlderThan14')}
           classes={{ root: 'mt-2' }}
         />
-        <Button
-          variant={'secondary'}
-          size={'large'}
-          type="submit"
-          className="mt-10"
-          wide
-        >
+        <Button variant={'secondary'} size={'large'} type="submit" className="mt-10" wide>
           다음
         </Button>
       </form>

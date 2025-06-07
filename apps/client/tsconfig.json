@@ -39,7 +39,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "tailwind.config.ts",
-    "../../packages/ui/src/**/*", // ✅ 이거 추가!
+    "../../packages/ui/src/**/*",
     "../../packages/icons/src/**/*",
     "../../packages/libs/src/**/*"
   ],
