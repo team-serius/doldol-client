@@ -17,7 +17,7 @@ export interface RollingPaperPagination {
   empty: boolean;
 }
 
-export interface PaperListData {
+export interface PaperListResponse {
   paperCount: number;
   rollingPaper: RollingPaperPagination;
 }
