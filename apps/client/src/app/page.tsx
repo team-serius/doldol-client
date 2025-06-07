@@ -15,7 +15,7 @@ export default function Home() {
             로그인 페이지 가기
           </Button>
         </Link>
-        <Link href={'/auth/register'}>
+        <Link href={'/auth/register/common'}>
           <Button variant={'primary'} size={'small'}>
             회원가입
           </Button>

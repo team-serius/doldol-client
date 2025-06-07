@@ -13,13 +13,10 @@ interface Props {
 const menuToLinks: Record<SupportMenuItem, string> = {
   '아이디 찾기': '/auth/find/id',
   '비밀번호 초기화': '/auth/reset/password',
-  회원가입: '/auth/register',
+  회원가입: '/auth/register/common',
 };
 
-export const SupportMenu: React.FC<Props> = ({
-  menu = ['아이디 찾기', '비밀번호 초기화', '회원가입'],
-  className,
-}) => {
+export const SupportMenu: React.FC<Props> = ({ menu = ['아이디 찾기', '비밀번호 초기화', '회원가입'], className }) => {
   return (
     <div className={cx('flex justify-center items-center', className)}>
       {menu.map((item, index) => (
