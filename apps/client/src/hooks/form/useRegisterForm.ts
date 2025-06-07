@@ -54,10 +54,6 @@ export const useRegisterForm = () => {
     onCheckIdApi(id);
   };
 
-  const onSubmit = (data: RegisterForm) => {
-    console.log('Form submitted:', data);
-  };
-
   const onToggle = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const checked = e.target.checked;
@@ -92,7 +88,6 @@ export const useRegisterForm = () => {
     handleSubmit,
     watch,
     errors,
-    onSubmit,
     onToggle,
     onToggleAll,
     onCheckIdDuplicate,

@@ -1,4 +1,5 @@
 import { useRegisterForm } from '@/hooks/form/useRegisterForm';
+import { RegisterForm } from '@/interface/auth/register.interface';
 import { ArrowSLineRight } from '@icons/ArrowSLineRight';
 import { PASSWORD_REGEX, PHONE_REGEX, EMAIL_REGEX } from '@libs/constants/regex';
 import { ERROR_MESSAGES } from '@libs/utils/message';
@@ -6,9 +7,16 @@ import { Typography, TextField, Button, PasswordField, Checkbox } from '@ui/comp
 import { Icon } from '@ui/components/Icon';
 import Link from 'next/link';
 
-const CommonRegisterContainer = () => {
-  const { register, errors, onSubmit, handleSubmit, watch, onToggle, onToggleAll, onCheckIdDuplicate } =
-    useRegisterForm();
+interface Props {
+  onNext: (data?: RegisterForm) => void;
+}
+
+const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
+  const { register, errors, handleSubmit, watch, onToggle, onToggleAll, onCheckIdDuplicate } = useRegisterForm();
+
+  const onSubmit = (data: RegisterForm) => {
+    onNext(data);
+  };
 
   return (
     <div>
