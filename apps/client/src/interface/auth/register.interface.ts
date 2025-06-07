@@ -1,5 +1,6 @@
 export interface RegisterForm {
   id: string;
+  idCheck: boolean;
   password: string;
   passwordConfirm: string;
   name: string;
