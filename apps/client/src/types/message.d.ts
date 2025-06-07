@@ -1,20 +1,32 @@
-export interface CreateMessageRequest{
-    receiverId:number;
-    content:string;
-    from:string;
-    fontStyle:string;
-    backGroundColor:string;
+export interface Message {
+  messageId: number;
+  messageType: string;
+  content: string;
+  fontStyle: string;
+  backgroundColor: string;
+  isDeleted: boolean;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface MessageResponse{
-    toOrFrom:string;
-    content:string;
-    name:string;
-    createdAt:string;
+export interface MessageListResponse {
+  date: Message[];
 }
 
-export interface MessageRequest{
-    messageId:number;
-    content:string;
-    from:string;
+export interface CreateMessageRequest {
+  paperId: number;
+  receiverId: number;
+  content: string;
+  from: string;
+  fontStyle: string;
+  backgroundColor: string;
+}
+
+export interface UpdateMessageRequest {
+  messageId: number;
+  fontStyle: string;
+  backgroundColor: string;
+  content: string;
+  fromName: string;
 }
