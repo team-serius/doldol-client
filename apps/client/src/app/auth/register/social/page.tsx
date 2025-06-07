@@ -21,10 +21,7 @@ const AuthSocialRegisterPage: React.FC = () => {
   return (
     <>
       {/* FIXME: 수정 */}
-      <Content.register
-        onNext={() => console.log('Next step')}
-        setUserData={(data: RegisterForm) => console.log('Set user data:', data)}
-      />
+      <Content.register onNext={() => console.log('Next step')} />
       <input value={test} onChange={(e) => setTest(e.target.value)} />
       <p>Current input value: {test}</p>
     </>

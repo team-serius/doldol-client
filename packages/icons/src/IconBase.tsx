@@ -9,14 +9,7 @@ export interface IconTree {
 
 function Tree2Element(tree: IconTree[]): React.ReactElement<{}>[] {
   return (
-    tree &&
-    tree.map((node, i) =>
-      React.createElement(
-        node.tag,
-        { key: i, ...node.attr },
-        Tree2Element(node.child),
-      ),
-    )
+    tree && tree.map((node, i) => React.createElement(node.tag, { key: i, ...node.attr }, Tree2Element(node.child)))
   );
 }
 export function GenIcon(data: IconTree) {
@@ -34,15 +27,14 @@ export interface IconBaseProps extends React.SVGAttributes<SVGElement> {
   title?: string;
 }
 
-export type IconType = (props: IconBaseProps) => JSX.Element;
-export function IconBase(props: IconBaseProps & { attr?: {} }): JSX.Element {
+export type IconType = (props: IconBaseProps) => React.JSX.Element;
+export function IconBase(props: IconBaseProps & { attr?: {} }): React.JSX.Element {
   const elem = (conf: IconContext) => {
     const { attr, size, title, ...svgProps } = props;
     const computedSize = size || conf.size || '1em';
     let className;
     if (conf.className) className = conf.className;
-    if (props.className)
-      className = (className ? className + ' ' : '') + props.className;
+    if (props.className) className = (className ? className + ' ' : '') + props.className;
 
     return (
       <svg
@@ -69,9 +61,7 @@ export function IconBase(props: IconBaseProps & { attr?: {} }): JSX.Element {
   };
 
   return IconContext !== undefined ? (
-    <IconContext.Consumer>
-      {(conf: IconContext) => elem(conf)}
-    </IconContext.Consumer>
+    <IconContext.Consumer>{(conf: IconContext) => elem(conf)}</IconContext.Consumer>
   ) : (
     elem(DefaultContext)
   );

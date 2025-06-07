@@ -12,20 +12,19 @@ const Content = {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
-  // TODO: 컨테이너 분기 추가
-  // checkCode:
-  // complete:
+  checkCode: dynamic(() => import('@/containers/auth/register/CheckEmailCode'), {
+    ssr: false,
+    loading: () => <div>Loading...</div>, // 스켈레톤 대체
+  }),
+  complete: dynamic(() => import('@/containers/auth/register/Complete'), {
+    ssr: false,
+    loading: () => <div>Loading...</div>, // 스켈레톤 대체
+  }),
 };
 
 const AuthRegisterPage: React.FC = () => {
   const [stage, setStage] = useState<RegisterStage>('register');
   const [userData, setUserData] = useState<RegisterForm | undefined>(undefined);
-
-  // FIXME: 완성 후 제거
-  useEffect(() => {
-    console.log('Current stage:', stage);
-    console.log('User data:', userData);
-  }, [userData]);
 
   const onNext = (data?: RegisterForm) => {
     if (data) {
@@ -42,8 +41,8 @@ const AuthRegisterPage: React.FC = () => {
   return (
     <>
       {stage === 'register' && <Content.register onNext={onNext} />}
-      {stage === 'checkCode' && <div>Check Code Component</div>}
-      {stage === 'complete' && <div>Complete Component</div>}
+      {stage === 'checkCode' && <Content.checkCode onNext={onNext} userData={userData} />}
+      {stage === 'complete' && <Content.complete />}
     </>
   );
 };

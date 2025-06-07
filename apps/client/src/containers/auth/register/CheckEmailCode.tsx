@@ -1,15 +1,26 @@
-import { RegisterEmailCodeForm } from '@/interface/auth/register.interface';
+import { RegisterEmailCodeForm, RegisterForm } from '@/interface/auth/register.interface';
 import { ERROR_MESSAGES } from '@libs/utils/message';
 import { Button, TextField, Typography } from '@ui/components';
 import { useForm } from 'react-hook-form';
 
-const CheckEmailCodeContainer = () => {
+interface Props {
+  onNext: (data?: RegisterForm) => void;
+  userData: RegisterForm | undefined;
+}
+
+const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<RegisterEmailCodeForm>();
+
+  const onSubmit = (data: RegisterEmailCodeForm) => {
+    console.log('유저 데이터', userData);
+    console.log('인증번호 제출:', data);
+    onNext();
+  };
 
   return (
     <div>
@@ -38,7 +49,7 @@ const CheckEmailCodeContainer = () => {
           disabled={!watch('code')}
           type="button"
           // TODO: API 연동 후 중복 확인 로직 추가
-          onClick={() => console.log('인증 완료')}
+          onClick={handleSubmit(onSubmit)}
         >
           인증 완료
         </Button>
