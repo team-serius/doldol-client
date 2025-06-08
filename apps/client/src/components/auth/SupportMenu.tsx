@@ -3,7 +3,7 @@ import { Button, Typography } from '@ui/components';
 import Link from 'next/link';
 import cx from 'clsx';
 
-type SupportMenuItem = '아이디 찾기' | '비밀번호 초기화' | '회원가입';
+export type SupportMenuItem = '아이디 찾기' | '비밀번호 초기화' | '회원가입';
 
 interface Props {
   menu?: SupportMenuItem[];

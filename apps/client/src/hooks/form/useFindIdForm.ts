@@ -1,15 +1,15 @@
-import { FindIdForm } from '@/interface/auth/find.interface';
+import { FindUserInputForm } from '@/interface/auth/find.interface';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
-export const useFindIdForm = () => {
+export const useFindUserInputForm = () => {
   const {
     register,
     handleSubmit,
     watch,
     setError,
     formState: { errors },
-  } = useForm<FindIdForm>({
+  } = useForm<FindUserInputForm>({
     mode: 'onChange',
     defaultValues: {
       name: '',
@@ -34,7 +34,7 @@ export const useFindIdForm = () => {
   //     },
   //   });
 
-  const onSubmit = async (data: FindIdForm) => {
+  const onSubmit = async (data: FindUserInputForm) => {
     if (!data.name || !data.phone || !data.email) {
       setError('name', { message: '이름을 입력해주세요.' });
       setError('phone', { message: '전화번호를 입력해주세요.' });

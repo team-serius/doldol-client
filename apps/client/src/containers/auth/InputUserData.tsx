@@ -1,18 +1,23 @@
-import { SupportMenu } from '@/components/auth/SupportMenu';
-import { useFindIdForm } from '@/hooks/form/useFindIdForm';
-import { FindIdForm } from '@/interface/auth/find.interface';
+import { SupportMenu, SupportMenuItem } from '@/components/auth/SupportMenu';
+import { useFindUserInputForm } from '@/hooks/form/useFindIdForm';
+import { FindUserInputForm } from '@/interface/auth/find.interface';
 import { PHONE_REGEX, EMAIL_REGEX } from '@libs/constants/regex';
 import { ERROR_MESSAGES } from '@libs/utils/message';
 import { Button, TextField, Typography } from '@ui/components';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface Props {
-  onNext: (data?: FindIdForm) => void;
+  onNext: (data?: FindUserInputForm) => void;
 }
 
-const AuthFindIdInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
-  const { register, errors, handleSubmit } = useFindIdForm();
+const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
+  const pathname = usePathname();
 
-  const onSubmit = (data: FindIdForm) => {
+  const menu = pathname.includes('find/id') ? ['비밀번호 초기화'] : ['아이디 찾기'];
+
+  const { register, errors, handleSubmit } = useFindUserInputForm();
+
+  const onSubmit = (data: FindUserInputForm) => {
     onNext(data);
   };
 
@@ -88,10 +93,10 @@ const AuthFindIdInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           다음
         </Button>
 
-        <SupportMenu menu={['비밀번호 초기화']} className="mt-4" />
+        <SupportMenu menu={menu as SupportMenuItem[]} className="mt-4" />
       </form>
     </>
   );
 };
 
-export default AuthFindIdInputUserDataContainer;
+export default AuthInputUserDataContainer;

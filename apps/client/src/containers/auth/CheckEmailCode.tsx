@@ -1,4 +1,4 @@
-import { FindIdForm } from '@/interface/auth/find.interface';
+import { FindUserInputForm } from '@/interface/auth/find.interface';
 import { RegisterEmailCodeForm, RegisterForm } from '@/interface/auth/register.interface';
 import { ERROR_MESSAGES } from '@libs/utils/message';
 import { Button, TextField, Typography } from '@ui/components';
@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 
 interface Props {
   onNext: (data?: RegisterForm) => void;
-  userData: RegisterForm | FindIdForm | undefined;
+  userData: RegisterForm | FindUserInputForm | undefined;
 }
 
 const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {

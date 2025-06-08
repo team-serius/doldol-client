@@ -1,9 +1,9 @@
-import { FindIdForm } from '@/interface/auth/find.interface';
+import { FindUserInputForm } from '@/interface/auth/find.interface';
 import { Button, Typography } from '@ui/components';
 import Link from 'next/link';
 
 interface Props {
-  userData: FindIdForm;
+  userData: FindUserInputForm;
 }
 
 const FindIdComplete: React.FC<Props> = ({ userData }) => {

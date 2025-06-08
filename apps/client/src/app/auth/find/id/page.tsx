@@ -2,12 +2,12 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { FindIdForm } from '@/interface/auth/find.interface';
+import { FindUserInputForm } from '@/interface/auth/find.interface';
 
 type FindIdStage = 'input' | 'checkCode' | 'complete';
 
 const Content = {
-  input: dynamic(() => import('@/containers/auth/find/id/InputUserData'), {
+  input: dynamic(() => import('@/containers/auth/InputUserData'), {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
@@ -23,9 +23,9 @@ const Content = {
 
 const AuthFindIdPage = () => {
   const [stage, setStage] = React.useState<FindIdStage>('input');
-  const [userData, setUserData] = React.useState<FindIdForm | undefined>(undefined); // 타입을 구체적으로 정의할 수 있음
+  const [userData, setUserData] = React.useState<FindUserInputForm | undefined>(undefined); // 타입을 구체적으로 정의할 수 있음
 
-  const onNext = (data?: FindIdForm) => {
+  const onNext = (data?: FindUserInputForm) => {
     if (data) {
       setUserData(data);
     }
