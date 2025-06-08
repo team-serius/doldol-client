@@ -1,7 +1,13 @@
+import { RegisterForm } from '@/interface/auth/register.interface';
 import { Button, Typography } from '@ui/components';
 import Link from 'next/link';
 
-const RegisterCompleteContainer: React.FC = () => {
+interface Props {
+  userData: RegisterForm;
+}
+
+const RegisterCompleteContainer: React.FC<Props> = ({ userData }) => {
+  // TODO: 여기서 회원가입 로직이 보내져야 함.
   return (
     <>
       <Typography variant="h24" className="my-10">

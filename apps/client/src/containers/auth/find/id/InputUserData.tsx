@@ -1,0 +1,97 @@
+import { SupportMenu } from '@/components/auth/SupportMenu';
+import { useFindIdForm } from '@/hooks/form/useFindIdForm';
+import { FindIdForm } from '@/interface/auth/find.interface';
+import { PHONE_REGEX, EMAIL_REGEX } from '@libs/constants/regex';
+import { ERROR_MESSAGES } from '@libs/utils/message';
+import { Button, TextField, Typography } from '@ui/components';
+
+interface Props {
+  onNext: (data?: FindIdForm) => void;
+}
+
+const AuthFindIdInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
+  const { register, errors, handleSubmit } = useFindIdForm();
+
+  const onSubmit = (data: FindIdForm) => {
+    onNext(data);
+  };
+
+  return (
+    <>
+      <Typography variant="h24" className="mt-10">
+        돌돌에 가입할 때 입력한
+        <br />
+        정보를 입력해 주세요.
+      </Typography>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Typography variant="b20-medium" className="mt-10">
+          계정 정보
+        </Typography>
+
+        <Typography variant="b16" className="mt-10">
+          이름
+        </Typography>
+        <TextField
+          placeholder="친구들에게 보여질 이름을 정확히 입력해주세요."
+          error={errors.name ? true : false}
+          errorMessage={errors.name?.message}
+          gutterBottom
+          {...register('name', {
+            required: ERROR_MESSAGES.usernameRequired,
+            // validate: (value) => {
+            //   if (watch('password') !== value) {
+            //     return ERROR_MESSAGES.user;
+            //   }
+            // },
+          })}
+        />
+        {/* TODO: 이름 관련 REGEX 추가 */}
+
+        <Typography variant="b16" className="mt-10">
+          휴대 전화 번호
+        </Typography>
+        <TextField
+          placeholder="휴대 전화 번호를 입력해주세요."
+          error={errors.phone ? true : false}
+          errorMessage={errors.phone?.message}
+          gutterBottom
+          {...register('phone', {
+            required: ERROR_MESSAGES.phoneNumberRequired,
+            validate: (value) => {
+              if (!PHONE_REGEX.test(value)) {
+                return ERROR_MESSAGES.phoneNumberInvalid;
+              }
+            },
+          })}
+        />
+
+        <Typography variant="b16" className="mt-10">
+          이메일
+        </Typography>
+        <TextField
+          placeholder="이메일을 입력해주세요."
+          error={errors.email ? true : false}
+          errorMessage={errors.email?.message}
+          gutterBottom
+          {...register('email', {
+            required: ERROR_MESSAGES.emailRequired,
+            validate: (value) => {
+              if (!EMAIL_REGEX.test(value)) {
+                return ERROR_MESSAGES.emailInvalid;
+              }
+            },
+          })}
+        />
+
+        <Button variant="secondary" size="large" wide className="mt-10" type="submit">
+          다음
+        </Button>
+
+        <SupportMenu menu={['비밀번호 초기화']} className="mt-4" />
+      </form>
+    </>
+  );
+};
+
+export default AuthFindIdInputUserDataContainer;

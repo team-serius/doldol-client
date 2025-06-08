@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { RegisterForm } from '@/interface/auth/register.interface';
@@ -12,7 +12,7 @@ const Content = {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
-  checkCode: dynamic(() => import('@/containers/auth/register/CheckEmailCode'), {
+  checkCode: dynamic(() => import('@/containers/auth/CheckEmailCode'), {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
@@ -42,7 +42,7 @@ const AuthRegisterPage: React.FC = () => {
     <>
       {stage === 'register' && <Content.register onNext={onNext} />}
       {stage === 'checkCode' && <Content.checkCode onNext={onNext} userData={userData} />}
-      {stage === 'complete' && <Content.complete />}
+      {stage === 'complete' && <Content.complete userData={userData!!} />}
     </>
   );
 };

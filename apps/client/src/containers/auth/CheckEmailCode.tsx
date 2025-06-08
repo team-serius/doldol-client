@@ -1,3 +1,4 @@
+import { FindIdForm } from '@/interface/auth/find.interface';
 import { RegisterEmailCodeForm, RegisterForm } from '@/interface/auth/register.interface';
 import { ERROR_MESSAGES } from '@libs/utils/message';
 import { Button, TextField, Typography } from '@ui/components';
@@ -5,7 +6,7 @@ import { useForm } from 'react-hook-form';
 
 interface Props {
   onNext: (data?: RegisterForm) => void;
-  userData: RegisterForm | undefined;
+  userData: RegisterForm | FindIdForm | undefined;
 }
 
 const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
@@ -17,6 +18,7 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
   } = useForm<RegisterEmailCodeForm>();
 
   const onSubmit = (data: RegisterEmailCodeForm) => {
+    //TODO: 인증번호 확인 로직 추가
     console.log('유저 데이터', userData);
     console.log('인증번호 제출:', data);
     onNext();
