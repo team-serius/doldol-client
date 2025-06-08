@@ -1,4 +1,5 @@
 import { SupportMenu } from '@/components/auth/SupportMenu';
+import { useLoginForm } from '@/hooks/form/useLoginForm';
 import { CommonLoginForm } from '@/interface/auth/login.interface';
 import { PASSWORD_REGEX } from '@libs/constants/regex';
 import { ERROR_MESSAGES } from '@libs/utils/message';
@@ -6,18 +7,13 @@ import { Typography, TextField, PasswordField, Button } from '@ui/components';
 import { useForm } from 'react-hook-form';
 
 const AuthLoginIdContainer = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CommonLoginForm>();
-
+  const { register, handleSubmit, watch, errors, onSubmit } = useLoginForm();
   return (
     <div>
       <Typography variant="b20" className="mt-10">
         로그인
       </Typography>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="b16" className="mt-10">
           아이디
         </Typography>
@@ -51,6 +47,7 @@ const AuthLoginIdContainer = () => {
           type="submit"
           className="mt-10"
           wide
+          disabled={!watch('id') || !watch('password') || Object.keys(errors).length > 0}
         >
           로그인
         </Button>

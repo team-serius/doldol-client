@@ -1,9 +1,4 @@
-import {
-  useQuery,
-  useQueryClient,
-  type QueryObserverResult,
-  type UseQueryOptions,
-} from '@tanstack/react-query';
+import { useQuery, useQueryClient, type QueryObserverResult, type UseQueryOptions } from '@tanstack/react-query';
 
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from 'src/lib/store/auth';
@@ -43,7 +38,6 @@ const useMe = (options?: Option): UseMe => {
         const data: User = {
           id: '1',
           name: 'John Doe',
-          email: 'john@naver.com',
         };
 
         setUserData(data);
@@ -56,10 +50,7 @@ const useMe = (options?: Option): UseMe => {
       } catch (err) {
         setUserData(null);
 
-        const message =
-          err instanceof Error
-            ? err.message
-            : 'An error occurred while fetching user data';
+        const message = err instanceof Error ? err.message : 'An error occurred while fetching user data';
 
         Notify.error(message);
         throw err;

@@ -39,10 +39,7 @@ export const OAuthButton: React.FC<Props> = ({ social, isRegister }) => {
 
   return (
     <button
-      className={cx(
-        'relative flex justify-center items-center w-full h-[56px] rounded-lg',
-        Theme[social].background
-      )}
+      className={cx('relative flex justify-center items-center w-full h-[56px] rounded-lg', Theme[social].background)}
       onClick={onClickSocialButton}
       type="button"
       data-social={social}
@@ -54,6 +51,7 @@ export const OAuthButton: React.FC<Props> = ({ social, isRegister }) => {
             alt="소셜 로고 이미지"
             fill
             className="left-4"
+            sizes="24px"
           />
         </div>
       </div>

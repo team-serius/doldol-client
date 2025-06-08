@@ -16,8 +16,7 @@ apiClient.interceptors.response.use(
     if (!isAxiosError<ErrorDTO>(error)) return Promise.reject(error);
 
     const isAccessTokenExpired =
-      error.response?.data.code === 'A-014' ||
-      error.response?.data.message === '토큰이 만료되었습니다.';
+      error.response?.data.code === 'A-014' || error.response?.data.message === '토큰이 만료되었습니다.';
 
     if (isAccessTokenExpired && error.config) {
       try {
@@ -30,7 +29,7 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export const apiClientLocal = axios.create({
@@ -46,15 +45,10 @@ interface FetchOptions {
 }
 type FetchClient = <T>(url: string, options?: FetchOptions) => Promise<T>;
 
-export const fetchClient: FetchClient = async (
-  url,
-  options = { cache: 'force-cache' }
-) => {
+export const fetchClient: FetchClient = async (url, options = { cache: 'force-cache' }) => {
   const { cache, revalidateTime, tags } = options;
   const cachePolicy = cache !== 'revalidate' ? cache : undefined;
-  const next = !cachePolicy
-    ? { revalidate: revalidateTime || 60, tags }
-    : undefined;
+  const next = !cachePolicy ? { revalidate: revalidateTime || 60, tags } : undefined;
 
   const response = await fetch(url, {
     method: 'GET',
@@ -68,8 +62,6 @@ export const fetchClient: FetchClient = async (
   return response.json();
 };
 
-export const isAxiosError = <T>(
-  err: unknown | AxiosError<T>
-): err is AxiosError<T> => {
+export const isAxiosError = <T>(err: unknown | AxiosError<T>): err is AxiosError<T> => {
   return isAxiosErrorApp(err);
 };

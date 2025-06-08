@@ -4,7 +4,7 @@ import { Button, Typography } from '@ui/components';
 import { CommonLayout } from '@/components/layout/CommonLayout';
 import Link from 'next/link';
 
-export default function Home() {
+function Home() {
   return (
     <CommonLayout isLogoVisible>
       <Typography variant="h36-bold">메인 페이지</Typography>
@@ -47,3 +47,5 @@ export default function Home() {
     </CommonLayout>
   );
 }
+
+export default Home;

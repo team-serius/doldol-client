@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
 import { Toast } from '@ui/components';
+import { CookiesProvider } from 'react-cookie';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,10 +20,12 @@ const queryClient = new QueryClient({
 export default function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary>
-        {children}
-        <Toast />
-      </HydrationBoundary>
+      <CookiesProvider>
+        <HydrationBoundary>
+          {children}
+          <Toast />
+        </HydrationBoundary>
+      </CookiesProvider>
     </QueryClientProvider>
   );
 }
