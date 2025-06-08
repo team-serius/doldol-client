@@ -12,3 +12,9 @@ export interface ReportResponse {
   createdAt: string;
   isAnswered: boolean;
 }
+
+export interface ApiResponseListReportResponse {
+  data: ReportResponse[];
+  status: number;
+  message: string;
+}
