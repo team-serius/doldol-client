@@ -41,7 +41,7 @@ const AuthResetPasswordPage = () => {
     <>
       {stage === 'input' && <Content.input onNext={onNext} />}
       {stage === 'checkCode' && <Content.checkCode onNext={onNext} userData={userData} />}
-      {stage === 'complete' && <Content.complete userData={userData!!} />}
+      {stage === 'complete' && userData && <Content.complete userData={userData} />}
     </>
   );
 };
