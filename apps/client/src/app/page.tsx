@@ -3,8 +3,8 @@
 import { Button, Typography } from '@ui/components';
 import { CommonLayout } from '@/components/layout/CommonLayout';
 import Link from 'next/link';
-import { DetailFunctions } from '@/containers/DetailedFunctions';
-// import { ReviewSection } from '@/containers/Review';
+import { DetailFunctions } from '@/containers/DetailFunction';
+import { ReviewSection } from '@/components/Reviews';
 
 function Home() {
   return (
@@ -52,7 +52,8 @@ function Home() {
         </div>
 
         {/* 사용자 후기 섹션 */}
-        <div>{/* <ReviewSection /> */}</div>
+        <Typography variant="h24-bold">돌돌돌..</Typography>
+        <div>{<ReviewSection />}</div>
       </div>
     </CommonLayout>
   );
