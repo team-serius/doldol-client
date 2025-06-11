@@ -3,8 +3,8 @@
 import { Button, Typography } from '@ui/components';
 import { CommonLayout } from '@/components/layout/CommonLayout';
 import Link from 'next/link';
-import { DetailFunctions } from '@/containers/DetailFunction';
-import { ReviewSection } from '@/components/Reviews';
+import { DetailFunctions } from '@/containers/landing/DetailFunction';
+import { Review } from '@/interface/landing/review.interface';
 import ReviewSectionContainer from '@/containers/landing/ReviewSection';
 
 function Home() {
