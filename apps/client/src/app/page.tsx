@@ -5,6 +5,7 @@ import { CommonLayout } from '@/components/layout/CommonLayout';
 import Link from 'next/link';
 import { DetailFunctions } from '@/containers/DetailFunction';
 import { ReviewSection } from '@/components/Reviews';
+import ReviewSectionContainer from '@/containers/landing/ReviewSection';
 
 function Home() {
   return (
@@ -54,7 +55,7 @@ function Home() {
         {/* 사용자 후기 섹션 */}
         <div>
           <Typography variant="h24-bold">돌돌's tory</Typography>
-          {<ReviewSection />}
+          <ReviewSectionContainer />
         </div>
       </div>
     </CommonLayout>

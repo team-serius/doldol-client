@@ -67,7 +67,7 @@ export function DetailFunctions() {
           <div className="text-center flex-grow">
             <Typography
               variant="b14"
-              className="mt-20 text-gray-600 max-w-xl mx-auto md:mt- md:flex-grow"
+              className="mt-32 text-gray-600 max-w-xl mx-auto md:mt- md:flex-grow"
             >
               {current.description}
             </Typography>
