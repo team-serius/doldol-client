@@ -12,25 +12,24 @@ const reviews: Review[] = [
   {
     id: 1,
     text: '내 맘대로 글꼴이랑 배경색 바꿀 수 있어 좋았어요. 개성 만점 롤링 페이퍼 완성!',
-    user: '-사용자1-',
+    user: '-인어맨-',
   },
   {
     id: 2,
-    text: '이런 아이디어라니! "돌돌" 덕분에 평생 기억할 추억 생겼어요.✨',
-    user: '-사용자2-',
+    text: '이런 아이디어라니! "돌돌" 덕분에 평생 남을 추억이 생겼어요.✨',
+    user: '-조개공주-',
   },
   {
     id: 3,
     text: '온라인으로 편하게 메시지 쓰고, 굿즈로 선물해 주니 센스 있다는 칭찬 받았어요.',
-    user: '-사용자3-',
+    user: '-조개구이-',
   },
 ];
 
 export function ReviewSection() {
   return (
-    <div className=" py-12 px-5 flex flex-col items-center relative overflow-hidden bg-primary-light1">
-      {/* cardContainer: 카드 컨테이너 */}
-      <div className="flex flex-col items-center gap-8 w-full max-w-2xl relative z-10">
+    <div className=" py-12 px-5 flex flex-col items-center relative overflow-hidden bg-primary-light1 shadow-inner transform -skew-y-6">
+      <div className="flex flex-col items-center gap-8 w-full max-w-2xl relative z-10 transform skew-y-6">
         {reviews.map((review, index) => (
           <div
             key={review.id}
