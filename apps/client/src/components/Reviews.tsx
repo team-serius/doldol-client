@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from '@ui/components';
-import { ColorPalette } from '@ui/theme';
 
 interface Review {
   id: number;
@@ -29,7 +28,7 @@ const reviews: Review[] = [
 export function ReviewSection() {
   return (
     <div className=" py-12 px-5 flex flex-col items-center relative overflow-hidden bg-primary-light1 shadow-inner transform -skew-y-6">
-      <div className="flex flex-col items-center gap-8 w-full max-w-2xl relative z-10 transform skew-y-6">
+      <div className="flex flex-col items-center gap-8 transform skew-y-6">
         {reviews.map((review, index) => (
           <div
             key={review.id}

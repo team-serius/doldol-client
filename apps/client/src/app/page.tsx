@@ -52,8 +52,10 @@ function Home() {
         </div>
 
         {/* 사용자 후기 섹션 */}
-        <Typography variant="h24-bold">돌돌돌..</Typography>
-        <div>{<ReviewSection />}</div>
+        <div>
+          <Typography variant="h24-bold">돌돌's tory</Typography>
+          {<ReviewSection />}
+        </div>
       </div>
     </CommonLayout>
   );
