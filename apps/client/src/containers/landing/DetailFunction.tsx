@@ -26,13 +26,6 @@ const sections = [
     description:
       '소중한 롤링페이퍼를 필름 롤처럼 돌돌 말아 영원히 간직할 수 있는 특별한 굿즈로 제작해 드립니다.',
   },
-  // {
-  //   key: 'anonymity',
-  //   label: '자유로운 닉네임',
-  //   image: '/assets/logos/symbol-incase-admin.png',
-  //   description:
-  //     '어떤 이름으로든 당신의 진심을 담아 메시지를 작성하고, 자유롭게 소통의 즐거움을 누려보세요.',
-  // },
 ];
 
 export function DetailFunctions() {
