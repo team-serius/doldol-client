@@ -1,66 +1,39 @@
-'use client';
-
 import { useState } from 'react';
 import { Button, Typography } from '@ui/components';
+import { DETAIL } from '@/common/constants/landing/detail';
 import Image from 'next/image';
 
-const sections = [
-  {
-    key: 'timecapsule',
-    label: '타임캡슐',
-    videoPath: '/assets/logos/timecapsulevideo.mp4',
-    type: 'video',
-    description:
-      '소중한 이에게 보내는 메시지! 설정한 특정 조건이 충족될 때까지 안전하게 보관하는 타임캡슐 기능입니다.',
-  },
-  {
-    key: 'customizing',
-    label: '커스터마이징',
-    videoPath: '/assets/logos/customizingvideo.mp4',
-    type: 'video',
-    description:
-      '소중한 메시지에 어울리는 글씨체와 배경색으로 특별함을 더할 수 있습니다.',
-  },
-  {
-    key: 'makingkit',
-    label: '실물 키트 제작',
-    image: '/assets/logos/preparingforservice.png',
-    type: 'image',
-    description:
-      '소중한 롤링페이퍼를 필름 롤처럼 돌돌 말아 영원히 간직할 수 있는 특별한 굿즈로 제작해 드립니다.',
-  },
-];
-
 export function DetailFunctions() {
-  const [selected, setSelected] = useState('timecapsule');
+  const [selected, setSelected] = useState<string>('timecapsule');
 
-  const current = sections.find((s) => s.key === selected);
+  const current = DETAIL.find((d) => d.key === selected);
 
   return (
-    <div className="mt-10 flex flex-col items-center ">
-      <div className="flex gap-9 mb-8">
-        {sections.map((s) => (
+    <div className='mt-10 flex flex-col items-center'>
+      <div className='flex gap-9 mb-8'>
+        {DETAIL.map((d) => (
           <Button
-            key={s.key}
-            variant={selected === s.key ? 'primary' : 'ghost'}
-            size="small"
-            onClick={() => setSelected(s.key)}
+            key={d.key}
+            variant={selected === d.key ? 'primary' : 'ghost'}
+            size='small'
+            onClick={() => setSelected(d.key)}
           >
-            {s.label}
+            {d.label}
           </Button>
         ))}
       </div>
 
       {current && (
-        <div className="flex gap-8">
+        <div className='flex gap-8'>
           {current.type === 'video' ? (
             <video
               src={current.videoPath}
               autoPlay
               loop
+              muted
               width={300}
               height={650}
-              className="w-48 h-auto rounded-xl shadow-md"
+              className='w-48 h-auto rounded-xl shadow-md'
             ></video>
           ) : (
             <Image
@@ -68,14 +41,11 @@ export function DetailFunctions() {
               alt={current.label}
               width={300}
               height={650}
-              className="w-48 h-auto rounded-xl shadow-md"
+              className='w-48 h-auto rounded-xl shadow-md'
             />
           )}
-          <div className="text-center flex-grow">
-            <Typography
-              variant="b14"
-              className="mt-28 text-gray-600 max-w-xl mx-auto md:mt- md:flex-grow"
-            >
+          <div className='text-center flex-grow'>
+            <Typography variant='b14' className='mt-32'>
               {current.description}
             </Typography>
           </div>
