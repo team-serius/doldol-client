@@ -48,15 +48,10 @@ function Home() {
         </Link> */}
 
         {/* 핵심기능 설명 섹션 */}
-        <div>
-          <DetailFunctions />
-        </div>
-
+        <DetailFunctions />
         {/* 사용자 후기 섹션 */}
-        <div>
-          <Typography variant="h24-bold">돌돌's tory</Typography>
-          <ReviewSectionContainer />
-        </div>
+        <Typography variant="h24-bold">돌돌's tory</Typography>
+        <ReviewSectionContainer />
       </div>
     </CommonLayout>
   );
