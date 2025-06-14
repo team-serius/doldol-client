@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const AuthLayout = async ({ children }: Props) => {
+const MyLayout = async ({ children }: Props) => {
   return <CommonLayout>{children}</CommonLayout>;
 };
-export default AuthLayout;
+export default MyLayout;
