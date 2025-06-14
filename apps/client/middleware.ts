@@ -6,8 +6,6 @@ export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get(ACCESS_TOKEN_KEY)?.value;
   const pathname = request.nextUrl.pathname;
 
-  console.log(accessToken, pathname);
-
   const isAuthPath = pathname.startsWith("/auth");
 
   // 로그인한 사용자가 /auth 접근 시 → /
