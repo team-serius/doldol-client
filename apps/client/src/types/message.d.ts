@@ -1,6 +1,8 @@
+export type messageType = "RECEIVE" | "SENT";
+
 export interface Message {
   messageId: number;
-  messageType: string;
+  messageType: messageType;
   content: string;
   fontStyle: string;
   backgroundColor: string;
@@ -12,22 +14,16 @@ export interface Message {
 
 // 메시지 목록 조회 GET /messages
 export interface MessagePagination {
-  data: Message[];
+  list: Message[];
   size: number;
   nextCursor: number;
   hasNext: boolean;
   empty: boolean;
 }
 
-export interface MessageListData {
+export interface MessageListResponse {
   messageCount: number;
   message: MessagePagination;
-}
-
-export interface ApiResponseMessageListResponse {
-  data: MessageListData;
-  status: number;
-  message: string;
 }
 
 // 메시지 작성 POST /messages
