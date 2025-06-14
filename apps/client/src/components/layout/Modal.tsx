@@ -1,13 +1,14 @@
 // components/Modal.tsx
 import React from 'react';
+import { Typography } from '@ui/components';
 
-interface ModalProps {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<Props> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
@@ -15,20 +16,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       className='fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4'
       onClick={onClose}
     >
-      {/* 모달 콘텐츠 박스 */}
+      {/* 모달 박스 */}
       <div
-        className='bg-white rounded-lg  p-6
-                   
-                    mx-auto relative flex flex-col
-                   max-w-sm
-                   max-h-[75vh] overflow-y-auto'
+        className='bg-white rounded-lg p-6 mx-auto relative flex flex-col max-w-sm max-h-[75vh] overflow-y-auto'
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className='absolute top-3 right-3 text-gray-1 hover:text-gray-2 text-3xl font-semibold z-10'
+          className='flex items-center justify-center absolute top-5 right-5 rounded-full w-8 h-8 hover:bg-gray-4 active:bg-gray-3'
           onClick={onClose}
         >
-          &times;
+          <Typography variant='h32' className='text-gray-1'>
+            &times;
+          </Typography>
         </button>
         {children}
       </div>
