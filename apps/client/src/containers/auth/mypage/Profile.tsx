@@ -1,8 +1,24 @@
 import { Button, Typography } from '@ui/components';
+import Modal from '@/components/layout/Modal';
 import Image from 'next/image';
+import { useState } from 'react';
+import PrivacyPolicyContent from '@/components/PrivacyPolicy';
+import TermsOfServiceContent from '@/components/TermsOfService';
 
 const profileImageUrl = '/assets/logos/defaultprofile/profiledoldol.png';
+
 const ProfileContainer = () => {
+  const [isPPModalOpen, setIsPPModalOpen] = useState(false);
+  const [isTSModalOpen, setIsTSModalOpen] = useState(false);
+
+  // 개인정보처리방침
+  const PPOpenModal = () => setIsPPModalOpen(true);
+  const PPCloseModal = () => setIsPPModalOpen(false);
+
+  // 서비스 이용 약관
+  const TSOpenModal = () => setIsTSModalOpen(true);
+  const TSCloseModal = () => setIsTSModalOpen(false);
+
   return (
     <div className=' flex flex-col  items-center w-full'>
       <div className='flex mt-5 justify-between w-full'>
@@ -45,12 +61,28 @@ const ProfileContainer = () => {
       >
         서비스 정보
       </Typography>
-      <Typography variant='b18-bold' className='mt-5 text-left w-full'>
-        개인정보 처리방침
-      </Typography>
-      <Typography variant='b18-bold' className='mt-3 text-left w-full'>
-        서비스 이용 약관
-      </Typography>
+      <div
+        className='mt-5 text-left w-full cursor-pointer hover:underline'
+        onClick={PPOpenModal}
+      >
+        <Typography variant='b18-bold'>개인정보 처리방침</Typography>
+      </div>
+      <div
+        className='mt-5 text-left w-full cursor-pointer hover:underline'
+        onClick={TSOpenModal}
+      >
+        <Typography variant='b18-bold' className='text-left w-full'>
+          서비스 이용 약관
+        </Typography>
+      </div>
+
+      <Modal isOpen={isPPModalOpen} onClose={PPCloseModal}>
+        <PrivacyPolicyContent />
+      </Modal>
+      <Modal isOpen={isTSModalOpen} onClose={TSCloseModal}>
+        <TermsOfServiceContent />
+      </Modal>
+
       <Typography variant='b18-bold' className='mt-20 text-left w-full'>
         로그아웃
       </Typography>
