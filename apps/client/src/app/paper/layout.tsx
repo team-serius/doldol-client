@@ -6,6 +6,6 @@ interface Props {
 }
 
 const PaperLayout = async ({ children }: Props) => {
-  return <CommonLayout>{children}</CommonLayout>;
+  return <CommonLayout isFullWidth>{children}</CommonLayout>;
 };
 export default PaperLayout;
