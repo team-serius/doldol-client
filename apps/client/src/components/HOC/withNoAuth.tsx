@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 const withNoAuth =
   <P,>(WrappedComponent: React.ComponentType<P>) =>
@@ -9,10 +9,10 @@ const withNoAuth =
     const router = useRouter();
 
     useEffect(() => {
-      const accessToken = cookies['Access-Token'];
+      const accessToken = cookies["Access-Token"];
 
       if (accessToken) {
-        router.push('/');
+        router.push("/");
       }
     }, []);
 

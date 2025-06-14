@@ -1,5 +1,5 @@
-import { Review } from '@/interface/landing/review.interface';
-import { Typography } from '@ui/components';
+import { Review } from "@/interface/landing/review.interface";
+import { Typography } from "@ui/components";
 
 interface Props {
   review: Review;
@@ -13,7 +13,7 @@ export const ReviewBox: React.FC<Props> = ({ review, isRight }) => {
       // 홀수/짝수에 따라 좌우 정렬
       className={`
               bg-white rounded-xl p-5 shadow-md
-              ${isRight ? 'self-end md:mr-20' : 'self-start md:ml-20'}
+              ${isRight ? "self-end md:mr-20" : "self-start md:ml-20"}
             `}
     >
       <Typography variant="b14" className=" text-gray-600 text-center">

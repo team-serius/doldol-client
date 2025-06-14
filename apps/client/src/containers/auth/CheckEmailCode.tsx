@@ -1,8 +1,11 @@
-import { FindUserInputForm } from '@/interface/auth/find.interface';
-import { RegisterEmailCodeForm, RegisterForm } from '@/interface/auth/register.interface';
-import { ERROR_MESSAGES } from '@libs/utils/message';
-import { Button, TextField, Typography } from '@ui/components';
-import { useForm } from 'react-hook-form';
+import { FindUserInputForm } from "@/interface/auth/find.interface";
+import {
+  RegisterEmailCodeForm,
+  RegisterForm,
+} from "@/interface/auth/register.interface";
+import { ERROR_MESSAGES } from "@libs/utils/message";
+import { Button, TextField, Typography } from "@ui/components";
+import { useForm } from "react-hook-form";
 
 interface Props {
   onNext: (data?: RegisterForm) => void;
@@ -19,8 +22,8 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
 
   const onSubmit = (data: RegisterEmailCodeForm) => {
     //TODO: 인증번호 확인 로직 추가
-    console.log('유저 데이터', userData);
-    console.log('인증번호 제출:', data);
+    console.log("유저 데이터", userData);
+    console.log("인증번호 제출:", data);
     onNext();
   };
 
@@ -40,15 +43,15 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
           error={errors.code ? true : false}
           errorMessage={errors.code?.message}
           gutterBottom
-          {...register('code', {
+          {...register("code", {
             required: ERROR_MESSAGES.phoneNumberCodeInvalid,
           })}
         />
         <Button
           className="shrink-0"
-          variant={'primary'}
-          size={'medium'}
-          disabled={!watch('code')}
+          variant={"primary"}
+          size={"medium"}
+          disabled={!watch("code")}
           type="button"
           // TODO: API 연동 후 중복 확인 로직 추가
           onClick={handleSubmit(onSubmit)}

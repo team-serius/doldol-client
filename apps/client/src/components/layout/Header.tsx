@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Logo } from '../common/Logo';
-import { Icon } from '@ui/components/Icon';
-import { ArrowSLineLeft } from '@icons/ArrowSLineLeft';
-import { useRouter } from 'next/navigation';
+import { Logo } from "../common/Logo";
+import { Icon } from "@ui/components/Icon";
+import { ArrowSLineLeft } from "@icons/ArrowSLineLeft";
+import { useRouter } from "next/navigation";
 
 interface Props {
   title?: string;
@@ -20,7 +20,7 @@ export const Header: React.FC<Props> = ({
 
   const onClickBack = () => {
     if (isBlockRedirect) {
-      const confirmed = window.confirm('뒤로 갈거임?');
+      const confirmed = window.confirm("뒤로 갈거임?");
       if (confirmed) {
         router.back();
       }
@@ -30,7 +30,7 @@ export const Header: React.FC<Props> = ({
   };
 
   return (
-    <header className="fixed top-0 left-1/2 transform -translate-x-1/2 max-w-md w-full flex items-center p-4 bg-primary-light1 text-white min-h-[66px]">
+    <header className="fixed top-0 left-1/2 transform -translate-x-1/2 max-w-md w-full flex items-center p-4 bg-primary-light1 text-white min-h-[66px] z-10">
       <div className="flex items-center w-full max-w-md mx-auto">
         {isLogoVisible && <Logo size="small" />}
         {!isLogoVisible && (

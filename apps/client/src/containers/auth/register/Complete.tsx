@@ -1,6 +1,6 @@
-import { RegisterForm } from '@/interface/auth/register.interface';
-import { Button, Typography } from '@ui/components';
-import Link from 'next/link';
+import { RegisterForm } from "@/interface/auth/register.interface";
+import { Button, Typography } from "@ui/components";
+import Link from "next/link";
 
 interface Props {
   userData: RegisterForm;
@@ -15,8 +15,8 @@ const RegisterCompleteContainer: React.FC<Props> = ({ userData }) => {
         <br />
         돌돌과 함께 마음을 나눠봐요.
       </Typography>
-      <Link href={'/auth/login'} className="mt-10 w-full">
-        <Button variant={'secondary'} size={'large'} type="submit" wide>
+      <Link href={"/auth/login"} className="mt-10 w-full">
+        <Button variant={"secondary"} size={"large"} type="submit" wide>
           로그인 하러 가기
         </Button>
       </Link>

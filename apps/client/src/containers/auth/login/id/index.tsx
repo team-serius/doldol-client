@@ -1,10 +1,10 @@
-import { SupportMenu } from '@/components/auth/SupportMenu';
-import { useLoginForm } from '@/hooks/form/useLoginForm';
-import { CommonLoginForm } from '@/interface/auth/login.interface';
-import { PASSWORD_REGEX } from '@libs/constants/regex';
-import { ERROR_MESSAGES } from '@libs/utils/message';
-import { Typography, TextField, PasswordField, Button } from '@ui/components';
-import { useForm } from 'react-hook-form';
+import { SupportMenu } from "@/components/auth/SupportMenu";
+import { useLoginForm } from "@/hooks/form/useLoginForm";
+import { CommonLoginForm } from "@/interface/auth/login.interface";
+import { PASSWORD_REGEX } from "@libs/constants/regex";
+import { ERROR_MESSAGES } from "@libs/utils/message";
+import { Typography, TextField, PasswordField, Button } from "@ui/components";
+import { useForm } from "react-hook-form";
 
 const AuthLoginIdContainer = () => {
   const { register, handleSubmit, watch, errors, onSubmit } = useLoginForm();
@@ -22,7 +22,7 @@ const AuthLoginIdContainer = () => {
           error={errors.id ? true : false}
           errorMessage={errors.id?.message}
           gutterBottom
-          {...register('id', {
+          {...register("id", {
             required: ERROR_MESSAGES.usernameRequired,
           })}
         />
@@ -32,7 +32,7 @@ const AuthLoginIdContainer = () => {
           error={errors.password ? true : false}
           errorMessage={errors.password?.message}
           gutterBottom
-          {...register('password', {
+          {...register("password", {
             required: ERROR_MESSAGES.passwordRequired,
             validate: (value) => {
               if (!PASSWORD_REGEX.test(value)) {
@@ -42,12 +42,14 @@ const AuthLoginIdContainer = () => {
           })}
         />
         <Button
-          variant={'primary'}
-          size={'large'}
+          variant={"primary"}
+          size={"large"}
           type="submit"
           className="mt-10"
           wide
-          disabled={!watch('id') || !watch('password') || Object.keys(errors).length > 0}
+          disabled={
+            !watch("id") || !watch("password") || Object.keys(errors).length > 0
+          }
         >
           로그인
         </Button>

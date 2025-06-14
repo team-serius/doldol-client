@@ -25,7 +25,10 @@
       "@containers/*": ["src/containers/*"],
       "@interface/*": ["src/interface/*"],
       "@common/*": ["src/common/*"],
-      "@ui/*": ["../../packages/ui/src/*", "../../packages/ui/src/components/*"],
+      "@ui/*": [
+        "../../packages/ui/src/*",
+        "../../packages/ui/src/components/*"
+      ],
       "@ui/Carousel/*": ["../../packages/ui/src/components/Carousel/*"],
       "@icons/*": ["../../packages/icons/src/icons/*"],
       "@libs/*": ["../../packages/libs/src/*"],

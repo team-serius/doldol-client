@@ -59,7 +59,7 @@
   /* 기본 폰트 설정 */
   body {
     line-height: 1.5;
-    font-family: 'Pretendard', sans-serif;
+    font-family: "Pretendard", sans-serif;
     color: #111;
     background-color: #fff;
   }
@@ -72,30 +72,36 @@
 }
 
 @font-face {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-weight: 700;
   font-display: swap;
   src:
-    url(./fonts/Pretendard/woff2-subset/Pretendard-Bold.subset.woff2) format('woff2'),
-    url(./fonts/Pretendard/woff-subset/Pretendard-Bold.subset.woff) format('woff');
+    url(./fonts/Pretendard/woff2-subset/Pretendard-Bold.subset.woff2)
+      format("woff2"),
+    url(./fonts/Pretendard/woff-subset/Pretendard-Bold.subset.woff)
+      format("woff");
 }
 
 @font-face {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-weight: 500;
   font-display: swap;
   src:
-    url(./fonts/Pretendard/woff2-subset/Pretendard-Medium.subset.woff2) format('woff2'),
-    url(./fonts/Pretendard/woff-subset/Pretendard-Medium.subset.woff) format('woff');
+    url(./fonts/Pretendard/woff2-subset/Pretendard-Medium.subset.woff2)
+      format("woff2"),
+    url(./fonts/Pretendard/woff-subset/Pretendard-Medium.subset.woff)
+      format("woff");
 }
 
 @font-face {
-  font-family: 'Pretendard';
+  font-family: "Pretendard";
   font-weight: 400;
   font-display: swap;
   src:
-    url(./fonts/Pretendard/woff2-subset/Pretendard-Regular.subset.woff2) format('woff2'),
-    url(./fonts/Pretendard/woff-subset/Pretendard-Regular.subset.woff) format('woff');
+    url(./fonts/Pretendard/woff2-subset/Pretendard-Regular.subset.woff2)
+      format("woff2"),
+    url(./fonts/Pretendard/woff-subset/Pretendard-Regular.subset.woff)
+      format("woff");
 }
 
 html,
@@ -110,14 +116,14 @@ body {
     BlinkMacSystemFont,
     system-ui,
     Roboto,
-    'Helvetica Neue',
-    'Segoe UI',
-    'Apple SD Gothic Neo',
-    'Noto Sans KR',
-    'Malgun Gothic',
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
+    "Helvetica Neue",
+    "Segoe UI",
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    "Malgun Gothic",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
     sans-serif;
 }
 
