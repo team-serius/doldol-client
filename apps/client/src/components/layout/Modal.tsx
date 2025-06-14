@@ -25,7 +25,10 @@ const Modal: React.FC<Props> = ({ isOpen, onClose, children }) => {
           className='flex items-center justify-center absolute top-5 right-5 rounded-full w-8 h-8 hover:bg-gray-4 active:bg-gray-3'
           onClick={onClose}
         >
-          <Typography variant='h32' className='text-gray-1'>
+          <Typography
+            variant='h32'
+            className='text-gray-1 relative -top-[1.5px]'
+          >
             &times;
           </Typography>
         </button>
