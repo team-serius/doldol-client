@@ -15,6 +15,7 @@ export { EyeLine } from "./EyeLine";
 export { EyeOffLine } from "./EyeOffLine";
 export { FacebookLogo } from "./FacebookLogo";
 export { FileLine } from "./FileLine";
+export { GoogleSymbolLogo } from "./GoogleSymbolLogo";
 export { Hamburger } from "./Hamburger";
 export { InfoLine } from "./InfoLine";
 export { InstagramLogo } from "./InstagramLogo";
