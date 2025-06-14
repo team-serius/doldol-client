@@ -59,9 +59,6 @@ export interface LoginRequest {
   password: string;
 }
 
-// 역할(enum) 타입 정의
-export type role = "ROLE_ADMIN" | "ROLE_USER";
-
 export interface LoginSuccessResponse {
   userId: number;
   role: role;
