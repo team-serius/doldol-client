@@ -4,8 +4,13 @@ export interface Participant {
   name: string;
 }
 
-export interface ApiResponseListParticipantResponse {
-  data: Participant[];
-  status: number;
-  message: string;
+export interface CursorPageParticipantResponse {
+  list: Participant[];
+  size: number;
+  nextCusor: {
+    cursorName: string;
+    cursorId: number;
+  };
+  hasNext: boolean;
+  empty: boolean;
 }
