@@ -7,19 +7,21 @@ import {
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "src/lib/store/auth";
-import { User } from "src/types/user";
+import { MyInfoResponse } from "src/types/user";
 import { isClient } from "src/utils/client";
-// import { getMeApi } from 'src/services/user';
 import { Notify } from "@ui/components";
 import { HELPER_MESSAGES } from "@libs/utils/message";
+import { getUserInfo } from "@/services/user";
 
 type QueryKey = ["getMe"];
-type Option = Partial<UseQueryOptions<User, Error, User, QueryKey>>;
+type Option = Partial<
+  UseQueryOptions<MyInfoResponse, Error, MyInfoResponse, QueryKey>
+>;
 
 interface UseMe {
-  user: User | null;
+  user: MyInfoResponse | null;
   error: unknown;
-  refetchMe: () => Promise<QueryObserverResult<User, Error>>;
+  refetchMe: () => Promise<QueryObserverResult<MyInfoResponse, Error>>;
   onLogout(): void;
   isLoading: boolean;
 }
@@ -34,43 +36,23 @@ const useMe = (options?: Option): UseMe => {
     refetch: refetchMe,
     error,
     isLoading,
-  } = useQuery<User, Error, User, QueryKey>({
+  } = useQuery<MyInfoResponse, Error, MyInfoResponse, QueryKey>({
     queryKey: ["getMe"],
     queryFn: async () => {
-      try {
-        // const res = await getMeApi();
-        // const data = res.data;
-        const data: User = {
-          id: "1",
-          name: "John Doe",
-        };
-
-        setUserData(data);
-
-        queryClient.invalidateQueries({
-          predicate: (query) => query.queryKey[0] !== "getMe",
-        });
-
-        return data;
-      } catch (err) {
-        setUserData(null);
-
-        const message =
-          err instanceof Error
-            ? err.message
-            : "An error occurred while fetching user data";
-
-        Notify.error(message);
-        throw err;
+      const response = await getUserInfo();
+      if (!response.data || !response.data.data) {
+        throw new Error("Failed to fetch user data");
+      } else {
+        setUserData(response.data.data);
       }
+      // Adjust the path below to match your actual API response structure
+      return response.data.data;
     },
-    enabled: isClient && (options?.enabled ?? true),
-    retry: false,
-    staleTime: 1000 * 60 * 5,
-    ...options,
   });
 
   const onLogout = () => {
+    // TODO: 로그아웃 API 호출
+    if (!isClient) return;
     router.replace("/auth/login");
     setUserData(null);
     queryClient.clear();

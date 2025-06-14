@@ -4,7 +4,6 @@ import { CommonLoginForm } from "@/interface/auth/login.interface";
 import { PASSWORD_REGEX } from "@libs/constants/regex";
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Typography, TextField, PasswordField, Button } from "@ui/components";
-import { useForm } from "react-hook-form";
 
 const AuthLoginIdContainer = () => {
   const { register, handleSubmit, watch, errors, onSubmit } = useLoginForm();

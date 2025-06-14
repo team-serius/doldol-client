@@ -10,7 +10,7 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.response.use(
-  (res) => res,
+  (res) => res.data,
   async (error) => {
     if (!isClient) return Promise.reject(error);
     if (!isAxiosError<ErrorDTO>(error)) return Promise.reject(error);
@@ -20,6 +20,7 @@ apiClient.interceptors.response.use(
       error.response?.data.message === "토큰이 만료되었습니다.";
 
     if (isAccessTokenExpired && error.config) {
+      // TODO: 리프레시 토큰 요청 로직 추가
       try {
         await apiClient.post("/auth/refresh");
         return apiClient(error.config); // 원 요청 재시도
