@@ -36,7 +36,6 @@
   /* 버튼 & 폼 요소 초기화 */
   button {
     background: none;
-    border: none;
     font: inherit;
     cursor: pointer;
   }
