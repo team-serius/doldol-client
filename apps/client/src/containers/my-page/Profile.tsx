@@ -2,8 +2,8 @@ import { Button, Typography } from '@ui/components';
 import Modal from '@/components/layout/Modal';
 import Image from 'next/image';
 import { useState } from 'react';
-import PrivacyPolicyContent from '@/components/PrivacyPolicy';
-import TermsOfServiceContent from '@/components/TermsOfService';
+import PrivacyPolicyContent from '@/components/serviceinfo/PrivacyPolicy';
+import TermsOfServiceContent from '@/components/serviceinfo/TermsOfService';
 
 const profileImageUrl = '/assets/logos/defaultprofile/profiledoldol.png';
 
