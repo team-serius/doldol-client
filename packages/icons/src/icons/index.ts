@@ -34,4 +34,5 @@ export { QuestionFill } from "./QuestionFill";
 export { ReportFill } from "./ReportFill";
 export { RestoreLine } from "./RestoreLine";
 export { SendFill } from "./SendFill";
+export { SettingFill } from "./SettingFill";
 export { ShareFill } from "./ShareFill";

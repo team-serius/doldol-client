@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export type messageType = "RECEIVE" | "SENT";
 
 export interface Message {
@@ -8,8 +10,8 @@ export interface Message {
   backgroundColor: string;
   isDeleted: boolean;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Dayjs;
+  updatedAt: Dayjs;
 }
 
 // 메시지 목록 조회 GET /messages
