@@ -1,14 +1,19 @@
-import { useQuery, useQueryClient, type QueryObserverResult, type UseQueryOptions } from '@tanstack/react-query';
+import {
+  useQuery,
+  useQueryClient,
+  type QueryObserverResult,
+  type UseQueryOptions,
+} from "@tanstack/react-query";
 
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from 'src/lib/store/auth';
-import { User } from 'src/types/user';
-import { isClient } from 'src/utils/client';
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "src/lib/store/auth";
+import { User } from "src/types/user";
+import { isClient } from "src/utils/client";
 // import { getMeApi } from 'src/services/user';
-import { Notify } from '@ui/components';
-import { HELPER_MESSAGES } from '@libs/utils/message';
+import { Notify } from "@ui/components";
+import { HELPER_MESSAGES } from "@libs/utils/message";
 
-type QueryKey = ['getMe'];
+type QueryKey = ["getMe"];
 type Option = Partial<UseQueryOptions<User, Error, User, QueryKey>>;
 
 interface UseMe {
@@ -30,27 +35,30 @@ const useMe = (options?: Option): UseMe => {
     error,
     isLoading,
   } = useQuery<User, Error, User, QueryKey>({
-    queryKey: ['getMe'],
+    queryKey: ["getMe"],
     queryFn: async () => {
       try {
         // const res = await getMeApi();
         // const data = res.data;
         const data: User = {
-          id: '1',
-          name: 'John Doe',
+          id: "1",
+          name: "John Doe",
         };
 
         setUserData(data);
 
         queryClient.invalidateQueries({
-          predicate: (query) => query.queryKey[0] !== 'getMe',
+          predicate: (query) => query.queryKey[0] !== "getMe",
         });
 
         return data;
       } catch (err) {
         setUserData(null);
 
-        const message = err instanceof Error ? err.message : 'An error occurred while fetching user data';
+        const message =
+          err instanceof Error
+            ? err.message
+            : "An error occurred while fetching user data";
 
         Notify.error(message);
         throw err;
@@ -63,7 +71,7 @@ const useMe = (options?: Option): UseMe => {
   });
 
   const onLogout = () => {
-    router.replace('/auth/login');
+    router.replace("/auth/login");
     setUserData(null);
     queryClient.clear();
     Notify.success(HELPER_MESSAGES.logoutSuccess);

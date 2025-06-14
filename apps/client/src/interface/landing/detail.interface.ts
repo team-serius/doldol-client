@@ -5,12 +5,12 @@ export interface DetailBase {
 }
 
 export interface Video extends DetailBase {
-  type: 'video';
+  type: "video";
   videoPath: string;
 }
 
 export interface Image extends DetailBase {
-  type: 'image';
+  type: "image";
   image: string;
 }
 

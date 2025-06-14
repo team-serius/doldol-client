@@ -1,6 +1,6 @@
-import { FindUserInputForm } from '@/interface/auth/find.interface';
-import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { FindUserInputForm } from "@/interface/auth/find.interface";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
 export const useFindUserInputForm = () => {
   const {
@@ -10,11 +10,11 @@ export const useFindUserInputForm = () => {
     setError,
     formState: { errors },
   } = useForm<FindUserInputForm>({
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: {
-      name: '',
-      phone: '',
-      email: '',
+      name: "",
+      phone: "",
+      email: "",
     },
   });
 
@@ -36,9 +36,9 @@ export const useFindUserInputForm = () => {
 
   const onSubmit = async (data: FindUserInputForm) => {
     if (!data.name || !data.phone || !data.email) {
-      setError('name', { message: '이름을 입력해주세요.' });
-      setError('phone', { message: '전화번호를 입력해주세요.' });
-      setError('email', { message: '이메일을 입력해주세요.' });
+      setError("name", { message: "이름을 입력해주세요." });
+      setError("phone", { message: "전화번호를 입력해주세요." });
+      setError("email", { message: "이메일을 입력해주세요." });
       return;
     }
     // 다음 단계로 진행하는 로직을 여기에 추가

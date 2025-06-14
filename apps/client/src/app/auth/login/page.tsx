@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import AuthLoginContainer from '@/containers/auth/login';
+import AuthLoginContainer from "@/containers/auth/login";
 
 const AuthLoginPage: React.FC = () => {
   return <AuthLoginContainer />;

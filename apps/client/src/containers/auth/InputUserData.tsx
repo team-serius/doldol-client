@@ -1,10 +1,10 @@
-import { SupportMenu, SupportMenuItem } from '@/components/auth/SupportMenu';
-import { useFindUserInputForm } from '@/hooks/form/useFindIdForm';
-import { FindUserInputForm } from '@/interface/auth/find.interface';
-import { PHONE_REGEX, EMAIL_REGEX } from '@libs/constants/regex';
-import { ERROR_MESSAGES } from '@libs/utils/message';
-import { Button, TextField, Typography } from '@ui/components';
-import { usePathname, useRouter } from 'next/navigation';
+import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
+import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
+import { FindUserInputForm } from "@/interface/auth/find.interface";
+import { PHONE_REGEX, EMAIL_REGEX } from "@libs/constants/regex";
+import { ERROR_MESSAGES } from "@libs/utils/message";
+import { Button, TextField, Typography } from "@ui/components";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   onNext: (data?: FindUserInputForm) => void;
@@ -13,7 +13,9 @@ interface Props {
 const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const pathname = usePathname();
 
-  const menu = pathname.includes('find/id') ? ['비밀번호 초기화'] : ['아이디 찾기'];
+  const menu = pathname.includes("find/id")
+    ? ["비밀번호 초기화"]
+    : ["아이디 찾기"];
 
   const { register, errors, handleSubmit } = useFindUserInputForm();
 
@@ -42,7 +44,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
-          {...register('name', {
+          {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
             // validate: (value) => {
             //   if (watch('password') !== value) {
@@ -61,7 +63,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
-          {...register('phone', {
+          {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
               if (!PHONE_REGEX.test(value)) {
@@ -79,7 +81,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
-          {...register('email', {
+          {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
               if (!EMAIL_REGEX.test(value)) {
@@ -89,7 +91,13 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           })}
         />
 
-        <Button variant="secondary" size="large" wide className="mt-10" type="submit">
+        <Button
+          variant="secondary"
+          size="large"
+          wide
+          className="mt-10"
+          type="submit"
+        >
           다음
         </Button>
 

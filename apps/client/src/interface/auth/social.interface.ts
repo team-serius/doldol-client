@@ -1,4 +1,4 @@
-import { ColorPalette } from '@ui/theme';
+import { ColorPalette } from "@ui/theme";
 
 export interface ButtonTheme {
   label: string;

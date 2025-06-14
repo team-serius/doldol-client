@@ -1,15 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } = require('next/constants');
+const {
+  PHASE_DEVELOPMENT_SERVER,
+  PHASE_PRODUCTION_BUILD,
+} = require("next/constants");
 
 module.exports = (phase: any) => {
   // when started in development mode `next dev` or `npm run dev` regardless of the value of STAGING environment variable
-  const isDev = phase === PHASE_DEVELOPMENT_SERVER || process.env.ENVIRONMENT == 'dev';
+  const isDev =
+    phase === PHASE_DEVELOPMENT_SERVER || process.env.ENVIRONMENT == "dev";
   // when `next build` or `npm run build` is used
-  const isProd = !isDev && phase === PHASE_PRODUCTION_BUILD && process.env.STAGING !== '1';
+  const isProd =
+    !isDev && phase === PHASE_PRODUCTION_BUILD && process.env.STAGING !== "1";
   // when `next build` or `npm run build` is used
-  const isStaging = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
+  const isStaging =
+    phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === "1";
 
-  console.log('API_URI', process.env.API_URI);
+  console.log("API_URI", process.env.API_URI);
 
   return {
     env: {
@@ -22,25 +28,25 @@ module.exports = (phase: any) => {
       ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY,
       REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
     },
-    transpilePackages: ['@doldol-package/ui'],
+    transpilePackages: ["@doldol-package/ui"],
     reactStrictMode: false,
     images: {
       // TODO: uri 수정
       remotePatterns: [
         {
-          protocol: 'https',
-          hostname: 'dev-file.pa1ette.com',
-          port: '',
+          protocol: "https",
+          hostname: "dev-file.pa1ette.com",
+          port: "",
         },
         {
-          protocol: 'https',
-          hostname: 'prod-file.pa1ette.com',
-          port: '',
+          protocol: "https",
+          hostname: "prod-file.pa1ette.com",
+          port: "",
         },
         {
-          protocol: 'https',
-          hostname: 'hanbee-file.s3.ap-northeast-2.amazonaws.com',
-          port: '',
+          protocol: "https",
+          hostname: "hanbee-file.s3.ap-northeast-2.amazonaws.com",
+          port: "",
         },
       ],
       minimumCacheTTL: 5,

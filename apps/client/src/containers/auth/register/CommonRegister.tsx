@@ -1,18 +1,36 @@
-import { useRegisterForm } from '@/hooks/form/useRegisterForm';
-import { RegisterForm } from '@/interface/auth/register.interface';
-import { ArrowSLineRight } from '@icons/ArrowSLineRight';
-import { PASSWORD_REGEX, PHONE_REGEX, EMAIL_REGEX } from '@libs/constants/regex';
-import { ERROR_MESSAGES } from '@libs/utils/message';
-import { Typography, TextField, Button, PasswordField, Checkbox } from '@ui/components';
-import { Icon } from '@ui/components/Icon';
-import Link from 'next/link';
+import { useRegisterForm } from "@/hooks/form/useRegisterForm";
+import { RegisterForm } from "@/interface/auth/register.interface";
+import { ArrowSLineRight } from "@icons/ArrowSLineRight";
+import {
+  PASSWORD_REGEX,
+  PHONE_REGEX,
+  EMAIL_REGEX,
+} from "@libs/constants/regex";
+import { ERROR_MESSAGES } from "@libs/utils/message";
+import {
+  Typography,
+  TextField,
+  Button,
+  PasswordField,
+  Checkbox,
+} from "@ui/components";
+import { Icon } from "@ui/components/Icon";
+import Link from "next/link";
 
 interface Props {
   onNext: (data?: RegisterForm) => void;
 }
 
 const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
-  const { register, errors, handleSubmit, watch, onToggle, onToggleAll, onCheckIdDuplicate } = useRegisterForm();
+  const {
+    register,
+    errors,
+    handleSubmit,
+    watch,
+    onToggle,
+    onToggleAll,
+    onCheckIdDuplicate,
+  } = useRegisterForm();
 
   const onSubmit = (data: RegisterForm) => {
     onNext(data);
@@ -37,17 +55,19 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             placeholder="아이디를 입력해주세요."
             error={errors.id ? true : false}
             errorMessage={errors.id?.message}
-            helperMessage={watch('idCheck') ? '사용 가능한 아이디입니다.' : undefined}
+            helperMessage={
+              watch("idCheck") ? "사용 가능한 아이디입니다." : undefined
+            }
             gutterBottom
-            {...register('id', {
+            {...register("id", {
               required: ERROR_MESSAGES.usernameRequired,
             })}
           />
           <Button
             className="shrink-0"
-            variant={'primary'}
-            size={'medium'}
-            disabled={!watch('id')}
+            variant={"primary"}
+            size={"medium"}
+            disabled={!watch("id")}
             type="button"
             onClick={onCheckIdDuplicate}
           >
@@ -63,7 +83,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.password ? true : false}
           errorMessage={errors.password?.message}
           gutterBottom
-          {...register('password', {
+          {...register("password", {
             required: ERROR_MESSAGES.passwordRequired,
             validate: (value) => {
               if (!PASSWORD_REGEX.test(value)) {
@@ -81,10 +101,10 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.passwordConfirm ? true : false}
           errorMessage={errors.passwordConfirm?.message}
           gutterBottom
-          {...register('passwordConfirm', {
+          {...register("passwordConfirm", {
             required: ERROR_MESSAGES.passwordRequired,
             validate: (value) => {
-              if (watch('password') !== value) {
+              if (watch("password") !== value) {
                 return ERROR_MESSAGES.passwordConfirmInvalid;
               }
             },
@@ -99,7 +119,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
-          {...register('name', {
+          {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
             // validate: (value) => {
             //   if (watch('password') !== value) {
@@ -117,7 +137,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
-          {...register('phone', {
+          {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
               if (!PHONE_REGEX.test(value)) {
@@ -135,7 +155,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
-          {...register('email', {
+          {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
               if (!EMAIL_REGEX.test(value)) {
@@ -149,45 +169,55 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           약관 동의
         </Typography>
         <Checkbox
-          name={'all'}
+          name={"all"}
           label="전체 동의합니다."
           onToggle={onToggleAll}
-          checked={watch('termsOfUse') && watch('privacyPolicy') && watch('isOlderThan14')}
+          checked={
+            watch("termsOfUse") &&
+            watch("privacyPolicy") &&
+            watch("isOlderThan14")
+          }
         />
         <div className="my-2 border-b border-gray-3" />
         <div className="flex justify-between items-center">
           <Checkbox
-            name={'termsOfUse'}
+            name={"termsOfUse"}
             label="개인정보 수집 및 이용에 동의합니다. (필수)"
             onToggle={onToggle}
-            checked={watch('termsOfUse')}
+            checked={watch("termsOfUse")}
           />
-          <Link href={'naver.com'} target="_blank" className="ml-auto">
+          <Link href={"naver.com"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
           </Link>
         </div>
 
         <div className="flex justify-between items-center">
           <Checkbox
-            name={'privacyPolicy'}
+            name={"privacyPolicy"}
             label="이용약관에 동의 합니다. (필수)"
             onToggle={onToggle}
-            checked={watch('privacyPolicy')}
-            classes={{ root: 'mt-2' }}
+            checked={watch("privacyPolicy")}
+            classes={{ root: "mt-2" }}
           />
-          <Link href={'naver.com'} target="_blank" className="ml-auto">
+          <Link href={"naver.com"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
           </Link>
         </div>
 
         <Checkbox
-          name={'isOlderThan14'}
+          name={"isOlderThan14"}
           label="만 14세 이상입니다. (필수)"
           onToggle={onToggle}
-          checked={watch('isOlderThan14')}
-          classes={{ root: 'mt-2' }}
+          checked={watch("isOlderThan14")}
+          classes={{ root: "mt-2" }}
         />
-        <Button variant={'secondary'} size={'large'} type="submit" className="mt-10" wide>
+        <Button
+          variant={"secondary"}
+          size={"large"}
+          type="submit"
+          className="mt-10"
+          wide
+        >
           다음
         </Button>
       </form>

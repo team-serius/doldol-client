@@ -1,5 +1,5 @@
-import { User } from 'src/types/user';
-import { create } from 'zustand';
+import { User } from "src/types/user";
+import { create } from "zustand";
 
 interface AuthStore {
   user: User | null;
