@@ -2,29 +2,29 @@ import { useState } from "react";
 import { Button, Typography } from "@ui/components";
 import { DETAIL } from "@/common/constants/landing/detail";
 import Image from "next/image";
+import { TabMenu } from "@/components/common/TabMenu";
+
+const TAB_MENU = DETAIL.map((item) => item.label);
 
 export function DetailFunctions() {
-  const [selected, setSelected] = useState<string>("timecapsule");
+  const [selected, setSelected] = useState<string>(TAB_MENU[0]);
 
-  const current = DETAIL.find((d) => d.key === selected);
+  const current = DETAIL.find((d) => d.label === selected);
+
+  const onItemClick = (item: string) => {
+    setSelected(item);
+  };
 
   return (
-    <div className="mt-10 flex flex-col items-center">
-      <div className="flex gap-9 mb-8">
-        {DETAIL.map((d) => (
-          <Button
-            key={d.key}
-            variant={selected === d.key ? "primary" : "ghost"}
-            size="small"
-            onClick={() => setSelected(d.key)}
-          >
-            {d.label}
-          </Button>
-        ))}
-      </div>
+    <div className="mt-20 flex flex-col items-center">
+      <TabMenu
+        menuItems={TAB_MENU}
+        activeItem={selected}
+        onItemClick={onItemClick}
+      />
 
       {current && (
-        <div className="flex gap-8">
+        <div className="flex gap-8 mt-8">
           {current.type === "video" ? (
             <video
               src={current.videoPath}
@@ -37,7 +37,7 @@ export function DetailFunctions() {
             ></video>
           ) : (
             <Image
-              src={current.image as string}
+              src={current.image}
               alt={current.label}
               width={300}
               height={650}
