@@ -1,3 +1,9 @@
+// 사용자 정보 검증 POST /auth/validate/user/info
+export interface UserInfoIdCheckRequest {
+  phone: string;
+  email: string;
+}
+
 // 자체 서비스 회원가입 POST /auth/register
 export interface RegisterRequest {
   id: string;
@@ -42,32 +48,31 @@ export interface EmailCheckRequest {
   email: string;
 }
 
-// 로그인
+// 아이디 찾기 /auth/find/id
+export interface UserLoginIdResponse {
+  id: string;
+}
+
+// 자체 로그인 POST /auth/login
 export interface LoginRequest {
   id: string;
   password: string;
 }
 
-export interface LoginSuccessData {
+// 역할(enum) 타입 정의
+export type role = "ROLE_ADMIN" | "ROLE_USER";
+
+export interface LoginSuccessResponse {
   userId: number;
-  role: string;
+  role: role;
+  accessToken: string;
+  refreshToken: string;
 }
 
-export interface ApiResponseLoginSuccess {
-  data: LoginSuccessData;
-  status: number;
-  message: string;
-}
-
-export interface LoginFailureResponse {
-  data: null;
+export interface FailureResponse {
   code: string;
-  message: string;
 }
 
-// 로그아웃
-export interface LogoutResponse {
-  data: null;
-  status: number;
-  message: string;
+export interface SocialRegisterResponse {
+  socialId: string;
 }
