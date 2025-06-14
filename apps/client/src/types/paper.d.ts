@@ -1,12 +1,14 @@
 // import { MessageResponse } from './message';
 
+import { Dayjs } from 'dayjs';
+
 export interface Paper {
   paperId: number;
   name: string;
   description: string;
   participantsCount: number;
   messageCount: number;
-  openDate: string;
+  openDate: Dayjs;
 }
 
 // 롤링페이퍼 리스트 GET /papers
