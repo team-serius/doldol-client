@@ -39,9 +39,9 @@ function Home() {
         {/* <Typography variant="h24-bold" className="border-t border-gray-2 mt-8">
           로그인 전용 페이지
         </Typography>
-        <Link href={'/auth/login'}>
+        <Link href={'/paper'}>
           <Button variant={'primary'} size={'small'}>
-            로그인
+            롤링페이퍼
           </Button>
         </Link>
         <Link href={'/auth/login'}>
