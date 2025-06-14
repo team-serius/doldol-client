@@ -11,22 +11,16 @@ export interface Paper {
 
 // 롤링페이퍼 리스트 GET /papers
 export interface PaperPagination {
-  data: Paper[];
+  list: Paper[];
   size: number;
   nextCursor: number;
   hasNext: boolean;
   empty: boolean;
 }
 
-export interface PaperListData {
+export interface PaperListResponse {
   paperCount: number;
   rollingPaper: PaperPagination;
-}
-
-export interface ApiResponsePaperListResponse {
-  data: PaperListData;
-  status: number;
-  message: string;
 }
 
 // 롤링페이퍼 생성 POST /papers
@@ -43,25 +37,10 @@ export interface PaperCreateResponse {
   link: string;
 }
 
-export interface ApiResponsePaperCreateResponse {
-  data: PaperCreateResponse;
-  status: number;
-  message: string;
-}
-
-// 롤링페이퍼 단건 조회 GET /papers/invite
+// 롤링페이퍼 개별 조회 GET /papers/{id}
 export interface PaperDetailResponse {
-  paperId: number;
-  name: string;
-  description: string;
-  participantsCount: number;
-  messageCount: number;
-  openDate: string;
-}
-export interface ApiResponsePaperResponse {
-  data: PaperDetailResponse;
-  status: number;
-  message: string;
+  paper: Paper;
+  isMaster: boolean;
 }
 
 // 롤링페이퍼 참여 POST /papers/join
