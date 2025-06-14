@@ -1,9 +1,9 @@
-import dayjs, { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs';
 
-export const convertDateToDateString = (date: Dayjs | null, format?: string) => {
+export const convertDateToDateString = (date: dayjs.Dayjs | null, format?: string) => {
   if (!date) return '';
   return dayjs(date)
-    .format(format ?? 'YYYY-MM-DD')
+    .format(format ?? 'YY.MM.DD')
     .toString();
 };
 
