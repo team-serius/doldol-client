@@ -12,3 +12,9 @@ export interface UpdateUserInfoRequest {
   name: string;
   password: string;
 }
+
+export interface ApiResponseMyInfo {
+  data: MyInfoResponse;
+  status: number;
+  message: string;
+}

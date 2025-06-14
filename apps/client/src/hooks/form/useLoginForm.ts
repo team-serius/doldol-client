@@ -1,6 +1,10 @@
+import { IS_DEV } from "./../../lib/config/env";
 // hooks/useLoginForm.ts
 import { CommonLoginForm } from "@/interface/auth/login.interface";
+import { postLogin } from "@/services/auth";
+import { ErrorDTO } from "@/types/error";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError, isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -22,29 +26,25 @@ export const useLoginForm = () => {
   });
 
   const { mutate: onLoginApi } = useMutation({
-    mutationFn: async (data: CommonLoginForm) => {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // 쿠키 포함
-        body: JSON.stringify(data),
-      });
+    mutationFn: (data: CommonLoginForm) => postLogin(data),
 
-      if (!res.ok) {
-        const errorBody = await res.json();
-        throw new Error(errorBody.message);
-      }
-
-      return res.json();
-    },
     mutationKey: ["login", watch("id"), watch("password")],
-    onSuccess: () => {
+    onSuccess: (res) => {
+      IS_DEV && console.log("로그인 성공", res.data);
+      if (res) {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
+      }
       router.push("/");
     },
-    onError: (error: Error) => {
-      setError("password", {
-        message: error.message || "아이디 혹은 비밀번호가 일치하지 않습니다.",
-      });
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        setError("password", {
+          message:
+            error.response?.data.message ||
+            "아이디 혹은 비밀번호가 일치하지 않습니다.",
+        });
+      }
     },
   });
 
