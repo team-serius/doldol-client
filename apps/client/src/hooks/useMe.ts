@@ -1,9 +1,4 @@
-import {
-  useQuery,
-  useQueryClient,
-  type QueryObserverResult,
-  type UseQueryOptions,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "src/lib/store/auth";
@@ -12,42 +7,33 @@ import { isClient } from "src/utils/client";
 import { Notify } from "@ui/components";
 import { HELPER_MESSAGES } from "@libs/utils/message";
 import { getUserInfo } from "@/services/user";
-
-type QueryKey = ["getMe"];
-type Option = Partial<
-  UseQueryOptions<MyInfoResponse, Error, MyInfoResponse, QueryKey>
->;
+import { IS_DEV } from "@/lib/config/env";
 
 interface UseMe {
   user: MyInfoResponse | null;
   error: unknown;
-  refetchMe: () => Promise<QueryObserverResult<MyInfoResponse, Error>>;
   onLogout(): void;
   isLoading: boolean;
 }
 
-const useMe = (options?: Option): UseMe => {
+const useMe = (): UseMe => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { user, setUserData } = useAuthStore();
 
-  const {
-    data: userData,
-    refetch: refetchMe,
-    error,
-    isLoading,
-  } = useQuery<MyInfoResponse, Error, MyInfoResponse, QueryKey>({
+  const { data, refetch, error, isLoading } = useQuery({
     queryKey: ["getMe"],
     queryFn: async () => {
       const response = await getUserInfo();
-      if (!response.data || !response.data.data) {
-        throw new Error("Failed to fetch user data");
-      } else {
-        setUserData(response.data.data);
-      }
-      // Adjust the path below to match your actual API response structure
-      return response.data.data;
+      const userData = response.data;
+      IS_DEV && console.log("useMe 쿼리 응답:", userData);
+
+      setUserData(response.data); // ✅ 항상 호출 보장
+      return userData;
     },
+    retry: false,
+    enabled: isClient,
+    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
   });
 
   const onLogout = () => {
@@ -62,7 +48,6 @@ const useMe = (options?: Option): UseMe => {
   return {
     user,
     error,
-    refetchMe,
     onLogout,
     isLoading,
   };

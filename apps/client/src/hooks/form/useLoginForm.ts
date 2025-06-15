@@ -1,4 +1,4 @@
-import { IS_DEV } from "./../../lib/config/env";
+import { ACCESS_TOKEN, IS_DEV, REFRESH_TOKEN } from "./../../lib/config/env";
 // hooks/useLoginForm.ts
 import { CommonLoginForm } from "@/interface/auth/login.interface";
 import { postLogin } from "@/services/auth";
@@ -32,8 +32,8 @@ export const useLoginForm = () => {
     onSuccess: (res) => {
       IS_DEV && console.log("로그인 성공", res.data);
       if (res) {
-        localStorage.setItem("accessToken", res.data.accessToken);
-        localStorage.setItem("refreshToken", res.data.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
+        localStorage.setItem(REFRESH_TOKEN, res.data.refreshToken);
       }
       router.push("/");
     },
