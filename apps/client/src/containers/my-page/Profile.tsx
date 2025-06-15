@@ -10,8 +10,7 @@ import { ArrowSLineRight } from '@icons/ArrowSLineRight';
 import { PlusLine } from '@icons/PlusLine';
 import { useRouter } from 'next/navigation';
 
-import { LogoutApi } from '@/services/logout';
-import { WithdrawApi } from '@/services/withdraw';
+import useMe from '@/hooks/useMe';
 
 import Chip from '@ui/components/Chip/Chip';
 import { getColorFromString } from '@/utils/color';
@@ -28,6 +27,8 @@ const ProfileContainer = () => {
   const [isTSModalOpen, setIsTSModalOpen] = useState(false);
   const router = useRouter();
 
+  const { onLogout, onWithdraw } = useMe();
+
   // 유저 정보(프로필 배경색, 이름)
   const name = '돌돌';
   const userBackgroundColor = getColorFromString(name);
@@ -41,36 +42,14 @@ const ProfileContainer = () => {
   const TSCloseModal = () => setIsTSModalOpen(false);
 
   // 로그아웃
+
   const handleLogout = async () => {
-    try {
-      await LogoutApi();
-      console.log('로그아웃 성공');
-
-      alert('로그아웃되었습니다.');
-      router.push('/');
-    } catch (error: any) {
-      console.error('로그아웃 오류 발생:', error);
-
-      const errorMessage = error.message || '알 수 없는 오류가 발생했습니다.';
-      alert(`로그아웃 실패: ${errorMessage}`);
-    }
+    onLogout();
   };
 
   // 회원 탈퇴
   const handleWithdraw = async () => {
-    if (!window.confirm('정말 탈퇴하시겠습니까?')) {
-      return;
-    }
-    try {
-      await WithdrawApi();
-      console.log('탈퇴 성공');
-      alert('이용해주셔서 감사합니다.');
-      router.push('/');
-    } catch (error: any) {
-      console.error('회원 탈퇴 오류 발생: ', error);
-      const errorMessage = error.message || '알 수 없는 오류가 발생했습니다.';
-      alert(`탈퇴 실패: ${errorMessage}`);
-    }
+    onWithdraw();
   };
 
   return (
