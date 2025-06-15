@@ -14,11 +14,13 @@ interface Props {
     button?: string;
   };
   size?: number;
+  bgColor?: string;
 }
 
-const Chip: FC<Props> = ({ src, onClick, classes, size = 48 }) => {
+const Chip: FC<Props> = ({ src, onClick, classes, size = 48, bgColor }) => {
   const style = {
     '--size': size && size + 'px',
+    backgroundColor: bgColor,
   } as CSSProperties;
 
   return (
