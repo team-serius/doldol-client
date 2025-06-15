@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { JSX, useEffect } from "react";
 import useMe from "src/hooks/useMe";

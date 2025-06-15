@@ -128,7 +128,7 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
           <Typography variant="b16" className="mt-4 text-gray-600">
             총 <b>{data.messageCount}개</b>의 메시지를 작성했어요!
           </Typography>
-          <div className="mt-6 flex flex-wrap gap-4">
+          <div className="mt-6 grid grid-cols-3 gap-y-4">
             {data.message.list.map((message, index) => (
               <Link
                 key={message.messageId}

@@ -21,6 +21,7 @@ export function withNoAuth<P>(Page: React.ComponentType<P>) {
         IS_DEV && console.log("accessToken이 없습니다.");
         return;
       }
+
       // User 가 있을 경우 대시보드 페이지로 이동
       router.replace("/");
     }, [user, router]);
