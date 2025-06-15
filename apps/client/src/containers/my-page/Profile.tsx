@@ -9,10 +9,9 @@ import Link from 'next/link';
 import { ArrowSLineRight } from '@icons/ArrowSLineRight';
 import { PlusLine } from '@icons/PlusLine';
 import { useRouter } from 'next/navigation';
-// import { useCookies } from 'react-cookie';
 
 import { LogoutApi } from '@/services/logout';
-// import { ACCESS_TOKEN_KEY } from '@/lib/config/env';
+import { WithdrawApi } from '@/services/withdraw';
 
 interface Props {
   isLogoVisible?: boolean;
@@ -25,7 +24,6 @@ const ProfileContainer = () => {
   const [isPPModalOpen, setIsPPModalOpen] = useState(false);
   const [isTSModalOpen, setIsTSModalOpen] = useState(false);
   const router = useRouter();
-  // const [, , removeCookie] = useCookies([ACCESS_TOKEN_KEY]);
 
   // 개인정보처리방침
   const PPOpenModal = () => setIsPPModalOpen(true);
@@ -35,20 +33,36 @@ const ProfileContainer = () => {
   const TSOpenModal = () => setIsTSModalOpen(true);
   const TSCloseModal = () => setIsTSModalOpen(false);
 
+  // 로그아웃
   const handleLogout = async () => {
     try {
       await LogoutApi();
       console.log('로그아웃 성공');
 
-      // removeCookie(ACCESS_TOKEN_KEY, { path: '/' });
-
       alert('로그아웃되었습니다.');
       router.push('/');
     } catch (error: any) {
-      console.error('로그아웃 처리 중 오류 발생:', error);
+      console.error('로그아웃 오류 발생:', error);
 
       const errorMessage = error.message || '알 수 없는 오류가 발생했습니다.';
       alert(`로그아웃 실패: ${errorMessage}`);
+    }
+  };
+
+  // 회원 탈퇴
+  const handleWithdraw = async () => {
+    if (!window.confirm('정말 탈퇴요? ㅜㅜ')) {
+      return;
+    }
+    try {
+      await WithdrawApi();
+      console.log('탈퇴 성공');
+      alert('이용해주셔서 감사합니다.');
+      router.push('/');
+    } catch (error: any) {
+      console.error('회원 탈퇴 오류 발생: ', error);
+      const errorMessage = error.message || '알 수 없는 오류가 발생했습니다.';
+      alert(`탈퇴 실패: ${errorMessage}`);
     }
   };
 
@@ -137,6 +151,7 @@ const ProfileContainer = () => {
       <Typography
         variant='b18-bold'
         className='mt-3 text-left w-full hover:text-green-1'
+        onClick={handleWithdraw}
       >
         탈퇴하기
       </Typography>
