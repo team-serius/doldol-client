@@ -9,10 +9,10 @@ import Link from 'next/link';
 import { ArrowSLineRight } from '@icons/ArrowSLineRight';
 import { PlusLine } from '@icons/PlusLine';
 import { useRouter } from 'next/navigation';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
 
 import { LogoutApi } from '@/services/logout';
-import { ACCESS_TOKEN_KEY } from '@/lib/config/env';
+// import { ACCESS_TOKEN_KEY } from '@/lib/config/env';
 
 interface Props {
   isLogoVisible?: boolean;
@@ -25,7 +25,7 @@ const ProfileContainer = () => {
   const [isPPModalOpen, setIsPPModalOpen] = useState(false);
   const [isTSModalOpen, setIsTSModalOpen] = useState(false);
   const router = useRouter();
-  const [, , removeCookie] = useCookies([ACCESS_TOKEN_KEY]);
+  // const [, , removeCookie] = useCookies([ACCESS_TOKEN_KEY]);
 
   // 개인정보처리방침
   const PPOpenModal = () => setIsPPModalOpen(true);
@@ -38,11 +38,12 @@ const ProfileContainer = () => {
   const handleLogout = async () => {
     try {
       await LogoutApi();
-      console.log('백엔드 로그아웃 API 호출 성공 (세션 무효화)');
+      console.log('로그아웃 성공');
 
-      removeCookie(ACCESS_TOKEN_KEY, { path: '/' });
+      // removeCookie(ACCESS_TOKEN_KEY, { path: '/' });
 
       alert('로그아웃되었습니다.');
+      router.push('/');
     } catch (error: any) {
       console.error('로그아웃 처리 중 오류 발생:', error);
 

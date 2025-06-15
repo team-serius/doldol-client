@@ -1,4 +1,5 @@
-import { SocialType } from "@/enum/social.enum";
+import { SocialType } from '@/enum/social.enum';
+
 
 // 본인정보 조회 GET /user/info
 export interface MyInfoResponse {
