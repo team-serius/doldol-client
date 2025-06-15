@@ -13,17 +13,24 @@ import { useRouter } from 'next/navigation';
 import { LogoutApi } from '@/services/logout';
 import { WithdrawApi } from '@/services/withdraw';
 
+import Chip from '@ui/components/Chip/Chip';
+import { getColorFromString } from '@/utils/color';
+
 interface Props {
   isLogoVisible?: boolean;
 }
 
 // chip 사용해서 이미지 배경색 유저별로 다르게 하기
-const profileImageUrl = '/assets/logos/symbol-incase.png';
+const profileImageUrl = '/assets/logos/symbol-incase-small.png';
 
 const ProfileContainer = () => {
   const [isPPModalOpen, setIsPPModalOpen] = useState(false);
   const [isTSModalOpen, setIsTSModalOpen] = useState(false);
   const router = useRouter();
+
+  // 유저 정보(프로필 배경색, 이름)
+  const name = '돌돌';
+  const userBackgroundColor = getColorFromString(name);
 
   // 개인정보처리방침
   const PPOpenModal = () => setIsPPModalOpen(true);
@@ -51,7 +58,7 @@ const ProfileContainer = () => {
 
   // 회원 탈퇴
   const handleWithdraw = async () => {
-    if (!window.confirm('정말 탈퇴요? ㅜㅜ')) {
+    if (!window.confirm('정말 탈퇴하시겠습니까?')) {
       return;
     }
     try {
@@ -70,16 +77,14 @@ const ProfileContainer = () => {
     <div className=' flex flex-col  items-center w-full'>
       <div className='flex mt-5 justify-between w-full'>
         {/* GET /user/info */}
-        <div className='flex gap-6 '>
-          <Image
+        <div className='flex gap-5 '>
+          <Chip
             src={profileImageUrl as string}
-            width={100}
-            height={100}
-            className='w-14 h-14 rounded-full shadow-md'
-            alt='기본 이미지'
+            size={56}
+            bgColor={userBackgroundColor}
           />
           <Typography variant='b18-bold' className='mt-3'>
-            누구세요
+            {name}님
           </Typography>
         </div>
         <Link href={'/my-page/edit-profile'}>
