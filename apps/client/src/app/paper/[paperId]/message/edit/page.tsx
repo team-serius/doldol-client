@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { use, useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 type MessageEditStage =
   | "selectPerson"
@@ -18,10 +17,10 @@ const Content = {
       loading: () => <div>Loading...</div>, // 스켈레톤 대체
     },
   ),
-  // editMessage: dynamic(() => import("@/containers/paper/message/Edit"), {
-  //     ssr: false,
-  //     loading: () => <div>Loading...</div>, // 스켈레톤 대체
-  // }),
+  editMessage: dynamic(() => import("@/containers/paper/message/Edit"), {
+    ssr: false,
+    loading: () => <div>Loading...</div>, // 스켈레톤 대체
+  }),
   // checkMessage: dynamic(() => import("@/containers/paper/message/Check"), {
   //     ssr: false,
   //     loading: () => <div>Loading...</div>, // 스켈레톤 대체
@@ -69,6 +68,15 @@ const MessageEditPage = ({
       {stage === "selectPerson" && (
         <Content.selectPerson paperId={paperId} onNext={onNext} />
       )}
+      {stage === "editMessage" && (
+        <Content.editMessage paperId={paperId} messageId={messageId} />
+      )}
+      {/* stage === "checkMessage" && (
+            <Content.checkMessage paperId={paperId} messageId={messageId} />
+        )} */}
+      {/* stage === "complete" && (
+            <Content.complete paperId={paperId} messageId={messageId} />
+        )} */}
     </div>
   );
 };
