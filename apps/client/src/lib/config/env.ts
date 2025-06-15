@@ -9,5 +9,5 @@ export const GA_TRACKING_ID = process.env.GA_TRACKING_ID ?? "";
 
 export const REVALIDATE_SECRET_KEY = process.env.REVALIDATE_SECRET_KEY ?? "";
 
-export const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY ?? "";
-export const REFRESH_TOKEN_KEY = process.env.REFRESH_TOKEN_KEY ?? "";
+export const ACCESS_TOKEN = process.env.ACCESS_TOKEN ?? "";
+export const REFRESH_TOKEN = process.env.REFRESH_TOKEN ?? "";

@@ -1,22 +1,32 @@
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useCookies } from "react-cookie";
+"use client";
 
-const withNoAuth =
-  <P,>(WrappedComponent: React.ComponentType<P>) =>
-  (props: React.PropsWithChildren<P>) => {
-    const [cookies, setCookie, removeCookie] = useCookies();
+import { IS_DEV } from "@/lib/config/env";
+import { useRouter } from "next/navigation";
+import { JSX, useEffect } from "react";
+import useMe from "src/hooks/useMe";
+import { getTokens } from "src/utils/token";
+
+export function withNoAuth<P>(Page: React.ComponentType<P>) {
+  function NoAuthComponent(props: JSX.IntrinsicAttributes & P) {
+    const { user } = useMe();
+
     const router = useRouter();
 
     useEffect(() => {
-      const accessToken = cookies["Access-Token"];
-
-      if (accessToken) {
-        router.push("/");
+      if (!user) {
+        IS_DEV && console.log("user가 없습니다.");
+        return;
       }
-    }, []);
+      if (!getTokens().accessToken) {
+        IS_DEV && console.log("accessToken이 없습니다.");
+        return;
+      }
+      // User 가 있을 경우 대시보드 페이지로 이동
+      router.replace("/");
+    }, [user, router]);
 
-    return <WrappedComponent {...props} />;
-  };
+    return <Page {...props} />;
+  }
 
-export default withNoAuth;
+  return NoAuthComponent;
+}

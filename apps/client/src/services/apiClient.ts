@@ -1,42 +1,71 @@
 // server axios
 import axios, { type AxiosError, isAxiosError as isAxiosErrorApp } from "axios";
-import { isClient } from "src/utils/client";
-import { ErrorDTO } from "src/types/error";
-import { API_URI } from "src/lib/config/env";
 
-export const apiClient = axios.create({
-  baseURL: `${API_URI}`,
-  withCredentials: true, // 쿠키 자동 포함
-});
+import { REVALIDATE_TIME } from "../common/constants/variables";
+import { isClient } from "src/utils/client";
+import {
+  getAccessToken,
+  getRefreshToken,
+  removeAccessToken,
+  removeRefreshToken,
+  setTokens,
+} from "src/utils/token";
+import { API_URI, IS_DEV } from "src/lib/config/env";
+import { ErrorDTO } from "@/types/error";
+import { Token } from "@/types/auth";
+
+export const apiClient = axios.create({ baseURL: `${API_URI}` });
+
+apiClient.interceptors.request.use(
+  // Authorization header 등의 요청에 공통헤더가 들어가는 경우 여기서 set
+  (config) => {
+    if (!isClient) return config;
+
+    const accessToken = getAccessToken();
+
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+
+    return config;
+  },
+);
 
 apiClient.interceptors.response.use(
   (res) => res.data,
-  async (error) => {
+  (error) => {
     if (!isClient) return Promise.reject(error);
-    if (!isAxiosError<ErrorDTO>(error)) return Promise.reject(error);
 
-    const isAccessTokenExpired =
-      error.response?.data.code === "A-014" ||
-      error.response?.data.message === "토큰이 만료되었습니다.";
+    if (isAxiosError<ErrorDTO>(error)) {
+      const isAccessTokenExpired =
+        error.response?.data.code === "A-014" ||
+        error.response?.data.message === "토큰이 만료되었습니다.";
 
-    if (isAccessTokenExpired && error.config) {
-      // TODO: 리프레시 토큰 요청 로직 추가
-      try {
-        await apiClient.post("/auth/refresh");
-        return apiClient(error.config); // 원 요청 재시도
-      } catch (refreshError) {
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
+      if (isAccessTokenExpired && getRefreshToken()) {
+        // 토큰 만료시 refresh token으로 재발급
+        if (IS_DEV) console.log("refresh");
+        apiClient
+          .post<Token>("auth/reissue", {
+            refreshToken: getRefreshToken(),
+          })
+          .then((res) => {
+            if (res.data.accessToken && res.data.refreshToken) {
+              setTokens(res.data);
+            }
+          })
+          .catch((err) => {
+            removeAccessToken();
+            removeRefreshToken();
+            if (IS_DEV) {
+              console.log(err);
+            }
+          });
       }
     }
-
     return Promise.reject(error);
   },
 );
 
 export const apiClientLocal = axios.create({
   baseURL: `${process.env.ROUTE_HANDLER_HOST}/api`,
-  withCredentials: true,
 });
 
 // fetch client
@@ -54,19 +83,19 @@ export const fetchClient: FetchClient = async (
   const { cache, revalidateTime, tags } = options;
   const cachePolicy = cache !== "revalidate" ? cache : undefined;
   const next = !cachePolicy
-    ? { revalidate: revalidateTime || 60, tags }
+    ? { revalidate: revalidateTime || REVALIDATE_TIME, tags }
     : undefined;
 
   const response = await fetch(url, {
     method: "GET",
-    credentials: "include", // 쿠키 포함
     cache: cachePolicy,
     next,
   });
 
   if (!response.ok) throw new Error("failed to fetch");
 
-  return response.json();
+  const result = response.json();
+  return result;
 };
 
 export const isAxiosError = <T>(

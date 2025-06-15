@@ -73,3 +73,12 @@ export interface FailureResponse {
 export interface SocialRegisterResponse {
   socialId: string;
 }
+
+export interface ReissueTokenRequest {
+  refreshToken: string;
+}
+
+export interface Token {
+  accessToken: string;
+  refreshToken: string;
+}
