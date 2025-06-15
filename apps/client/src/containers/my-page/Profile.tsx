@@ -81,12 +81,14 @@ const ProfileContainer = () => {
             <Icon icon={ArrowSLineRight} color='black' />
           </div>
         </Link>
-        <div className='flex justify-center gap-5 pt-5'>
-          <Button variant='outlined' size='medium' className='!px-12'>
-            <Icon icon={PlusLine} color='black' />
-            만들기
-          </Button>
-          {/* 롤링페이퍼 개별 조회api : '/papers/{id}' */}
+        <div className='flex justify-center gap-4 pt-5'>
+          {/* 나중에 경로 지정 */}
+          <Link href={'/'}>
+            <Button variant='outlined' size='medium' className='!px-12'>
+              <Icon icon={PlusLine} color='black' />
+              만들기
+            </Button>
+          </Link>
           <Button variant='outlined' size='medium' className='!px-12'>
             작성한 페이퍼
           </Button>
@@ -131,7 +133,6 @@ const ProfileContainer = () => {
       </Typography>
 
       {/* 탈퇴 */}
-      {/* POST /auth/withdraw */}
       <Typography
         variant='b18-bold'
         className='mt-3 text-left w-full hover:text-green-1'
