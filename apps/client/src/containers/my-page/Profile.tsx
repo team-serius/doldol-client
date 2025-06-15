@@ -27,11 +27,11 @@ const ProfileContainer = () => {
   const [isTSModalOpen, setIsTSModalOpen] = useState(false);
   const router = useRouter();
 
-  const { onLogout, onWithdraw } = useMe();
+  const { user, onLogout, onWithdraw } = useMe();
 
   // 유저 정보(프로필 배경색, 이름)
-  const name = '돌돌';
-  const userBackgroundColor = getColorFromString(name);
+  const userName = user?.name || '돌돌';
+  const userBackgroundColor = getColorFromString(user?.name || '');
 
   // 개인정보처리방침
   const PPOpenModal = () => setIsPPModalOpen(true);
@@ -63,7 +63,7 @@ const ProfileContainer = () => {
             bgColor={userBackgroundColor}
           />
           <Typography variant='b18-bold' className='mt-3'>
-            {name}님
+            {userName}님
           </Typography>
         </div>
         <Link href={'/my-page/edit-profile'}>
