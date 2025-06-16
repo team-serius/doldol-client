@@ -1,5 +1,4 @@
 import { CommonLayout } from '@/components/layout/CommonLayout';
-import { cookies } from 'next/headers';
 import React from 'react';
 
 interface Props {
@@ -7,6 +6,11 @@ interface Props {
 }
 
 const MyLayout = async ({ children }: Props) => {
-  return <CommonLayout>{children}</CommonLayout>;
+  return (
+    <CommonLayout>
+      {children}
+      <div id='modal-root'></div>
+    </CommonLayout>
+  );
 };
 export default MyLayout;
