@@ -13,12 +13,12 @@ export function withNoAuth<P>(Page: React.ComponentType<P>) {
     const router = useRouter();
 
     useEffect(() => {
-      if (!user) {
-        IS_DEV && console.log("user가 없습니다.");
-        return;
-      }
       if (!getTokens().accessToken) {
         IS_DEV && console.log("accessToken이 없습니다.");
+        return;
+      }
+      if (!user) {
+        IS_DEV && console.log("user가 없습니다.");
         return;
       }
 

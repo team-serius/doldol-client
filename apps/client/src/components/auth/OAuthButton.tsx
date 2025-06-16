@@ -34,7 +34,7 @@ export const OAuthButton: React.FC<Props> = ({ social, isRegister }) => {
   const onClickSocialButton: MouseEventHandler<HTMLButtonElement> = (e) => {
     const social = e.currentTarget.dataset.social;
 
-    window.open(`${API_URI}/api/v2/auth/social/${social}`, "_self");
+    window.open(`${API_URI}/oauth2/authorization/${social}`, "_self");
   };
 
   return (
