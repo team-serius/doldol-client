@@ -24,11 +24,11 @@
     width: fit-content;
     display: flex;
     flex-direction: column;
-    min-width: 240px;
-    max-width: 1024px;
-    min-height: 200px;
-    height: fit-content;
-    max-height: 80vh;
+    // min-width: 240px;
+    max-width: 24rem;
+    // min-height: 200px;
+    // height: fit-content;
+    max-height: 75vh;
     padding: 12px;
     background-color: $white;
     border-radius: 12px;
