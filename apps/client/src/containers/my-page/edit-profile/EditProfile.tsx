@@ -1,54 +1,48 @@
 import { SocialType } from "@/enum/social.enum";
 import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
-import { GoogleSymbolLogo } from "@icons/GoogleSymbolLogo";
 import { KakaoSymbolLogo } from "@icons/KakaoSymbolLogo";
-import { NaverSymbolLogo } from "@icons/NaverSymbolLogo";
-// import { Logo } from "@icons/Logo";
 import { PASSWORD_REGEX } from "@libs/constants/regex";
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Button, TextField, Typography } from "@ui/components";
 import { Icon } from "@ui/components/Icon";
 import Image from "next/image";
-
+// import { useRouter } from "next/router";
+// import useMe from "@/hooks/useMe";
 interface Props {
-  onNext: () => void;
   socialType: SocialType | undefined;
 }
-const EditProfileContainer: React.FC<Props> = ({ onNext, socialType }) => {
+const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
   const { register, handleSubmit, watch, errors } = useEditProfileForm();
-
+  // const router = useRouter();
   const onSubmit = async (data: EditProfileInputForm) => {
     try {
       //   await patchUserInfo(data);
-      alert("수정 완료");
-      onNext();
+      // router.push("/my-page");
+      alert("수정 완료!");
     } catch (e) {
-      console.error("수정 실패", e);
+      console.error("수정 실패!", e);
       alert("수정 실패");
     }
   };
-  //   const onSubmit = (data: EditProfileInputForm) => {
-  //     onNext(data);
-  //   };
+
+  // const { user } = useMe();
 
   return (
     <>
-      <div className="flex justify-between items-center w-96 my-8 mx-auto">
-        <Image
-          src="/assets/logos/symbol-incase-profile.png"
-          alt="Logo"
-          width={60}
-          height={60}
-        ></Image>
+      <div className="flex justify-between items-center w-96 h-20 my-8 mx-auto">
+        <div className="flex items-center justify-center bg-gray-3 rounded-full p-2 w-16 h-16">
+          <Image
+            src="/assets/logos/symbol-incase.png"
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </div>
         {socialType === SocialType.Kakao && (
-          <Icon icon={KakaoSymbolLogo} className="w-6 h-6" />
-        )}
-        {socialType === SocialType.Google && (
-          <Icon icon={GoogleSymbolLogo} className="w-6 h-6" />
-        )}
-        {socialType === SocialType.Naver && (
-          <Icon icon={NaverSymbolLogo} className="w-6 h-6" />
+          <div className="flex items-center justify-center w-8 h-8 bg-[#FEE500] rounded-full ml-4">
+            <Icon icon={KakaoSymbolLogo} className="w-6 h-6" />
+          </div>
         )}
       </div>
 
