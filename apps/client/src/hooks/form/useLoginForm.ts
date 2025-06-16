@@ -3,6 +3,7 @@ import { ACCESS_TOKEN, IS_DEV, REFRESH_TOKEN } from "./../../lib/config/env";
 import { CommonLoginForm } from "@/interface/auth/login.interface";
 import { postLogin } from "@/services/auth";
 import { ErrorDTO } from "@/types/error";
+import { setTokens } from "@/utils/token";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError, isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -32,8 +33,7 @@ export const useLoginForm = () => {
     onSuccess: (res) => {
       IS_DEV && console.log("로그인 성공", res.data);
       if (res) {
-        localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
-        localStorage.setItem(REFRESH_TOKEN, res.data.refreshToken);
+        setTokens(res.data);
       }
       router.push("/");
     },
