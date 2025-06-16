@@ -1,28 +1,32 @@
+"use client";
 import { SocialType } from "@/enum/social.enum";
 import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
+import { IS_DEV } from "@/lib/config/env";
+import { patchUserInfo } from "@/services/user";
 import { KakaoSymbolLogo } from "@icons/KakaoSymbolLogo";
 import { PASSWORD_REGEX } from "@libs/constants/regex";
-import { ERROR_MESSAGES } from "@libs/utils/message";
-import { Button, TextField, Typography } from "@ui/components";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+import { Button, Notify, TextField, Toast, Typography } from "@ui/components";
 import { Icon } from "@ui/components/Icon";
 import Image from "next/image";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // import useMe from "@/hooks/useMe";
 interface Props {
   socialType: SocialType | undefined;
 }
 const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
   const { register, handleSubmit, watch, errors } = useEditProfileForm();
-  // const router = useRouter();
+  const router = useRouter();
   const onSubmit = async (data: EditProfileInputForm) => {
     try {
-      //   await patchUserInfo(data);
-      // router.push("/my-page");
-      alert("수정 완료!");
+      await patchUserInfo(data);
+
+      Notify.success(HELPER_MESSAGES.updateSuccess);
+      router.replace("/my-page");
     } catch (e) {
-      console.error("수정 실패!", e);
-      alert("수정 실패");
+      IS_DEV && console.error(e);
+      Notify.error(ERROR_MESSAGES.updateFailure);
     }
   };
 
