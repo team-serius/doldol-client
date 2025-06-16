@@ -1,15 +1,20 @@
 import { FindUserInputForm } from "@/interface/auth/find.interface";
 import {
-  RegisterEmailCodeForm,
   RegisterForm,
+  RegisterSocialForm,
 } from "@/interface/auth/register.interface";
-import { ERROR_MESSAGES } from "@libs/utils/message";
-import { Button, TextField, Typography } from "@ui/components";
+import { postVerifyEmailCode } from "@/services/auth";
+import { EmailCodeVerifyRequest, OAuthRegisterRequest } from "@/types/auth";
+import { ErrorDTO } from "@/types/error";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+import { useMutation } from "@tanstack/react-query";
+import { Button, Notify, TextField, Typography } from "@ui/components";
+import { AxiosError, isAxiosError } from "axios";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  onNext: (data?: RegisterForm) => void;
-  userData: RegisterForm | FindUserInputForm | undefined;
+  onNext: (data?: any) => void;
+  userData: RegisterForm | RegisterSocialForm | FindUserInputForm | undefined;
 }
 
 const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
@@ -18,13 +23,29 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterEmailCodeForm>();
+  } = useForm<EmailCodeVerifyRequest>();
 
-  const onSubmit = (data: RegisterEmailCodeForm) => {
-    //TODO: 인증번호 확인 로직 추가
-    console.log("유저 데이터", userData);
-    console.log("인증번호 제출:", data);
-    onNext();
+  const { mutate: onVerifyEmailCodeApi } = useMutation({
+    mutationFn: (data: EmailCodeVerifyRequest) => postVerifyEmailCode(data),
+
+    mutationKey: ["verifyEmailCode"],
+    onSuccess: (res) => {
+      if (res) {
+        Notify.success(HELPER_MESSAGES.emailCodeCheckSuccess);
+        onNext();
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(ERROR_MESSAGES.emailCodeInvalid);
+      }
+    },
+  });
+
+  const onSubmit = (data: EmailCodeVerifyRequest) => {
+    if (userData?.email) {
+      onVerifyEmailCodeApi({ email: userData.email, code: data.code });
+    }
   };
 
   return (

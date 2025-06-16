@@ -1,13 +1,43 @@
-import { RegisterForm } from "@/interface/auth/register.interface";
-import { Button, Typography } from "@ui/components";
+import {
+  RegisterForm,
+  RegisterSocialForm,
+} from "@/interface/auth/register.interface";
+import { IS_DEV } from "@/lib/config/env";
+import { postOauthRegister } from "@/services/auth";
+import { OAuthRegisterRequest } from "@/types/auth";
+import { ErrorDTO } from "@/types/error";
+import { ERROR_MESSAGES } from "@libs/utils/message";
+import { useMutation } from "@tanstack/react-query";
+import { Button, Notify, Typography } from "@ui/components";
+import { AxiosError, isAxiosError } from "axios";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface Props {
-  userData: RegisterForm;
+  userData: RegisterForm | RegisterSocialForm;
 }
 
 const RegisterCompleteContainer: React.FC<Props> = ({ userData }) => {
-  // TODO: 여기서 회원가입 로직이 보내져야 함.
+  const { mutate: onRegister } = useMutation({
+    mutationFn: (data: OAuthRegisterRequest) => postOauthRegister(data),
+
+    mutationKey: ["oauthRegister", userData],
+    onSuccess: (res) => {
+      IS_DEV && console.log("Register Success:", res);
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(ERROR_MESSAGES.oauthRegisterFailed);
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (userData) {
+      onRegister(userData as OAuthRegisterRequest);
+    }
+  }, [userData, onRegister]);
+
   return (
     <>
       <Typography variant="h24" className="my-10">

@@ -14,6 +14,12 @@ export const ERROR_MESSAGES = {
   phoneNumberRequired: "휴대전화 번호를 입력해주세요.",
   phoneNumberResponseFailed: "휴대전화 인증번호가 틀렸습니다.",
   phoneNumberCodeInvalid: "휴대전화 인증번호는 6자리의 숫자입니다.",
+  oauthRegisterFailed: "소셜 회원가입에 실패했습니다.",
+
+  emailCodeSentFailed: "이메일 인증번호 전송에 실패했습니다.",
+  emailCodeInvalid: "이메일 인증번호는 6자리의 숫자입니다.",
+  emailCodeRequired: "이메일 인증번호를 입력해주세요.",
+  emailCodeCheckInvalid: "이메일 인증번호가 일치하지 않습니다.",
 
   /** 비밀번호 변경 */
   passwordCheckInvalid:
@@ -51,8 +57,8 @@ export const HELPER_MESSAGES = {
   passwordChangeSuccess: "비밀번호 변경이 완료되었습니다.",
 
   /** 본인 인증 */
-  phoneNumberSended: "휴대전화 인증번호가 발송되었습니다.",
-  phoneCheckValid: "휴대전화 인증이 완료되었습니다.",
+  emailCodeSentSuccess: "이메일로 인증번호가 전송되었습니다.",
+  emailCodeCheckSuccess: "인증번호가 확인되었습니다.",
 
   /** 로그인 */
   loginSuccess: "로그인 되었습니다.",
