@@ -1,6 +1,4 @@
 import { Button, Typography } from '@ui/components';
-// import Modal from '@/components/layout/Modal';
-import Image from 'next/image';
 import { Icon } from '@ui/components/Icon';
 import { useState } from 'react';
 import PrivacyPolicyContent from '@/components/serviceinfo/PrivacyPolicy';
@@ -24,9 +22,9 @@ interface Props {
 const profileImageUrl = '/assets/logos/symbol-incase-small.png';
 
 const ProfileContainer = () => {
-  const [isPPModalOpen, setIsPPModalOpen] = useState(false);
-  const [isTSModalOpen, setIsTSModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  type ModalType = 'PP' | 'TS' | null;
+  const [openModal, setOpenModal] = useState<ModalType>(null);
+
   const router = useRouter();
 
   const { user, onLogout, onWithdraw } = useMe();
@@ -35,26 +33,18 @@ const ProfileContainer = () => {
   const userName = user?.name || '돌돌';
   const userBackgroundColor = getColorFromString(user?.name || '');
 
-  // 개인정보처리방침
-  const PPOpenModal = () => setIsPPModalOpen(true);
-  const PPCloseModal = () => setIsPPModalOpen(false);
+  // 모달 열기
+  const OpenModal = (target: ModalType) => {
+    setOpenModal(target);
+  };
 
-  // 서비스 이용 약관
-  const TSOpenModal = () => setIsTSModalOpen(true);
-  const TSCloseModal = () => setIsTSModalOpen(false);
-
-  // 모달 합쳐버려
-  // const handleOpenModal = (target: string) => {
-  //   if (target==='PrivacyPolicy'){
-  //     setIsPPModalOpen(true);
-  //     setIsTSModalOpen(false);
-  //   } else if(target==='')
-
-  // };
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  // 모달 닫기 - null
+  const CloseModal = () => {
+    setOpenModal(null);
+  };
 
   // 로그아웃
+
   const handleLogout = async () => {
     onLogout();
   };
@@ -67,7 +57,6 @@ const ProfileContainer = () => {
   return (
     <div className=' flex flex-col  items-center w-full'>
       <div className='flex mt-5 justify-between w-full'>
-        {/* GET /user/info */}
         <div className='flex gap-5 '>
           <Chip
             src={profileImageUrl as string}
@@ -106,6 +95,7 @@ const ProfileContainer = () => {
           </Button>
         </div>
       </div>
+
       <Typography
         variant='b14-bold'
         className='mt-10 text-left text-gray-2 w-full'
@@ -114,39 +104,30 @@ const ProfileContainer = () => {
       </Typography>
       <div
         className='mt-5 text-left w-full cursor-pointer hover:text-green-1'
-        onClick={handleOpenModal}
+        onClick={() => OpenModal('PP')}
       >
         <Typography variant='b18-bold'>개인정보 처리방침</Typography>
       </div>
       <div
         className='mt-5 text-left w-full cursor-pointer hover:text-green-1'
-        onClick={handleOpenModal}
+        onClick={() => OpenModal('TS')}
       >
         <Typography variant='b18-bold' className='text-left w-full'>
           서비스 이용 약관
         </Typography>
       </div>
-      {/* 모달 합치기 */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        isOutsideClose={true}
-      >
-        <PrivacyPolicyContent />
-      </Modal>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        isOutsideClose={true}
-      >
-        <TermsOfServiceContent />
-      </Modal>
-      {/* <Modal isOpen={isPPModalOpen} onClose={PPCloseModal}>
-        <PrivacyPolicyContent />
-      </Modal>
-      <Modal isOpen={isTSModalOpen} onClose={TSCloseModal}>
-        <TermsOfServiceContent />
-      </Modal> */}
+
+      {openModal === 'PP' && (
+        <Modal isOpen={true} onClose={CloseModal}>
+          <PrivacyPolicyContent />
+        </Modal>
+      )}
+      {openModal === 'TS' && (
+        <Modal isOpen={true} onClose={CloseModal}>
+          <TermsOfServiceContent />
+        </Modal>
+      )}
+
       {/* 로그아웃 */}
       <Typography
         variant='b18-bold'
@@ -155,6 +136,7 @@ const ProfileContainer = () => {
       >
         로그아웃
       </Typography>
+
       {/* 탈퇴 */}
       <Typography
         variant='b18-bold'
