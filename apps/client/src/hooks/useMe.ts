@@ -5,14 +5,17 @@ import {
   type UseQueryOptions,
 } from '@tanstack/react-query';
 
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "src/lib/store/auth";
-import { MyInfoResponse } from "src/types/user";
-import { isClient } from "src/utils/client";
-import { Notify } from "@ui/components";
-import { HELPER_MESSAGES } from "@libs/utils/message";
-import { getUserInfo } from "@/services/user";
-import { IS_DEV } from "@/lib/config/env";
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from 'src/lib/store/auth';
+import { User } from 'src/types/user';
+import { isClient } from 'src/utils/client';
+// import { getMeApi } from 'src/services/user';
+import { Notify } from '@ui/components';
+import { HELPER_MESSAGES } from '@libs/utils/message';
+// import { WithdrawApi } from '@/services/withdraw';
+
+type QueryKey = ['getMe'];
+type Option = Partial<UseQueryOptions<User, Error, User, QueryKey>>;
 
 interface UseMe {
   user: MyInfoResponse | null;
