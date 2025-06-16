@@ -1,20 +1,14 @@
-import {
-  useQuery,
-  useQueryClient,
-  type QueryObserverResult,
-  type UseQueryOptions,
-} from '@tanstack/react-query';
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from 'src/lib/store/auth';
-import { User } from 'src/types/user';
-import { isClient } from 'src/utils/client';
-// import { getMeApi } from 'src/services/user';
-import { Notify } from '@ui/components';
-import { HELPER_MESSAGES } from '@libs/utils/message';
-
-type QueryKey = ['getMe'];
-type Option = Partial<UseQueryOptions<User, Error, User, QueryKey>>;
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "src/lib/store/auth";
+import { MyInfoResponse } from "src/types/user";
+import { isClient } from "src/utils/client";
+import { Notify } from "@ui/components";
+import { HELPER_MESSAGES } from "@libs/utils/message";
+import { getUserInfo } from "@/services/user";
+import { IS_DEV } from "@/lib/config/env";
+import { getRecentLogin, setRecentLogin } from "@/utils/recentLogin";
 
 interface UseMe {
   user: MyInfoResponse | null;
@@ -35,24 +29,18 @@ const useMe = (): UseMe => {
       const userData = response.data;
       IS_DEV && console.log("useMe 쿼리 응답:", userData);
 
-        setUserData(data);
-
-        queryClient.invalidateQueries({
-          predicate: (query) => query.queryKey[0] !== 'getMe',
-        });
-
-        return data;
-      } catch (err) {
-        setUserData(null);
-
-        const message =
-          err instanceof Error
-            ? err.message
-            : 'An error occurred while fetching user data';
-
-        Notify.error(message);
-        throw err;
+      // 소셜 로그인 시 최근 로그인 정보 저장
+      const recentLogin = getRecentLogin();
+      if (!recentLogin || recentLogin !== userData.socialType) {
+        if (userData.socialType) {
+          setRecentLogin(userData.socialType);
+        } else {
+          setRecentLogin("email");
+        }
       }
+
+      setUserData(response.data); // ✅ 항상 호출 보장
+      return userData;
     },
     retry: false,
     enabled: isClient,
