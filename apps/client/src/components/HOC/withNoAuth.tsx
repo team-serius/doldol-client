@@ -7,7 +7,7 @@ import useMe from "src/hooks/useMe";
 import { getTokens } from "src/utils/token";
 
 export function withNoAuth<P>(Page: React.ComponentType<P>) {
-  function NoAuthComponent(props: JSX.IntrinsicAttributes & P) {
+  function NoAuthComponent(props: any) {
     const { user } = useMe();
 
     const router = useRouter();

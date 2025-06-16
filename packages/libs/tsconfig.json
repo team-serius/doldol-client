@@ -2,6 +2,7 @@
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "esModuleInterop": true,
     "paths": {
       "@libs/*": ["./src/*"]
     },

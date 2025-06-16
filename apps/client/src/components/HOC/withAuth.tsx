@@ -7,7 +7,7 @@ import { useAuthStore } from "src/lib/store/auth";
 import { getAccessToken, removeTokens } from "src/utils/token";
 
 export function withAuth<P>(Page: React.ComponentType<P>, isPublic = false) {
-  function AuthComponent(props: JSX.IntrinsicAttributes & P) {
+  function AuthComponent(props: any) {
     const { user, error, isLoading } = useMe();
     const accessToken = getAccessToken();
     const { setUserData } = useAuthStore();
