@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "echo \"[client] test 코드 실행 ✅\""
+    "test": "echo \"[client] test 코드 실행 ✅\"",
+    "build:dev": "env-cmd -f ./.env.development next build",
+    "build:prod": "env-cmd -f ./.env.production next build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.79.0",
@@ -28,6 +30,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "env-cmd": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "eslint-import-resolver-typescript": "^4.4.0",
