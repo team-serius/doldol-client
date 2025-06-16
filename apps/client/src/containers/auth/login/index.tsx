@@ -36,7 +36,7 @@ const AuthLoginContainer = () => {
               className={cx(
                 "absolute right-4 z-10",
                 recentLogin === "email" && "top-2",
-                recentLogin === "kakao" && "top-20",
+                recentLogin === "KAKAO" && "top-20",
               )}
             >
               <RecentLoginBubble />
