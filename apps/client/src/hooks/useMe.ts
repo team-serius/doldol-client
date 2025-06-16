@@ -12,7 +12,6 @@ import { isClient } from 'src/utils/client';
 // import { getMeApi } from 'src/services/user';
 import { Notify } from '@ui/components';
 import { HELPER_MESSAGES } from '@libs/utils/message';
-// import { WithdrawApi } from '@/services/withdraw';
 
 type QueryKey = ['getMe'];
 type Option = Partial<UseQueryOptions<User, Error, User, QueryKey>>;
