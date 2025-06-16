@@ -6,11 +6,6 @@ interface Props {
 }
 
 const MyLayout = async ({ children }: Props) => {
-  return (
-    <CommonLayout>
-      {children}
-      <div id='modal-root'></div>
-    </CommonLayout>
-  );
+  return <CommonLayout>{children}</CommonLayout>;
 };
 export default MyLayout;
