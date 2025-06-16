@@ -26,6 +26,8 @@ export const ERROR_MESSAGES = {
   unauthorized: '로그인이 필요합니다.',
   forbidden: '접근 권한이 없습니다.',
   musicianForbidden: '뮤지션 회원만 이용 가능합니다.',
+
+  updateFailure: '수정에 실패하였습니다.',
 };
 
 export const HELPER_MESSAGES = {
@@ -48,4 +50,6 @@ export const HELPER_MESSAGES = {
   /** 로그인 */
   loginSuccess: '로그인 되었습니다.',
   logoutSuccess: '로그아웃 되었습니다.',
+
+  updateSuccess: '수정이 완료되었습니다.',
 };
