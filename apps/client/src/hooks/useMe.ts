@@ -1,4 +1,5 @@
 import { getRecentLogin, setRecentLogin } from "@/utils/recentLogin";
+import { removeTokens, setTokens } from "@/utils/token";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { HELPER_MESSAGES } from "@libs/utils/message";
@@ -52,6 +53,7 @@ const useMe = (): UseMe => {
     if (!isClient) return;
     router.replace("/auth/login");
     setUserData(null);
+    removeTokens();
     queryClient.clear();
     Notify.success(HELPER_MESSAGES.logoutSuccess);
   };
