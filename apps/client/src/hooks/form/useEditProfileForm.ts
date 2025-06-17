@@ -1,7 +1,9 @@
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
 import { useForm } from "react-hook-form";
+import useMe from "../useMe";
 
 export const useEditProfileForm = () => {
+  const { user } = useMe();
   const {
     register,
     handleSubmit,
@@ -10,7 +12,7 @@ export const useEditProfileForm = () => {
   } = useForm<EditProfileInputForm>({
     mode: "onChange",
     defaultValues: {
-      name: "",
+      name: user?.name ?? "",
       password: "",
       passwordConfirm: "",
     },
