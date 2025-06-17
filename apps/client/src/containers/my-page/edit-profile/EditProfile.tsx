@@ -65,7 +65,7 @@ const EditProfileContainer = () => {
             height={100}
           />
         </div>
-        {user && user.socialType === SocialType.Kakao && (
+        {user && user.socialType === SocialType.Kakao.toUpperCase() && (
           <div className="flex items-center justify-center w-8 h-8 bg-[#FEE500] rounded-full ml-4">
             <Icon icon={KakaoSymbolLogo} className="w-6 h-6" />
           </div>
