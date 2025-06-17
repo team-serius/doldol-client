@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import ProfileContainer from '@/containers/my-page/Profile';
+import ProfileContainer from "@/containers/my-page/Profile";
 
 const MyPage: React.FC = () => {
   return <ProfileContainer />;

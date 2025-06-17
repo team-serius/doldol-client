@@ -11,7 +11,7 @@ const Content = {
     {
       ssr: false,
       loading: () => <div>Loading...</div>, // 스켈레톤 대체
-    }
+    },
   ),
 };
 
