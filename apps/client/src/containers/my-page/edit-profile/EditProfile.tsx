@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Notify, TextField, Toast, Typography } from "@ui/components";
+import {
+  Button,
+  Notify,
+  PasswordField,
+  TextField,
+  Toast,
+  Typography,
+} from "@ui/components";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
@@ -14,26 +21,38 @@ import { patchUserInfo } from "@/services/user";
 import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
 import { useRouter } from "next/navigation";
 
-// import useMe from "@/hooks/useMe";
-interface Props {
-  socialType: SocialType | undefined;
-}
-const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
+import useMe from "@/hooks/useMe";
+import { useMutation } from "@tanstack/react-query";
+import { ErrorDTO } from "@/types/error";
+import { AxiosError, isAxiosError } from "axios";
+
+const EditProfileContainer = () => {
   const { register, handleSubmit, watch, errors } = useEditProfileForm();
   const router = useRouter();
-  const onSubmit = async (data: EditProfileInputForm) => {
-    try {
-      await patchUserInfo(data);
+  const { refetch } = useMe();
 
-      Notify.success(HELPER_MESSAGES.updateSuccess);
-      router.replace("/my-page");
-    } catch (e) {
-      IS_DEV && console.error(e);
-      Notify.error(ERROR_MESSAGES.updateFailure);
-    }
+  const { mutate: onEditProfileApi } = useMutation({
+    mutationFn: (data: EditProfileInputForm) => patchUserInfo(data),
+    mutationKey: ["sendEmailCode", watch("name"), watch("password")],
+    onSuccess: (res) => {
+      if (res) {
+        Notify.success(HELPER_MESSAGES.userInfoUpdateSuccess);
+        refetch();
+        router.replace("/my-page");
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(ERROR_MESSAGES.updateFailure);
+      }
+    },
+  });
+
+  const onSubmit = (data: EditProfileInputForm) => {
+    onEditProfileApi(data);
   };
 
-  // const { user } = useMe();
+  const { user } = useMe();
 
   return (
     <>
@@ -46,7 +65,7 @@ const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
             height={100}
           />
         </div>
-        {socialType === SocialType.Kakao && (
+        {user && user.socialType === SocialType.Kakao && (
           <div className="flex items-center justify-center w-8 h-8 bg-[#FEE500] rounded-full ml-4">
             <Icon icon={KakaoSymbolLogo} className="w-6 h-6" />
           </div>
@@ -69,7 +88,7 @@ const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
         <Typography variant={"b16"} className="mt-10">
           비밀번호
         </Typography>
-        <TextField
+        <PasswordField
           placeholder="8~30자리 영대·소문자, 숫자, 특수문자 조합"
           error={errors.password ? true : false}
           errorMessage={errors.password?.message}
@@ -86,7 +105,7 @@ const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
         <Typography variant={"b16"} className="mt-10">
           비밀번호 확인
         </Typography>
-        <TextField
+        <PasswordField
           placeholder="비밀번호를 한 번 더 입력해주세요."
           error={errors.passwordConfirm ? true : false}
           errorMessage={errors.passwordConfirm?.message}
@@ -107,6 +126,12 @@ const EditProfileContainer: React.FC<Props> = ({ socialType }) => {
           wide
           className="mt-10"
           type="submit"
+          disabled={
+            !watch("name") ||
+            !watch("password") ||
+            !watch("passwordConfirm") ||
+            Object.keys(errors).length > 0
+          }
         >
           완료
         </Button>
