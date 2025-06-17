@@ -1,9 +1,11 @@
 "use client";
 
-import { Button, Typography } from "@ui/components";
-import Link from "next/link";
-import Image from "next/image";
 import "../../../../../packages/ui/src/scss/mixins/_transition.scss";
+
+import { Button, Typography } from "@ui/components";
+
+import Image from "next/image";
+import Link from "next/link";
 
 export const IntroSection = () => {
   return (

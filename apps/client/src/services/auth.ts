@@ -1,10 +1,11 @@
-import { CommonLoginForm } from "@/interface/auth/login.interface";
-import { apiClient } from "./apiClient";
 import {
   EmailCodeVerifyRequest,
   LoginSuccessResponse,
   OAuthRegisterRequest,
 } from "@/types/auth";
+
+import { CommonLoginForm } from "@/interface/auth/login.interface";
+import { apiClient } from "./apiClient";
 
 export const postCheckId = (id: string) => {
   return apiClient.post("/auth/check-id", { id });

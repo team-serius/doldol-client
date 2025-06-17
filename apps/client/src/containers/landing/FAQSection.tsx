@@ -1,8 +1,8 @@
 "use client";
 
-import { Typography } from "@ui/components";
 import { Accordian } from "@ui/components/Accordian";
 import { FAQ_LIST } from "@/common/constants/landing/faq";
+import { Typography } from "@ui/components";
 
 export const FAQSection = () => {
   return (
