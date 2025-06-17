@@ -3,8 +3,7 @@
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { SocialType } from "@/enum/social.enum";
-import { getUserInfo } from "@/services/user";
-
+import { withAuth } from "@/components/HOC/withAuth";
 const Content = {
   input: dynamic(
     () => import("@/containers/my-page/edit-profile/EditProfile"),
@@ -16,17 +15,12 @@ const Content = {
 };
 
 const EditProfilePage = () => {
-  const dummyUser = {
-    name: "홍길동",
-    socialType: SocialType.Kakao,
-  };
+  // const dummyUser = {
+  //   name: "홍길동",
+  //   socialType: SocialType.Kakao,
+  // };
 
-  //   TODO: API연동 후 주석 제거
-  //   useEffect(() => {
-  //     getUserInfo().then((res) => setUserData(res.data));
-  //   });
-
-  return <>{<Content.input socialType={dummyUser.socialType} />}</>;
+  return <>{<Content.input />}</>;
 };
 
-export default EditProfilePage;
+export default withAuth(EditProfilePage);
