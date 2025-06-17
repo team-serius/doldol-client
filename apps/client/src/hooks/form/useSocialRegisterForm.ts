@@ -1,5 +1,5 @@
-import { RegisterSocialForm } from "@/interface/auth/register.interface";
 import { ChangeEvent } from "react";
+import { RegisterSocialForm } from "@/interface/auth/register.interface";
 import { useForm } from "react-hook-form";
 
 export const useSocialRegisterForm = () => {

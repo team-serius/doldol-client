@@ -1,5 +1,5 @@
-import React from "react";
 import { REVIEWS } from "@/common/constants/landing/review";
+import React from "react";
 import { ReviewBox } from "@/components/landing/ReviewBox";
 import { Typography } from "@ui/components";
 

@@ -1,10 +1,11 @@
+import { AxiosError, isAxiosError } from "axios";
+
+import { ChangeEvent } from "react";
+import { ErrorDTO } from "@/types/error";
 import { RegisterForm } from "@/interface/auth/register.interface";
 import { postCheckId } from "@/services/auth";
-import { ErrorDTO } from "@/types/error";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosError, isAxiosError } from "axios";
-import { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 
 export const useRegisterForm = () => {
   const {

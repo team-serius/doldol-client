@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { Button, Typography } from "@ui/components";
+
 import { DETAIL } from "@/common/constants/landing/detail";
 import Image from "next/image";
 import { TabMenu } from "@/components/common/TabMenu";
+import { useState } from "react";
 
 const TAB_MENU = DETAIL.map((item) => item.label);
 

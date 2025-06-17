@@ -1,16 +1,19 @@
 "use client";
-import { SocialType } from "@/enum/social.enum";
-import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
+
+import { Button, Notify, TextField, Toast, Typography } from "@ui/components";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
 import { IS_DEV } from "@/lib/config/env";
-import { patchUserInfo } from "@/services/user";
-import { KakaoSymbolLogo } from "@icons/KakaoSymbolLogo";
-import { PASSWORD_REGEX } from "@libs/constants/regex";
-import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
-import { Button, Notify, TextField, Toast, Typography } from "@ui/components";
 import { Icon } from "@ui/components/Icon";
 import Image from "next/image";
+import { KakaoSymbolLogo } from "@icons/KakaoSymbolLogo";
+import { PASSWORD_REGEX } from "@libs/constants/regex";
+import { SocialType } from "@/enum/social.enum";
+import { patchUserInfo } from "@/services/user";
+import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
 import { useRouter } from "next/navigation";
+
 // import useMe from "@/hooks/useMe";
 interface Props {
   socialType: SocialType | undefined;

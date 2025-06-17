@@ -1,5 +1,5 @@
-import { CommonLayout } from '@/components/layout/CommonLayout';
-import React from 'react';
+import { CommonLayout } from "@/components/layout/CommonLayout";
+import React from "react";
 
 interface Props {
   children: React.ReactNode;

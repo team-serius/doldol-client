@@ -1,12 +1,13 @@
+import { Button, Typography } from "@ui/components";
+
+import Image from "next/image";
+import Link from "next/link";
 import { MessageCard } from "@/components/paper/message/Card";
 import { MessageListResponse } from "@/types/message";
 import { PaperDetailResponse } from "@/types/paper";
 import { SendFill } from "@icons/SendFill";
 import { SettingFill } from "@icons/SettingFill";
-import { Button, Typography } from "@ui/components";
 import dayjs from "dayjs";
-import Image from "next/image";
-import Link from "next/link";
 
 const TEST_DATA: MessageListResponse = {
   messageCount: 5,
