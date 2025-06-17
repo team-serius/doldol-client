@@ -1,6 +1,11 @@
 import { getRecentLogin, setRecentLogin } from "@/utils/recentLogin";
-import { removeTokens, setTokens } from "@/utils/token";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { removeTokens } from "@/utils/token";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 import { HELPER_MESSAGES } from "@libs/utils/message";
 import { IS_DEV } from "@/lib/config/env";
@@ -16,6 +21,9 @@ interface UseMe {
   error: unknown;
   onLogout(): void;
   isLoading: boolean;
+  refetch: (
+    options?: RefetchOptions,
+  ) => Promise<QueryObserverResult<MyInfoResponse, Error>>;
 }
 
 const useMe = (): UseMe => {
@@ -63,6 +71,7 @@ const useMe = (): UseMe => {
     error,
     onLogout,
     isLoading,
+    refetch,
   };
 };
 
