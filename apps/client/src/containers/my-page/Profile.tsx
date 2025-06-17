@@ -1,4 +1,5 @@
 import { Button, Typography } from "@ui/components";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { ArrowSLineRight } from "@icons/ArrowSLineRight";
 import Chip from "@ui/components/Chip/Chip";
@@ -10,22 +11,19 @@ import { PlusLine } from "@icons/PlusLine";
 import PrivacyPolicyContent from "@/components/serviceinfo/PrivacyPolicy";
 import TermsOfServiceContent from "@/components/serviceinfo/TermsOfService";
 import { getColorFromString } from "@/utils/color";
+import { postWithdraw } from "@/services/withdraw";
 import { useAuthStore } from "@/lib/store/auth";
 import useMe from "@/hooks/useMe";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { withdraw } from "@/services/withdraw";
 
 interface Props {
   isLogoVisible?: boolean;
 }
 
-// chip 사용해서 이미지 배경색 유저별로 다르게 하기
-const profileImageUrl = "/assets/logos/symbol-incase-small.png";
+type ModalType = "PrivacyPolicy" | "TermsOfService" | null;
 
 const ProfileContainer = () => {
-  type ModalType = "PP" | "TS" | null;
   const [openModal, setOpenModal] = useState<ModalType>(null);
 
   const router = useRouter();
@@ -35,7 +33,7 @@ const ProfileContainer = () => {
   const { user, onLogout } = useMe();
 
   // 유저 정보(프로필 배경색, 이름)
-  const userName = user?.name || "돌돌";
+  const userName = user?.name ?? "돌돌";
   const userBackgroundColor = getColorFromString(user?.name || "");
 
   // 모달 열기
@@ -48,29 +46,28 @@ const ProfileContainer = () => {
     setOpenModal(null);
   };
 
-  // 로그아웃
-  const handleLogout = async () => {
-    onLogout();
-  };
-
   // 회원 탈퇴
-  const handleWithdraw = async () => {
-    if (!window.confirm("정말 탈퇴하시겠습니까?")) {
-      return;
-    }
-    try {
-      await withdraw();
+  const { mutate: withdrawMutation } = useMutation({
+    mutationFn: postWithdraw,
+    onSuccess: () => {
       console.log("탈퇴 성공");
       Notify.success("이용해주셔서 감사합니다.");
       setUserData(null);
       queryClient.clear();
       router.replace("/");
-    } catch (error: any) {
+    },
+    onError: (error: any) => {
       console.error("회원 탈퇴 오류 발생:", error);
       const errorMessage = error.message || "알 수 없는 오류가 발생했습니다.";
       Notify.error(`탈퇴 실패: ${errorMessage}`);
-      throw error;
+    },
+  });
+
+  const onWithdraw = () => {
+    if (!window.confirm("정말 탈퇴하시겠습니까?")) {
+      return;
     }
+    withdrawMutation();
   };
 
   return (
@@ -78,7 +75,7 @@ const ProfileContainer = () => {
       <div className="flex mt-5 justify-between w-full">
         <div className="flex gap-5 ">
           <Chip
-            src={profileImageUrl as string}
+            src="/assets/logos/symbol-incase-small.png"
             size={56}
             bgColor={userBackgroundColor}
           />
@@ -123,25 +120,25 @@ const ProfileContainer = () => {
       </Typography>
       <div
         className="mt-5 text-left w-full cursor-pointer hover:text-green-1"
-        onClick={() => OpenModal("PP")}
+        onClick={() => OpenModal("PrivacyPolicy")}
       >
         <Typography variant="b18-bold">개인정보 처리방침</Typography>
       </div>
       <div
         className="mt-5 text-left w-full cursor-pointer hover:text-green-1"
-        onClick={() => OpenModal("TS")}
+        onClick={() => OpenModal("TermsOfService")}
       >
         <Typography variant="b18-bold" className="text-left w-full">
           서비스 이용 약관
         </Typography>
       </div>
 
-      {openModal === "PP" && (
+      {openModal === "PrivacyPolicy" && (
         <Modal isOpen={true} onClose={CloseModal}>
           <PrivacyPolicyContent />
         </Modal>
       )}
-      {openModal === "TS" && (
+      {openModal === "TermsOfService" && (
         <Modal isOpen={true} onClose={CloseModal}>
           <TermsOfServiceContent />
         </Modal>
@@ -151,7 +148,7 @@ const ProfileContainer = () => {
       <Typography
         variant="b18-bold"
         className="mt-20 text-left w-full hover:text-green-1"
-        onClick={handleLogout}
+        onClick={onLogout}
       >
         로그아웃
       </Typography>
@@ -160,7 +157,7 @@ const ProfileContainer = () => {
       <Typography
         variant="b18-bold"
         className="mt-3 text-left w-full hover:text-green-1"
-        onClick={handleWithdraw}
+        onClick={onWithdraw}
       >
         탈퇴하기
       </Typography>
