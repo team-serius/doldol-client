@@ -98,18 +98,15 @@ const ProfileContainer = () => {
             <Icon icon={ArrowSLineRight} color="black" />
           </div>
         </Link>
-        <div className="flex justify-center gap-4 pt-5">
-          {/* 나중에 경로 지정 */}
-          <Link href={"/"}>
-            <Button variant="outlined" size="medium" className="!px-12">
-              <Icon icon={PlusLine} color="black" />
-              만들기
-            </Button>
-          </Link>
-          <Button variant="outlined" size="medium" className="!px-12">
-            작성한 페이퍼
-          </Button>
-        </div>
+        {/* TODO: 추후 링크 수정 */}
+        <Link href={"/paper"}>
+          <div className="flex justify-between px-6 mt-4">
+            <div className="flex gap-10">
+              <Typography variant="b18-bold">새 페이퍼 만들기</Typography>
+            </div>
+            <Icon icon={ArrowSLineRight} color="black" />
+          </div>
+        </Link>
       </div>
 
       <Typography
@@ -125,7 +122,7 @@ const ProfileContainer = () => {
         <Typography variant="b18-bold">개인정보 처리방침</Typography>
       </div>
       <div
-        className="mt-5 text-left w-full cursor-pointer hover:text-green-1"
+        className="mt-4 text-left w-full cursor-pointer hover:text-green-1"
         onClick={() => OpenModal("TermsOfService")}
       >
         <Typography variant="b18-bold" className="text-left w-full">
@@ -156,7 +153,7 @@ const ProfileContainer = () => {
       {/* 탈퇴 */}
       <Typography
         variant="b18-bold"
-        className="mt-3 text-left w-full hover:text-green-1"
+        className="mt-4 text-left w-full hover:text-green-1"
         onClick={onWithdraw}
       >
         탈퇴하기
