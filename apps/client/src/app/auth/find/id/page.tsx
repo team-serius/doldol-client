@@ -26,7 +26,7 @@ const AuthFindIdPage = () => {
   const [stage, setStage] = React.useState<FindIdStage>("input");
   const [userData, setUserData] = React.useState<FindUserInputForm | undefined>(
     undefined,
-  ); // 타입을 구체적으로 정의할 수 있음
+  );
 
   const onNext = (data?: FindUserInputForm) => {
     if (data) {

@@ -7,7 +7,7 @@ export interface ButtonTheme {
 }
 
 export interface SocialTheme {
-  kakao: ButtonTheme;
-  naver: ButtonTheme;
-  google: ButtonTheme;
+  KAKAO: ButtonTheme;
+  NAVER: ButtonTheme;
+  GOOGLE: ButtonTheme;
 }

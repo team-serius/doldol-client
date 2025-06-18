@@ -4,7 +4,7 @@ import {
   RegisterSocialForm,
 } from "@/interface/auth/register.interface";
 import { postVerifyEmailCode } from "@/services/auth";
-import { EmailCodeVerifyRequest, OAuthRegisterRequest } from "@/types/auth";
+import { EmailCodeVerifyRequest } from "@/types/auth";
 import { ErrorDTO } from "@/types/error";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 import { useMutation } from "@tanstack/react-query";
@@ -26,9 +26,12 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
   } = useForm<EmailCodeVerifyRequest>();
 
   const { mutate: onVerifyEmailCodeApi } = useMutation({
-    mutationFn: (data: EmailCodeVerifyRequest) => postVerifyEmailCode(data),
+    mutationFn: (data: EmailCodeVerifyRequest) => {
+      console.log("onVerifyEmailCodeApi", data);
+      return postVerifyEmailCode(data);
+    },
 
-    mutationKey: ["verifyEmailCode"],
+    mutationKey: ["verifyEmailCode", userData?.email],
     onSuccess: (res) => {
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeCheckSuccess);
@@ -74,7 +77,6 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
           size={"medium"}
           disabled={!watch("code")}
           type="button"
-          // TODO: API 연동 후 중복 확인 로직 추가
           onClick={handleSubmit(onSubmit)}
         >
           인증 완료
