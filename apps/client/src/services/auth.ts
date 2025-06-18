@@ -2,6 +2,7 @@ import {
   EmailCodeVerifyRequest,
   LoginSuccessResponse,
   OAuthRegisterRequest,
+  RegisterRequest,
 } from "@/types/auth";
 
 import { CommonLoginForm } from "@/interface/auth/login.interface";
@@ -25,6 +26,10 @@ export const postSendEmailCode = (email: string) => {
 
 export const postVerifyEmailCode = (data: EmailCodeVerifyRequest) => {
   return apiClient.post("/auth/email/verify-code", data);
+};
+
+export const postRegister = (data: RegisterRequest) => {
+  return apiClient.post("/auth/register", data);
 };
 
 export const postOauthRegister = (data: OAuthRegisterRequest) => {

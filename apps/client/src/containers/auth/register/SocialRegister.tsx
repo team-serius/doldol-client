@@ -3,7 +3,11 @@ import { RegisterSocialForm } from "@/interface/auth/register.interface";
 import { postSendEmailCode } from "@/services/auth";
 import { ErrorDTO } from "@/types/error";
 import { ArrowSLineRight } from "@icons/ArrowSLineRight";
-import { PHONE_REGEX, EMAIL_REGEX } from "@libs/constants/regex";
+import {
+  PHONE_REGEX,
+  EMAIL_REGEX,
+  KOREAN_NAME_REGEX,
+} from "@libs/constants/regex";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -61,9 +65,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    // 소셜 로그인 정보 추가
     onAddSocialData(socialId, socialType);
-    // 소셜 로그인 정보가 추가된 후 이메일 코드 전송
   }, [socialId, socialType, onAddSocialData]);
 
   return (
@@ -88,11 +90,11 @@ const SocialRegisterContainer: React.FC<Props> = ({
           gutterBottom
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
-            // validate: (value) => {
-            //   if (watch('password') !== value) {
-            //     return ERROR_MESSAGES.user;
-            //   }
-            // },
+            validate: (value) => {
+              if (KOREAN_NAME_REGEX.test(value)) {
+                return ERROR_MESSAGES.usernameInvalid;
+              }
+            },
           })}
         />
 
@@ -153,7 +155,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
             onToggle={onToggle}
             checked={watch("termsOfUse")}
           />
-          <Link href={"naver.com"} target="_blank" className="ml-auto">
+          <Link href={"/policy/privacy"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
           </Link>
         </div>
@@ -166,7 +168,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
             checked={watch("privacyPolicy")}
             classes={{ root: "mt-2" }}
           />
-          <Link href={"naver.com"} target="_blank" className="ml-auto">
+          <Link href={"/policy/use"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
           </Link>
         </div>
@@ -190,6 +192,8 @@ const SocialRegisterContainer: React.FC<Props> = ({
             !watch("termsOfUse") ||
             !watch("privacyPolicy") ||
             !watch("isOlderThan14") ||
+            !watch("socialId") ||
+            !watch("socialType") ||
             Object.keys(errors).length > 0
           }
           wide

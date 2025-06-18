@@ -4,6 +4,7 @@ import React, { use, useState } from "react";
 
 import dynamic from "next/dynamic";
 import { RegisterSocialForm } from "@/interface/auth/register.interface";
+import { withNoAuth } from "@/components/HOC/withNoAuth";
 
 type RegisterStage = "register" | "checkCode" | "complete";
 
@@ -59,10 +60,18 @@ const AuthSocialRegisterPage = ({
         <Content.checkCode onNext={onNext} userData={userData} />
       )}
       {stage === "complete" && userData && (
-        <Content.complete userData={userData} />
+        <Content.complete
+          userData={{
+            name: userData.name,
+            phone: userData.phone,
+            email: userData.email,
+            socialId: userData.socialId,
+            socialType: userData.socialType,
+          }}
+        />
       )}
     </>
   );
 };
 
-export default AuthSocialRegisterPage;
+export default withNoAuth(AuthSocialRegisterPage);
