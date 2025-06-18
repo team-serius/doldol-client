@@ -17,7 +17,7 @@ export function DetailFunctions() {
   };
 
   return (
-    <div className="mt-20 flex flex-col items-center">
+    <div className="mt-20 flex flex-col items-center mb-48">
       <TabMenu
         menuItems={TAB_MENU}
         activeItem={selected}
@@ -46,7 +46,7 @@ export function DetailFunctions() {
             />
           )}
           <div className="text-center flex-grow">
-            <Typography variant="b14" className="mt-32">
+            <Typography variant="b15" className="mt-32">
               {current.description}
             </Typography>
           </div>

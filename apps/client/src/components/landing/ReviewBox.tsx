@@ -16,7 +16,10 @@ export const ReviewBox: React.FC<Props> = ({ review, isRight }) => {
               ${isRight ? "self-end md:mr-20" : "self-start md:ml-20"}
             `}
     >
-      <Typography variant="b14" className=" text-gray-1 text-center break-keep">
+      <Typography
+        variant="b14"
+        className=" text-gray-1 text-center break-words"
+      >
         {review.text}
       </Typography>
       <Typography variant="b14" className=" text-gray-1 text-right">
