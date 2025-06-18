@@ -98,15 +98,21 @@ const ProfileContainer = () => {
             <Icon icon={ArrowSLineRight} color="black" />
           </div>
         </Link>
-        {/* TODO: 추후 링크 수정 */}
-        <Link href={"/paper"}>
-          <div className="flex justify-between px-6 mt-4">
-            <div className="flex gap-10">
-              <Typography variant="b18-bold">새 페이퍼 만들기</Typography>
-            </div>
-            <Icon icon={ArrowSLineRight} color="black" />
-          </div>
-        </Link>
+        <div className="grid grid-cols-2 gap-4 mt-5 px-6">
+          <Link href={"/paper/create"}>
+            <Button
+              variant="outlined"
+              size="medium"
+              wide
+              icon={{ DefaultComponent: PlusLine }}
+            >
+              새로 만들기
+            </Button>
+          </Link>
+          <Button variant="outlined" size="medium" wide>
+            작성한 페이퍼
+          </Button>
+        </div>
       </div>
 
       <Typography
@@ -143,8 +149,14 @@ const ProfileContainer = () => {
 
       {/* 로그아웃 */}
       <Typography
+        variant="b14-bold"
+        className="mt-10 text-left text-gray-2 w-full"
+      >
+        로그인 관리
+      </Typography>
+      <Typography
         variant="b18-bold"
-        className="mt-20 text-left w-full hover:text-green-1"
+        className="mt-5 text-left w-full hover:text-green-1"
         onClick={onLogout}
       >
         로그아웃

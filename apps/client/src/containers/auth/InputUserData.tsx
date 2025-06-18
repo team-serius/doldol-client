@@ -1,7 +1,11 @@
 import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
 import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
 import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { PHONE_REGEX, EMAIL_REGEX } from "@libs/constants/regex";
+import {
+  PHONE_REGEX,
+  EMAIL_REGEX,
+  KOREAN_NAME_REGEX,
+} from "@libs/constants/regex";
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Button, TextField, Typography } from "@ui/components";
 import { usePathname, useRouter } from "next/navigation";
@@ -46,14 +50,13 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           gutterBottom
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
-            // validate: (value) => {
-            //   if (watch('password') !== value) {
-            //     return ERROR_MESSAGES.user;
-            //   }
-            // },
+            validate: (value) => {
+              if (KOREAN_NAME_REGEX.test(value)) {
+                return ERROR_MESSAGES.usernameInvalid;
+              }
+            },
           })}
         />
-        {/* TODO: 이름 관련 REGEX 추가 */}
 
         <Typography variant="b16" className="mt-10">
           휴대 전화 번호

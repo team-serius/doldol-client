@@ -1,5 +1,6 @@
 "use client";
 
+import useMe from "@/hooks/useMe";
 import "../../../../../packages/ui/src/scss/mixins/_transition.scss";
 
 import { Button, Typography } from "@ui/components";
@@ -8,6 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const IntroSection = () => {
+  const { user } = useMe();
+
   return (
     <section className="flex flex-col items-center mt-12">
       <div className="animate-bounce w-[132px] h-[117px]">
@@ -39,7 +42,7 @@ export const IntroSection = () => {
           </Typography>
         </div>
       </div>
-      <Link href={"/auth/login"} className="block">
+      <Link href={user ? "/my-page" : "/auth/login"} className="block">
         <Button
           variant={"secondary"}
           size={"large"}
