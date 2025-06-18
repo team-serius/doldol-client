@@ -11,6 +11,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { getPaperList } from "@/services/paper";
 import { PaperListSort } from "@/enum/sort.enum";
+import Link from "next/link";
 
 const PaperListContainer = () => {
   const [sort, setSort] = useState<string>(SORT[0].id);
@@ -76,13 +77,15 @@ const PaperListContainer = () => {
           valueKey="id"
           displayKey="label"
         />
-        <Button
-          variant={"outlined"}
-          size={"medium"}
-          icon={{ DefaultComponent: PlusLine }}
-        >
-          새로 만들기
-        </Button>
+        <Link href={"/paper/create"}>
+          <Button
+            variant={"outlined"}
+            size={"medium"}
+            icon={{ DefaultComponent: PlusLine }}
+          >
+            새로 만들기
+          </Button>
+        </Link>
       </div>
 
       {paperCount > 0 && (
