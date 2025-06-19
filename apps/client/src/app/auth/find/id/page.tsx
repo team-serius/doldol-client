@@ -3,6 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { FindUserInputForm } from "@/interface/auth/find.interface";
+import { withNoAuth } from "@/components/HOC/withNoAuth";
 
 type FindIdStage = "input" | "checkCode" | "complete";
 
@@ -25,7 +26,7 @@ const AuthFindIdPage = () => {
   const [stage, setStage] = React.useState<FindIdStage>("input");
   const [userData, setUserData] = React.useState<FindUserInputForm | undefined>(
     undefined,
-  ); // 타입을 구체적으로 정의할 수 있음
+  );
 
   const onNext = (data?: FindUserInputForm) => {
     if (data) {
@@ -52,4 +53,4 @@ const AuthFindIdPage = () => {
   );
 };
 
-export default AuthFindIdPage;
+export default withNoAuth(AuthFindIdPage);

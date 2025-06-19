@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, IS_DEV, REFRESH_TOKEN } from "./../../lib/config/env";
+import { IS_DEV } from "./../../lib/config/env";
 import { AxiosError, isAxiosError } from "axios";
 
 import { CommonLoginForm } from "@/interface/auth/login.interface";

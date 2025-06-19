@@ -1,20 +1,26 @@
 import { useRegisterForm } from "@/hooks/form/useRegisterForm";
 import { RegisterForm } from "@/interface/auth/register.interface";
+import { postSendEmailCode } from "@/services/auth";
+import { ErrorDTO } from "@/types/error";
 import { ArrowSLineRight } from "@icons/ArrowSLineRight";
 import {
   PASSWORD_REGEX,
   PHONE_REGEX,
   EMAIL_REGEX,
+  KOREAN_NAME_REGEX,
 } from "@libs/constants/regex";
-import { ERROR_MESSAGES } from "@libs/utils/message";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+import { useMutation } from "@tanstack/react-query";
 import {
   Typography,
   TextField,
   Button,
   PasswordField,
   Checkbox,
+  Notify,
 } from "@ui/components";
 import { Icon } from "@ui/components/Icon";
+import { AxiosError, isAxiosError } from "axios";
 import Link from "next/link";
 
 interface Props {
@@ -30,10 +36,27 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
     onToggle,
     onToggleAll,
     onCheckIdDuplicate,
+    onChangeId,
   } = useRegisterForm();
 
+  const { mutate: onSendEmailCodeApi } = useMutation({
+    mutationFn: (data: RegisterForm) => postSendEmailCode(data.email),
+    mutationKey: ["sendEmailCode", watch("email")],
+    onSuccess: (res, variables) => {
+      if (res) {
+        Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
+        onNext(variables);
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(ERROR_MESSAGES.emailCodeSentFailed);
+      }
+    },
+  });
+
   const onSubmit = (data: RegisterForm) => {
-    onNext(data);
+    onSendEmailCodeApi(data);
   };
 
   return (
@@ -52,6 +75,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
         </Typography>
         <div className="flex gap-2 items-start">
           <TextField
+            name={"id"}
             placeholder="아이디를 입력해주세요."
             error={errors.id ? true : false}
             errorMessage={errors.id?.message}
@@ -59,15 +83,13 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
               watch("idCheck") ? "사용 가능한 아이디입니다." : undefined
             }
             gutterBottom
-            {...register("id", {
-              required: ERROR_MESSAGES.usernameRequired,
-            })}
+            onChange={(e) => onChangeId(e)}
           />
           <Button
             className="shrink-0"
             variant={"primary"}
             size={"medium"}
-            disabled={!watch("id")}
+            disabled={!watch("id") || watch("idCheck")}
             type="button"
             onClick={onCheckIdDuplicate}
           >
@@ -121,11 +143,11 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           gutterBottom
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
-            // validate: (value) => {
-            //   if (watch('password') !== value) {
-            //     return ERROR_MESSAGES.user;
-            //   }
-            // },
+            validate: (value) => {
+              if (!KOREAN_NAME_REGEX.test(value)) {
+                return ERROR_MESSAGES.usernameInvalid;
+              }
+            },
           })}
         />
 
@@ -186,7 +208,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             onToggle={onToggle}
             checked={watch("termsOfUse")}
           />
-          <Link href={"naver.com"} target="_blank" className="ml-auto">
+          <Link href={"/policy/privacy"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
           </Link>
         </div>
@@ -199,7 +221,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             checked={watch("privacyPolicy")}
             classes={{ root: "mt-2" }}
           />
-          <Link href={"naver.com"} target="_blank" className="ml-auto">
+          <Link href={"/policy/use"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
           </Link>
         </div>
@@ -217,6 +239,19 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           type="submit"
           className="mt-10"
           wide
+          disabled={
+            !watch("id") ||
+            !watch("idCheck") ||
+            !watch("password") ||
+            !watch("passwordConfirm") ||
+            !watch("name") ||
+            !watch("phone") ||
+            !watch("email") ||
+            !watch("termsOfUse") ||
+            !watch("privacyPolicy") ||
+            !watch("isOlderThan14") ||
+            Object.keys(errors).length > 0
+          }
         >
           다음
         </Button>

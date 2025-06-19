@@ -2,6 +2,8 @@ import {
   EmailCodeVerifyRequest,
   LoginSuccessResponse,
   OAuthRegisterRequest,
+  RegisterRequest,
+  ValidateUserInfoRequest,
 } from "@/types/auth";
 
 import { CommonLoginForm } from "@/interface/auth/login.interface";
@@ -27,6 +29,18 @@ export const postVerifyEmailCode = (data: EmailCodeVerifyRequest) => {
   return apiClient.post("/auth/email/verify-code", data);
 };
 
+export const postRegister = (data: RegisterRequest) => {
+  return apiClient.post("/auth/register", data);
+};
+
 export const postOauthRegister = (data: OAuthRegisterRequest) => {
   return apiClient.post("/auth/oauth/register", data);
+};
+
+export const postValidateUserInfo = (data: ValidateUserInfoRequest) => {
+  return apiClient.post("/auth/validate/user/info", data);
+};
+
+export const getFindId = (email: string) => {
+  return apiClient.get("/auth/find/id", email ? { params: { email } } : {});
 };

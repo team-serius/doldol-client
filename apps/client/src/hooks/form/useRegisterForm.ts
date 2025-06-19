@@ -14,6 +14,7 @@ export const useRegisterForm = () => {
     watch,
     setValue,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm<RegisterForm>({
     mode: "onChange",
@@ -68,21 +69,16 @@ export const useRegisterForm = () => {
     setValue("isOlderThan14", checked);
   };
 
-  const onCheckValidation = () => {
-    const termsOfUse = watch("termsOfUse");
-    const privacyPolicy = watch("privacyPolicy");
-    const isOlderThan14 = watch("isOlderThan14");
-
-    if (!termsOfUse) {
-      setError("termsOfUse", { message: "이용 약관에 동의해주세요." });
-    }
-    if (!privacyPolicy) {
-      setError("privacyPolicy", {
-        message: "개인정보 처리방침에 동의해주세요.",
+  const onChangeId = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setValue("id", value);
+    setValue("idCheck", false);
+    if (value.length < 4 || value.length > 20) {
+      setError("id", {
+        message: "아이디는 4자 이상 20자 이하로 입력해주세요.",
       });
-    }
-    if (!isOlderThan14) {
-      setError("isOlderThan14", { message: "14세 이상임을 확인해주세요." });
+    } else {
+      clearErrors("id");
     }
   };
 
@@ -94,5 +90,6 @@ export const useRegisterForm = () => {
     onToggle,
     onToggleAll,
     onCheckIdDuplicate,
+    onChangeId,
   };
 };

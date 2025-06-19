@@ -3,6 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { FindUserInputForm } from "@/interface/auth/find.interface";
+import { withNoAuth } from "@/components/HOC/withNoAuth";
 
 type ResetPasswordStage = "input" | "checkCode" | "complete";
 
@@ -52,4 +53,4 @@ const AuthResetPasswordPage = () => {
   );
 };
 
-export default AuthResetPasswordPage;
+export default withNoAuth(AuthResetPasswordPage);

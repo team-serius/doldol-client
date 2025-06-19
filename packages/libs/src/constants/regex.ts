@@ -7,9 +7,11 @@ export const UUID_REGEX =
 export const VERIFY_CODE_REGEX = /^\d{6}$/;
 export const SPECIAL_CHARACTER_REGEX = /[!@#$%^&*(),.?":;\[\]{}|<>]/;
 export const REGISTER_USERNAME_REGEX = /[^a-zA-Z0-9]/g;
-export const REGISTER_PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+export const REGISTER_PASSWORD_REGEX =
+  /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 export const NUMBER_ONLY_REGEX = /^[0-9]*$/;
 export const ACCOUNT_NUMBER_REGEX = /^(\d{1,})(-(\d{1,})){1,}$/;
 export const REGISTRATION_NUMBER_REGEX =
   /^\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}$/;
 export const BUSINESS_NUMBER_REGEX = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/;
+export const KOREAN_NAME_REGEX = /^[가-힣]{2,5}$/;

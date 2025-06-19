@@ -1,5 +1,6 @@
 "use client";
 
+import useMe from "@/hooks/useMe";
 import "../../../../../packages/ui/src/scss/mixins/_transition.scss";
 
 import { Button, Typography } from "@ui/components";
@@ -54,6 +55,16 @@ export const IntroSection = () => {
           </Typography>
         </div>
       </div>
+      <Link href={user ? "/my-page" : "/auth/login"} className="block">
+        <Button
+          variant={"secondary"}
+          size={"large"}
+          shape="circle"
+          className="mt-10"
+        >
+          지금 시작해보기
+        </Button>
+      </Link>
     </section>
   );
 };

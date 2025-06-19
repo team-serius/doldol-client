@@ -82,15 +82,12 @@ const TermsOfServiceContent: React.FC = () => {
         제3조 (회사 정보)
       </Typography>
       <ul className="mb-4">
-        <li>
-          <Typography variant="b14">회사명: 팀 '시리우스'</Typography>
-        </li>
-        <li>대표자: 손영호</li>
-        <li>사업자등록번호: [사업자등록번호]</li>
-        <li>주소: 서울 광진구 능동로 195-16 613호</li>
-        <li>대표 전화: 010-1234-5678</li>
-        <li>대표 이메일: son@naver.com</li>
-        <li>통신판매업신고번호: [통신판매업신고번호]</li>
+        <Typography element="li" variant="b14">
+          회사명: 팀 '시리우스'
+        </Typography>
+        <Typography element="li" variant="b14">
+          대표 이메일: syh0757@naver.com
+        </Typography>
       </ul>
       <Typography variant="b18-bold" className="mt-6 mb-2">
         제4조 (약관의 게시와 개정)

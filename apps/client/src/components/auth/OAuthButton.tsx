@@ -14,17 +14,17 @@ interface Props {
 
 export const OAuthButton: React.FC<Props> = ({ social, isRegister }) => {
   const Theme: SocialTheme = {
-    kakao: {
+    KAKAO: {
       label: "카카오",
       background: "bg-[#FEE500]",
       textColor: "black",
     },
-    naver: {
+    NAVER: {
       label: "네이버",
       background: "bg-[#03C75A]",
       textColor: "white",
     },
-    google: {
+    GOOGLE: {
       label: "Google",
       background: "border border-gray-2",
       textColor: "black",
@@ -34,7 +34,10 @@ export const OAuthButton: React.FC<Props> = ({ social, isRegister }) => {
   const onClickSocialButton: MouseEventHandler<HTMLButtonElement> = (e) => {
     const social = e.currentTarget.dataset.social;
 
-    window.open(`${API_URI}/oauth2/authorization/${social}`, "_self");
+    window.open(
+      `${API_URI}/oauth2/authorization/${social?.toLocaleLowerCase()}`,
+      "_self",
+    );
   };
 
   return (
