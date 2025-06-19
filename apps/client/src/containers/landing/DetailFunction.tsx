@@ -47,7 +47,7 @@ export function DetailFunctions() {
             />
           )}
           <div className="text-center flex-grow">
-            <Typography variant="b15" className="mt-32">
+            <Typography variant="b15" className="mt-32 mx-4">
               {current.description}
             </Typography>
           </div>
