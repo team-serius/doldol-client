@@ -1,7 +1,3 @@
-import {
-  RegisterForm,
-  RegisterSocialForm,
-} from "@/interface/auth/register.interface";
 import { IS_DEV } from "@/lib/config/env";
 import { postOauthRegister, postRegister } from "@/services/auth";
 import { OAuthRegisterRequest, RegisterRequest } from "@/types/auth";

@@ -1,7 +1,5 @@
 import { SupportMenu } from "@/components/auth/SupportMenu";
 import { useLoginForm } from "@/hooks/form/useLoginForm";
-import { CommonLoginForm } from "@/interface/auth/login.interface";
-import { PASSWORD_REGEX } from "@libs/constants/regex";
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Typography, TextField, PasswordField, Button } from "@ui/components";
 
@@ -33,11 +31,6 @@ const AuthLoginIdContainer = () => {
           gutterBottom
           {...register("password", {
             required: ERROR_MESSAGES.passwordRequired,
-            validate: (value) => {
-              if (!PASSWORD_REGEX.test(value)) {
-                return ERROR_MESSAGES.passwordInvalid;
-              }
-            },
           })}
         />
         <Button

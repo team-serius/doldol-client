@@ -61,6 +61,7 @@ const AuthSocialRegisterPage = ({
       )}
       {stage === "complete" && userData && (
         <Content.complete
+          isSocial
           userData={{
             name: userData.name,
             phone: userData.phone,
