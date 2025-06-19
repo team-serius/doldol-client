@@ -1,7 +1,6 @@
 'use client';
 
 import { ArrowSLineDown } from '@icons/ArrowSLineDown';
-import { ColorPalette } from '@ui/theme';
 import { Icon } from '../Icon';
 import React from 'react';
 import { Typography } from '../Typography';
@@ -22,7 +21,9 @@ export const Accordian: React.FC<Props> = ({ question, answer }) => {
   return (
     <div className="w-full">
       <button onClick={onToggle} className="w-full flex gap-1 items-center justify-between mb-5">
-        <Typography variant={'b20-bold'}>{question}</Typography>
+        <Typography variant={'b20-bold'} className="text-start">
+          {question}
+        </Typography>
         <Icon icon={ArrowSLineDown} size={24} />
       </button>
 

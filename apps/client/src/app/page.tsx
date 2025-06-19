@@ -9,7 +9,7 @@ import { withAuth } from "@/components/HOC/withAuth";
 
 function Home() {
   return (
-    <CommonLayout isLogoVisible>
+    <CommonLayout isLogoVisible isFullWidth>
       <IntroSection />
 
       <DetailFunctions />
