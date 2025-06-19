@@ -9,22 +9,20 @@ interface Props {
 export const ReviewBox: React.FC<Props> = ({ review, isRight }) => {
   return (
     <div
-      key={review.id}
       // 홀수/짝수에 따라 좌우 정렬
-      className={`
-              bg-white rounded-xl p-5 shadow-md
-              ${isRight ? "self-end md:mr-20" : "self-start md:ml-20"}
+      className={`flex gap-1 mb-8 
+              ${isRight ? "flex-row self-end mr-32" : "flex-row-reverse self-start ml-32"}
             `}
     >
-      <Typography
-        variant="b14"
-        className=" text-gray-1 text-center break-words"
-      >
-        {review.text}
-      </Typography>
-      <Typography variant="b14" className=" text-gray-1 text-right">
-        {review.user}
-      </Typography>
+      <div className="flex flex-col items-center gap-1 flex-shrink-0">
+        {review.image && <img src={review.image} className="w-20 h-auto"></img>}
+        <Typography variant="b14-bold">{review.user}</Typography>
+      </div>
+      <div className="bg-white rounded-xl shadow-md w-56 h-24 px-3 flex items-center justify-center text-center">
+        <Typography variant="b14" className=" text-gray-1 break-words">
+          {review.text}
+        </Typography>
+      </div>
     </div>
   );
 };

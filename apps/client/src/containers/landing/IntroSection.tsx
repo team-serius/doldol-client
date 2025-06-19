@@ -41,16 +41,11 @@ export const IntroSection = () => {
 
       <div className="grid place-items-center rounded-lg p-4 text-center mt-10">
         <div className="flex justify-center">
-          <Typography variant={"b15-bold"}>돌돌</Typography>
-          <Typography variant={"b14-medium"}>은 모두가 함께 만드는</Typography>
-          <Typography variant="b14-medium">&nbsp;</Typography>
-          <Typography variant={"b15-bold"}>온라인 롤링페이퍼</Typography>
-          <Typography variant={"b14-medium"}>입니다.</Typography>
-        </div>
-        <div className="flex justify-center">
-          <Typography variant={"b15-bold"}>생일, 졸업, 이별, 감사</Typography>
-          <Typography variant={"b14-medium"}>
-            의 순간을 따뜻하게 기억하세요.
+          <Typography variant="b14">
+            <strong>돌돌</strong>은 모두가 함께 만드는
+            <strong>온라인 롤링페이퍼</strong>입니다.
+            <br /> <strong>생일, 졸업, 이별, 감사</strong>의 순간을 따뜻하게
+            기억하세요.
           </Typography>
         </div>
       </div>

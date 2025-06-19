@@ -32,6 +32,7 @@ export function DetailFunctions() {
               autoPlay
               loop
               muted
+              playsInline
               width={300}
               height={650}
               className="w-48 h-auto rounded-xl shadow-md"

@@ -8,8 +8,8 @@ const ReviewSectionContainer: React.FC = () => {
     <>
       <section className="mb-48">
         {/* <Typography variant="h24-bold">돌돌's tory</Typography> */}
-        <div className="py-12 px-5 flex flex-col items-center relative overflow-hidden bg-primary-light1 shadow-inner transform -skew-y-6">
-          <div className="flex flex-col items-center gap-8 transform skew-y-6">
+        <div className="py-24 flex flex-col overflow-hidden bg-primary-light1 shadow-inner transform -skew-y-6">
+          <div className="flex flex-col gap-4 transform skew-y-6">
             {REVIEWS.map((review, index) => (
               <ReviewBox
                 key={index}
