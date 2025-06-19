@@ -1,6 +1,6 @@
 import TermsOfServiceContent from "@/components/serviceinfo/TermsOfService";
 
-export const TermsOfServicePage = () => {
+const TermsOfServicePage = () => {
   return (
     <div className="pt-10">
       <TermsOfServiceContent />

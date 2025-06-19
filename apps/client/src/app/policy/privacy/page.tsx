@@ -1,6 +1,6 @@
 import PrivacyPolicyContent from "@/components/serviceinfo/PrivacyPolicy";
 
-export const PrivacyPolicyPage = () => {
+const PrivacyPolicyPage = () => {
   return (
     <div className="pt-10">
       <PrivacyPolicyContent />
