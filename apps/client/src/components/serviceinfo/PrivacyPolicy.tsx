@@ -224,10 +224,10 @@ const PrivacyPolicyContent: React.FC = () => {
             <Typography variant="b14">성명: 손영호</Typography>
           </li>
           <li>
-            <Typography variant="b14">소속/직책: 16회차 반장모시깽</Typography>
+            <Typography variant="b14">소속/직책: 팀 시리우스 대표</Typography>
           </li>
           <li>
-            <Typography variant="b14">메일 주소: son@naver.com</Typography>
+            <Typography variant="b14">메일 주소: syh0757@naver.com</Typography>
           </li>
         </ul>
       </div>

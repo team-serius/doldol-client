@@ -1,5 +1,6 @@
 // import { MessageResponse } from './message';
 
+import { PaperListSort } from "@/enum/sort.enum";
 import { Dayjs } from "dayjs";
 
 export interface Paper {
@@ -48,4 +49,10 @@ export interface PaperDetailResponse {
 // 롤링페이퍼 참여 POST /papers/join
 export interface JoinPaperRequest {
   invitationCode: string;
+}
+
+export interface PaperListRequest {
+  cursorId: number;
+  size: number;
+  sortDirection: PaperListSort;
 }

@@ -82,3 +82,9 @@ export interface Token {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface ValidateUserInfoRequest {
+  name: string;
+  phone: string;
+  email: string;
+}

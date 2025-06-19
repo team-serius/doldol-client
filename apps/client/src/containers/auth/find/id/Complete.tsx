@@ -1,17 +1,40 @@
+"use client";
+
 import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { Button, Typography } from "@ui/components";
+import { getFindId } from "@/services/auth";
+import { ErrorDTO } from "@/types/error";
+import { useMutation } from "@tanstack/react-query";
+import { Button, Notify, Typography } from "@ui/components";
+import { AxiosError, isAxiosError } from "axios";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface Props {
   userData: FindUserInputForm;
 }
 
 const FindIdComplete: React.FC<Props> = ({ userData }) => {
-  // TODO: 여기서 아이디 찾기 로직이 보내져야 함. (useQuery로 아이디 찾기 API 호출 후 결과를 받아와야 함)
-  // 예시로 userData를 콘솔에 출력
-  console.log("유저 데이터", userData);
+  const [result, setResult] = useState<string | null>(null);
 
-  //   유저 정보에서 소셜 로그인 정보가 있다면 렌더링 수정
+  const { mutate: onFindIdApi } = useMutation({
+    mutationFn: (email: string) => getFindId(email),
+
+    mutationKey: ["findId", userData.email],
+    onSuccess: (res) => {
+      setResult(res.data.id);
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(error.response?.data.message);
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (userData) {
+      onFindIdApi(userData.email);
+    }
+  }, [userData, onFindIdApi]);
 
   return (
     <>
@@ -24,10 +47,7 @@ const FindIdComplete: React.FC<Props> = ({ userData }) => {
         아이디
       </Typography>
       <Typography variant="b16" className="mt-4 mb-20">
-        {/* TODO: 마스킹 */}
-        {userData
-          ? "doldo****"
-          : "카카오 로그인으로 가입한 회원입니다.\n카카오로 로그인 해주세요."}
+        {result ?? "소셜 로그인으로 가입한 회원입니다."}
       </Typography>
 
       <Link href={"/auth/login"}>

@@ -3,8 +3,8 @@ import {
   RegisterSocialForm,
 } from "@/interface/auth/register.interface";
 import { IS_DEV } from "@/lib/config/env";
-import { postOauthRegister } from "@/services/auth";
-import { OAuthRegisterRequest } from "@/types/auth";
+import { postOauthRegister, postRegister } from "@/services/auth";
+import { OAuthRegisterRequest, RegisterRequest } from "@/types/auth";
 import { ErrorDTO } from "@/types/error";
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { useMutation } from "@tanstack/react-query";
@@ -14,11 +14,12 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 interface Props {
-  userData: RegisterForm | RegisterSocialForm;
+  userData: RegisterRequest | OAuthRegisterRequest;
+  isSocial?: boolean;
 }
 
-const RegisterCompleteContainer: React.FC<Props> = ({ userData }) => {
-  const { mutate: onRegister } = useMutation({
+const RegisterCompleteContainer: React.FC<Props> = ({ userData, isSocial }) => {
+  const { mutate: onRegisterSocial } = useMutation({
     mutationFn: (data: OAuthRegisterRequest) => postOauthRegister(data),
 
     mutationKey: ["oauthRegister", userData],
@@ -32,11 +33,29 @@ const RegisterCompleteContainer: React.FC<Props> = ({ userData }) => {
     },
   });
 
+  const { mutate: onRegisterCommon } = useMutation({
+    mutationFn: (data: RegisterRequest) => postRegister(data),
+
+    mutationKey: ["commonRegister", userData],
+    onSuccess: (res) => {
+      IS_DEV && console.log("Register Success:", res);
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(error.response?.data.message);
+      }
+    },
+  });
+
   useEffect(() => {
-    if (userData) {
-      onRegister(userData as OAuthRegisterRequest);
+    if (userData && isSocial) {
+      onRegisterSocial(userData as OAuthRegisterRequest);
     }
-  }, [userData, onRegister]);
+
+    if (userData && !isSocial) {
+      onRegisterCommon(userData as RegisterRequest);
+    }
+  }, [userData, onRegisterCommon, onRegisterSocial, isSocial]);
 
   return (
     <>
