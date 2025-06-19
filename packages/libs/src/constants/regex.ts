@@ -1,5 +1,7 @@
 export const USERNAME_REGEX = /^[a-zA-Z0-9-_]{2,15}$/;
-export const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,}$/;
+export const PASSWORD_REGEX =
+  /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?`~])(?!.*[ㄱ-ㅎ가-힣]).{8,}$/;
+
 export const PHONE_REGEX = /^(\d{2,3})(\d{3,4})(\d{4})$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const UUID_REGEX =
@@ -7,8 +9,7 @@ export const UUID_REGEX =
 export const VERIFY_CODE_REGEX = /^\d{6}$/;
 export const SPECIAL_CHARACTER_REGEX = /[!@#$%^&*(),.?":;\[\]{}|<>]/;
 export const REGISTER_USERNAME_REGEX = /[^a-zA-Z0-9]/g;
-export const REGISTER_PASSWORD_REGEX =
-  /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+export const REGISTER_PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 export const NUMBER_ONLY_REGEX = /^[0-9]*$/;
 export const ACCOUNT_NUMBER_REGEX = /^(\d{1,})(-(\d{1,})){1,}$/;
 export const REGISTRATION_NUMBER_REGEX =

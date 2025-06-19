@@ -40,7 +40,7 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
     },
     onError: (error: AxiosError) => {
       if (isAxiosError<ErrorDTO>(error)) {
-        Notify.error(ERROR_MESSAGES.emailCodeInvalid);
+        Notify.error(error.response?.data.message);
       }
     },
   });
