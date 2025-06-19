@@ -21,10 +21,10 @@ export const Accordian: React.FC<Props> = ({ question, answer }) => {
   return (
     <div className="w-full">
       <button onClick={onToggle} className="w-full flex gap-1 items-center justify-between mb-5">
-        <Typography variant={'b20-bold'} className="text-start">
+        <Typography variant={'b20-bold'} className="text-start mx-4">
           {question}
         </Typography>
-        <Icon icon={ArrowSLineDown} size={24} />
+        <Icon icon={ArrowSLineDown} size={24} className="mx-4" />
       </button>
 
       {isOpen && (

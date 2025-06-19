@@ -25,7 +25,7 @@ export function DetailFunctions() {
       />
 
       {current && (
-        <div className="flex gap-8 mt-8">
+        <div className="flex gap-8 mt-8 mx-4">
           {current.type === "video" ? (
             <video
               src={current.videoPath}
