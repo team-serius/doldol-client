@@ -53,7 +53,7 @@ export const OAuthButton: React.FC<Props> = ({ social, isRegister }) => {
       <div className="absolute left-4 top-4">
         <div className="relative w-[24px] h-[24px]">
           <Image
-            src={`/assets/logos/social/${social}.png`}
+            src={`/assets/logos/social/${social.toLocaleLowerCase()}.png`}
             alt="소셜 로고 이미지"
             fill
             className="left-4"
