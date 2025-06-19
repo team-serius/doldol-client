@@ -44,3 +44,7 @@ export const postValidateUserInfo = (data: ValidateUserInfoRequest) => {
 export const getFindId = (email: string) => {
   return apiClient.get("/auth/find/id", email ? { params: { email } } : {});
 };
+
+export const patchResetPassword = (email: string) => {
+  return apiClient.patch("/auth/reset/password", { email });
+};

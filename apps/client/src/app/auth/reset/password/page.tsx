@@ -16,7 +16,7 @@ const Content = {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
-  complete: dynamic(() => import("@/containers/auth/find/id/Complete"), {
+  complete: dynamic(() => import("@/containers/auth/reset/Complete"), {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),

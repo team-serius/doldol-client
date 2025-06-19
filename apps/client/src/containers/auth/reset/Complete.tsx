@@ -1,17 +1,33 @@
 import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { Button, Typography } from "@ui/components";
+import { getFindId, patchResetPassword } from "@/services/auth";
+import { ErrorDTO } from "@/types/error";
+import { useMutation } from "@tanstack/react-query";
+import { Button, Notify, Typography } from "@ui/components";
+import { AxiosError, isAxiosError } from "axios";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface Props {
   userData: FindUserInputForm;
 }
 
 const ResetPasswordComplete: React.FC<Props> = ({ userData }) => {
-  // TODO: 여기서 비밀번호 초기화 로직이 보내져야 함. (useQuery로 비밀번호 초기화 API 호출)
-  // 예시로 userData를 콘솔에 출력
-  console.log("유저 데이터", userData);
+  const { mutate: onResetPassword } = useMutation({
+    mutationFn: (email: string) => patchResetPassword(email),
 
-  //   유저 정보에서 소셜 로그인 정보가 있다면 렌더링 수정
+    mutationKey: ["resetPassword", userData.email],
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(error.response?.data.message);
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (userData) {
+      onResetPassword(userData.email);
+    }
+  }, [userData, onResetPassword]);
 
   return (
     <>
