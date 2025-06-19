@@ -6,7 +6,7 @@ import { Typography } from "@ui/components";
 
 export const FAQSection = () => {
   return (
-    <section className="flex flex-col gap-10 items-center text-center w-full">
+    <section className="flex flex-col gap-10 items-center text-center w-full mb-40">
       <Typography variant={"h32-bold"} className="mb-5">
         FAQ
       </Typography>

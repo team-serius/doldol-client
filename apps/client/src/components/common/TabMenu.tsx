@@ -26,7 +26,7 @@ export const TabMenu: React.FC<Props> = ({
           onClick={() => onItemClick(item)}
         >
           <Typography
-            variant="b14-medium"
+            variant="b16-medium"
             color={activeItem === item ? "black" : "gray-2"}
           >
             {item}

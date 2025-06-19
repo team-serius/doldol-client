@@ -34,7 +34,7 @@ const ProfileContainer = () => {
 
   // 유저 정보(프로필 배경색, 이름)
   const userName = user?.name ?? "돌돌";
-  const userBackgroundColor = getColorFromString(user?.name || "");
+  const userBackgroundColor = getColorFromString(user?.email || "");
 
   // 모달 열기
   const OpenModal = (target: ModalType) => {

@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
 import { ArrowSLineDown } from '@icons/ArrowSLineDown';
-import { Typography } from '../Typography';
+import { ColorPalette } from '@ui/theme';
 import { Icon } from '../Icon';
+import React from 'react';
+import { Typography } from '../Typography';
+import { useState } from 'react';
 
 interface Props {
   question: string;
@@ -20,13 +21,13 @@ export const Accordian: React.FC<Props> = ({ question, answer }) => {
 
   return (
     <div className="w-full">
-      <button onClick={onToggle} className="w-full flex justify-center gap-1 items-center">
+      <button onClick={onToggle} className="w-full flex gap-1 items-center justify-between mb-4">
         <Typography variant={'b18-bold'}>{question}</Typography>
         <Icon icon={ArrowSLineDown} size={24} />
       </button>
 
       {isOpen && (
-        <div>
+        <div className="bg-primary">
           <Typography variant={'b16'}>{answer}</Typography>
         </div>
       )}
