@@ -91,7 +91,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
             validate: (value) => {
-              if (KOREAN_NAME_REGEX.test(value)) {
+              if (!KOREAN_NAME_REGEX.test(value)) {
                 return ERROR_MESSAGES.usernameInvalid;
               }
             },
