@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Review } from "@/interface/landing/review.interface";
 import { Typography } from "@ui/components";
 
@@ -15,7 +16,15 @@ export const ReviewBox: React.FC<Props> = ({ review, isRight }) => {
             `}
     >
       <div className="flex flex-col items-center gap-1 flex-shrink-0">
-        {review.image && <img src={review.image} className="w-20 h-auto"></img>}
+        {review.image && (
+          <Image
+            src={review.image}
+            alt="mimoticon"
+            width={300}
+            height={300}
+            className="w-20 h-auto"
+          />
+        )}
         <Typography variant="b14-bold">{review.user}</Typography>
       </div>
       <div className="bg-white rounded-xl shadow-md w-56 h-24 px-3 flex items-center justify-center text-center">
