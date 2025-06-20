@@ -1,19 +1,21 @@
-import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
-import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
-import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { postSendEmailCode, postValidateUserInfo } from "@/services/auth";
-import { ValidateUserInfoRequest } from "@/types/auth";
-import { ErrorDTO } from "@/types/error";
+import { AxiosError, isAxiosError } from "axios";
+import { Button, Notify, TextField, Typography } from "@ui/components";
 import {
-  PHONE_REGEX,
   EMAIL_REGEX,
   KOREAN_NAME_REGEX,
+  PHONE_REGEX,
 } from "@libs/constants/regex";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
+import { postSendEmailCode, postValidateUserInfo } from "@/services/auth";
+
+import { ErrorDTO } from "@/types/error";
+import { FindUserInputForm } from "@/interface/auth/find.interface";
+import { ValidateUserInfoRequest } from "@/types/auth";
+import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
 import { useMutation } from "@tanstack/react-query";
-import { Button, Notify, TextField, Typography } from "@ui/components";
-import { AxiosError, isAxiosError } from "axios";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   onNext: (data?: FindUserInputForm) => void;
@@ -21,6 +23,7 @@ interface Props {
 
 const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const pathname = usePathname();
+  const [currentStep, setCurrentStep] = useState<"sending">("sending");
 
   const menu = pathname.includes("find/id")
     ? ["비밀번호 초기화"]
@@ -29,8 +32,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const { register, errors, handleSubmit, watch, setError } =
     useFindUserInputForm();
 
-  const { mutate: onVerifyUserInfoApi } = useMutation({
-    mutationFn: (data: ValidateUserInfoRequest) => postValidateUserInfo(data),
+  const { mutate: onVerifyUserInfoApi, isPending: InfoPending } = useMutation({
+    mutationFn: (data: ValidateUserInfoRequest) => {
+      setCurrentStep("sending");
+      return postValidateUserInfo(data);
+    },
     mutationKey: [
       "validateUserInfo",
       watch("email"),
@@ -38,34 +44,54 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
       watch("name"),
     ],
     onSuccess: (res, variables) => {
+      setCurrentStep("sending");
       onSendEmailCodeApi(variables);
     },
     onError: (error: AxiosError) => {
+      setCurrentStep("sending");
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(error.response?.data.message);
       }
     },
   });
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
-    mutationFn: (data: ValidateUserInfoRequest) =>
-      postSendEmailCode(data.email),
+  const { mutate: onSendEmailCodeApi, isPending: EmailPending } = useMutation({
+    mutationFn: (data: ValidateUserInfoRequest) => {
+      console.log("Sending email code to:", data.email);
+      return postSendEmailCode(data.email);
+    },
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
+      console.log("Email code sent successfully");
+      setCurrentStep("sending");
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
         onNext(variables);
       }
     },
     onError: (error: AxiosError) => {
+      console.log("Email code send error:", error);
+      setCurrentStep("sending");
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(ERROR_MESSAGES.emailCodeSentFailed);
       }
     },
   });
 
+  const isLoadingAll = InfoPending || EmailPending;
+
   const onSubmit = (data: FindUserInputForm) => {
+    if (isLoadingAll) {
+      return;
+    }
+
+    console.log("Starting validation process");
     onVerifyUserInfoApi(data);
+  };
+
+  const getButtonText = () => {
+    if (isLoadingAll) return "처리중...";
+    return "다음";
   };
 
   return (
@@ -89,6 +115,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
+          disabled={isLoadingAll}
           {...register("name", {
             required: ERROR_MESSAGES.usernameInvalid,
             validate: (value) => {
@@ -107,6 +134,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
+          disabled={isLoadingAll}
           {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
@@ -125,6 +153,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
+          disabled={isLoadingAll}
           {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
@@ -145,10 +174,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
             !watch("name") ||
             !watch("phone") ||
             !watch("email") ||
+            isLoadingAll ||
             Object.keys(errors).length > 0
           }
         >
-          다음
+          {getButtonText()}
         </Button>
 
         <SupportMenu menu={menu as SupportMenuItem[]} className="mt-4" />
