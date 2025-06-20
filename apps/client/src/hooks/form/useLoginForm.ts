@@ -19,6 +19,7 @@ export const useLoginForm = () => {
     handleSubmit,
     watch,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm<CommonLoginForm>({
     mode: "onChange",
@@ -65,5 +66,6 @@ export const useLoginForm = () => {
     watch,
     errors,
     onSubmit,
+    clearErrors,
   };
 };
