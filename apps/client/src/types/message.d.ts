@@ -1,3 +1,5 @@
+import { messageType } from "./message.d";
+import { Message } from "@/types/message";
 import { Dayjs } from "dayjs";
 
 export type messageType = "RECEIVE" | "SENT";
@@ -16,11 +18,19 @@ export interface Message {
 
 // 메시지 목록 조회 GET /messages
 export interface MessagePagination {
-  list: Message[];
+  data: Message[];
   size: number;
   nextCursor: number;
   hasNext: boolean;
   empty: boolean;
+}
+
+export interface MessageListRequest {
+  paperId: number;
+  messageType: "RECEIVE" | "SEND";
+  openDate: string;
+  cursorId?: number | null;
+  size?: number;
 }
 
 export interface MessageListResponse {

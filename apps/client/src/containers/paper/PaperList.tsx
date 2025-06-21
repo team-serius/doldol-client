@@ -42,11 +42,19 @@ const PaperListContainer = () => {
         ? lastPage.rollingPaper.nextCursor
         : undefined;
     },
+    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    refetchOnWindowFocus: false, // 윈도우 포커스 시 재조회 방지
   });
 
   // IntersectionObserver로 마지막 요소 감지
   useEffect(() => {
-    if (!observerRef.current || !hasNextPage || isFetchingNextPage) return;
+    if (
+      !observerRef.current ||
+      !hasNextPage ||
+      isFetchingNextPage ||
+      isFetching
+    )
+      return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -90,13 +98,13 @@ const PaperListContainer = () => {
         </Link>
       </div>
 
-      {paperCount > 0 && !isFetching && (
+      {paperCount > 0 && (
         <Typography variant={"b16"} className="mt-6">
           총 <b>{paperCount}개</b>의 롤링페이퍼가 있어요!
         </Typography>
       )}
 
-      {paperCount > 0 && !isFetching ? (
+      {paperCount > 0 ? (
         <div className="flex flex-col gap-4 mt-4">
           {papers.map((paper, index) => (
             <PaperBox key={paper?.paperId ?? index} data={paper} />

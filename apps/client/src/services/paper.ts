@@ -1,5 +1,6 @@
 import {
   PaperCreateResponse,
+  PaperDetailResponse,
   PaperListRequest,
   PaperListResponse,
   PaperRequest,
@@ -19,4 +20,8 @@ export const getPaperList = (data: PaperListRequest) => {
       sortDirection: data.sortDirection,
     },
   });
+};
+
+export const getPaperDetail = (paperId: string) => {
+  return apiClient.get<PaperDetailResponse>(`/papers/${paperId}`);
 };

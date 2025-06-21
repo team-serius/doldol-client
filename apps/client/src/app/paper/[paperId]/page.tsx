@@ -1,7 +1,11 @@
 "use client";
 
 import { TabMenu } from "@/components/common/TabMenu";
+import { getPaperDetail } from "@/services/paper";
 import { PaperDetailResponse } from "@/types/paper";
+import { ShareFill } from "@icons/ShareFill";
+import { useQuery } from "@tanstack/react-query";
+import { Button, Notify } from "@ui/components";
 import dayjs from "dayjs";
 import dynamic from "next/dynamic";
 import { use, useState } from "react";
@@ -17,44 +21,62 @@ const Content = {
   }),
 };
 
-// FIXME: API 연동 후 TEST_DATA 제거
-const TEST_DATA: PaperDetailResponse = {
-  paper: {
-    paperId: 1,
-    name: "테스트 롤링페이퍼",
-    description: "이것은 테스트 롤링페이퍼입니다.",
-    participantsCount: 10,
-    messageCount: 5,
-    openDate: dayjs("2023-10-01T00:00:00Z"),
-  },
-  isMaster: true,
-};
-
 const PaperDetailPage = ({
   params,
 }: {
   params: Promise<{ paperId: string }>;
 }) => {
-  const paperData = TEST_DATA;
   const [tab, setTab] = useState("보낸 메시지");
   const { paperId } = use(params);
+
+  const {
+    data: paperData,
+    refetch,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["getMe"],
+    queryFn: async () => {
+      const response = await getPaperDetail(paperId);
+      return response.data;
+    },
+    retry: false,
+  });
 
   const onTabClick = (item: string) => {
     setTab(item);
   };
 
+  const onCopyInviteLink = () => {
+    if (paperData) {
+      const link = `${window.location.origin}/paper/join/${paperData.code}`;
+      navigator.clipboard.writeText(link).then(() => {
+        Notify.success("초대 링크가 클립보드에 복사되었습니다.");
+      });
+    }
+  };
+
   return (
     <>
+      <Button
+        className="absolute bottom-6 right-6 z-10"
+        variant={"primary"}
+        size={"medium"}
+        shape="circle"
+        onClick={onCopyInviteLink}
+        icon={{ DefaultComponent: ShareFill }}
+      />
       <TabMenu
         menuItems={["보낸 메시지", "받은 메시지"]}
         activeItem={tab}
         onItemClick={onTabClick}
       />
       <div className="px-6 pb-6">
-        {tab === "보낸 메시지" ? (
-          <Content.send paperId={paperId} paperData={paperData} />
-        ) : (
-          <Content.receive paperId={paperId} />
+        {tab === "보낸 메시지" && paperData && paperId && (
+          <Content.send paperId={Number(paperId)} paperData={paperData} />
+        )}
+        {tab === "받은 메시지" && paperData && paperId && (
+          <Content.receive paperId={Number(paperId)} paperData={paperData} />
         )}
       </div>
     </>
