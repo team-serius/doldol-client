@@ -53,19 +53,16 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
 
   const { mutate: onSendEmailCodeApi, isPending: EmailPending } = useMutation({
     mutationFn: (data: ValidateUserInfoRequest) => {
-      console.log("Sending email code to:", data.email);
       return postSendEmailCode(data.email);
     },
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
-      console.log("Email code sent successfully");
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
         onNext(variables);
       }
     },
     onError: (error: AxiosError) => {
-      console.log("Email code send error:", error);
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(ERROR_MESSAGES.emailCodeSentFailed);
       }
@@ -79,7 +76,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
       return;
     }
 
-    console.log("Starting validation process");
     onVerifyUserInfoApi(data);
   };
 
