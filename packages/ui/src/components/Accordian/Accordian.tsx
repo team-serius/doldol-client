@@ -25,14 +25,26 @@ export const Accordian: React.FC<Props> = ({ question, answer }) => {
         <Typography variant={'b20-bold'} className="text-start mx-4">
           {question}
         </Typography>
-        <Icon icon={isOpen ? ArrowSLineUp : ArrowSLineDown} size={24} className="mx-4" />
+        <Icon
+          icon={ArrowSLineDown}
+          size={24}
+          className={`mx-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+        />
       </button>
 
-      {isOpen && (
-        <div className="bg-primary mx-4 text-left">
+      <div
+        className={`
+        overflow-hidden 
+        transition-all 
+        duration-500 ease-in-out
+        mx-4
+        ${isOpen ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}
+      `}
+      >
+        <div className="bg-primary text-left p-4">
           <Typography variant={'b16'}>{answer}</Typography>
         </div>
-      )}
+      </div>
     </div>
   );
 };
