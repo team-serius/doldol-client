@@ -6,15 +6,14 @@ import { useRouter } from "next/navigation";
 import { use, useEffect } from "react";
 
 const TEST_DATA: PaperDetailResponse = {
-  paper: {
-    paperId: 1,
-    name: "테스트 롤링페이퍼",
-    description: "이것은 테스트 롤링페이퍼입니다.",
-    participantsCount: 10,
-    messageCount: 5,
-    openDate: dayjs("2023-10-01T00:00:00Z"),
-  },
+  paperId: 1,
+  name: "테스트 롤링페이퍼",
+  description: "이것은 테스트 롤링페이퍼입니다.",
+  participantsCount: 10,
+  messageCount: 5,
+  openDate: dayjs("2023-10-01T00:00:00Z"),
   isMaster: true,
+  code: "TEST123",
 };
 
 const MessageDetailPage = ({
@@ -38,13 +37,13 @@ const MessageDetailPage = ({
     if (
       !isValidType ||
       !isValidCursor ||
-      !pageData?.paper.openDate.isBefore(dayjs())
+      !pageData?.openDate.isBefore(dayjs())
     ) {
       router.replace(`/paper/${paperId}`);
     }
   }, [pageData, isValidType, isValidCursor, router, paperId]);
 
-  if (pageData?.paper.openDate.isBefore(dayjs())) return null;
+  if (pageData?.openDate.isBefore(dayjs())) return null;
 
   return <>✅ 메시지 상세 페이지 출력</>;
 };
