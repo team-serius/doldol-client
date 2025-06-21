@@ -79,11 +79,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     onVerifyUserInfoApi(data);
   };
 
-  const getButtonText = () => {
-    if (isLoadingAll) return "처리중...";
-    return "다음";
-  };
-
   return (
     <>
       <Typography variant="h24" className="mt-10">
@@ -168,7 +163,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
             Object.keys(errors).length > 0
           }
         >
-          {getButtonText()}
+          {isLoadingAll ? "처리중..." : "다음"}
         </Button>
 
         <SupportMenu menu={menu as SupportMenuItem[]} className="mt-4" />
