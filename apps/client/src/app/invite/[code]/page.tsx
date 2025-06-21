@@ -4,10 +4,10 @@ import { use } from "react";
 const InvitedPaperPage = ({
   params,
 }: {
-  params: Promise<{ paperId: string }>;
+  params: Promise<{ code: string }>;
 }) => {
-  const { paperId } = use(params);
-  return <PaperInviteContainer paperId={paperId} />;
+  const { code } = use(params);
+  return <PaperInviteContainer code={code} />;
 };
 
 export default InvitedPaperPage;

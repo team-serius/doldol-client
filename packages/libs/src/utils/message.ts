@@ -61,6 +61,9 @@ export const HELPER_MESSAGES = {
   emailCodeSentSuccess: "이메일로 인증번호가 전송되었습니다.",
   emailCodeCheckSuccess: "인증번호가 확인되었습니다.",
 
+  /** 롤링페이퍼 */
+  joinPaperSuccess: "새로운 롤링페이퍼에 참여했어요!",
+
   /** 로그인 */
   loginSuccess: "로그인 되었습니다.",
   logoutSuccess: "로그아웃 되었습니다.",

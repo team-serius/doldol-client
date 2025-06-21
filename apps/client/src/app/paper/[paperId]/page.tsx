@@ -2,11 +2,10 @@
 
 import { TabMenu } from "@/components/common/TabMenu";
 import { getPaperDetail } from "@/services/paper";
-import { PaperDetailResponse } from "@/types/paper";
+import { ArrowSLineUp } from "@icons/ArrowSLineUp";
 import { ShareFill } from "@icons/ShareFill";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Notify } from "@ui/components";
-import dayjs from "dayjs";
 import dynamic from "next/dynamic";
 import { use, useState } from "react";
 
@@ -35,7 +34,7 @@ const PaperDetailPage = ({
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["getMe"],
+    queryKey: ["paperDetail", paperId],
     queryFn: async () => {
       const response = await getPaperDetail(paperId);
       return response.data;
@@ -47,24 +46,22 @@ const PaperDetailPage = ({
     setTab(item);
   };
 
-  const onCopyInviteLink = () => {
-    if (paperData) {
-      const link = `${window.location.origin}/paper/join/${paperData.code}`;
-      navigator.clipboard.writeText(link).then(() => {
-        Notify.success("초대 링크가 클립보드에 복사되었습니다.");
-      });
-    }
+  const onScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
     <>
       <Button
-        className="absolute bottom-6 right-6 z-10"
+        className="fixed bottom-6 right-6 z-10"
         variant={"primary"}
         size={"medium"}
         shape="circle"
-        onClick={onCopyInviteLink}
-        icon={{ DefaultComponent: ShareFill }}
+        onClick={onScrollToTop}
+        icon={{ DefaultComponent: ArrowSLineUp }}
       />
       <TabMenu
         menuItems={["보낸 메시지", "받은 메시지"]}

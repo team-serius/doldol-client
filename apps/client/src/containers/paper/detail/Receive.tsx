@@ -11,6 +11,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMessageList } from "@/services/message";
 import { useEffect, useRef } from "react";
 import useMe from "@/hooks/useMe";
+import { ShareFill } from "@icons/ShareFill";
 
 interface Props {
   paperData: PaperDetailResponse;
@@ -95,9 +96,9 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
             variant={"outlined"}
             size={"medium"}
             wide
-            icon={{ DefaultComponent: SettingFill }}
+            icon={{ DefaultComponent: ShareFill }}
           >
-            롤링페이퍼 관리
+            롤링페이퍼 공유
           </Button>
         )}
       </div>

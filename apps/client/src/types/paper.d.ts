@@ -52,7 +52,6 @@ export interface PaperDetailResponse {
   code: string;
 }
 
-// 롤링페이퍼 참여 POST /papers/join
 export interface JoinPaperRequest {
   invitationCode: string;
 }
@@ -61,4 +60,13 @@ export interface PaperListRequest {
   cursorId: number | null;
   size: number;
   sortDirection: PaperListSort;
+}
+
+export interface PaperInviteResponse {
+  paperId: number;
+  name: string;
+  description: string;
+  participantsCount: number;
+  messageCount: number;
+  openDate: Dayjs;
 }

@@ -10,7 +10,7 @@ interface Props {
 
 const PaperCreateCompleteContainer: React.FC<Props> = ({ data }) => {
   const onCopyLink = () => {
-    const link = `${window.location.origin}/paper/join/${data.code}`;
+    const link = `${window.location.origin}/invite/${data.code}`;
     navigator.clipboard
       .writeText(link)
       .then(() => {
