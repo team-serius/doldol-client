@@ -1,25 +1,44 @@
-import { Button, TextField, Typography } from "@ui/components";
+import { Button, Notify, TextField, Typography } from "@ui/components";
 
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Icon } from "@ui/components/Icon";
-import { PaperRequest } from "@/types/paper";
+import { PaperCreateResponse, PaperRequest } from "@/types/paper";
 import PopOver from "@ui/components/PopOver/PopOver";
 import { QuestionFill } from "@icons/QuestionFill";
 import cx from "clsx";
 import { useCreatePaperForm } from "@/hooks/form/useCreatePaperForm";
+import { postPaper } from "@/services/paper";
+import { ErrorDTO } from "@/types/error";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError, isAxiosError } from "axios";
 
 interface Props {
-  onNext: () => void;
+  onNext: (data: PaperCreateResponse) => void;
 }
 
 const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
-  const { register, handleSubmit, watch, errors, onCreatePaperApi } =
-    useCreatePaperForm();
+  const { register, handleSubmit, watch, errors } = useCreatePaperForm();
 
   const onSubmit = async (data: PaperRequest) => {
     onCreatePaperApi(data);
-    onNext(); // 롤링페이퍼 생성 후 다음 단계로 이동
   };
+
+  const { mutate: onCreatePaperApi } = useMutation({
+    mutationFn: (data: PaperRequest) => postPaper(data),
+
+    mutationKey: ["createPaper", watch("name"), watch("description")],
+    onSuccess: (res) => {
+      if (res) {
+        Notify.success("롤링페이퍼가 생성되었습니다.");
+        onNext(res.data);
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error("롤링페이퍼 생성에 실패했습니다.");
+      }
+    },
+  });
 
   return (
     <>

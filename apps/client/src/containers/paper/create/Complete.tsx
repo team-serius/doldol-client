@@ -1,17 +1,26 @@
-import { Button, Typography } from "@ui/components";
+import { Button, Notify, Typography } from "@ui/components";
 
 import Link from "next/link";
+import { PaperCreateResponse } from "@/types/paper";
 import dayjs from "dayjs";
 
-const TEST_DATA = {
-  id: "test",
-  name: "[KB] IT's Your Life 6기 16회차",
-  description: "KB IT's Your Life 6기 16회차 롤링페이퍼입니다.",
-  openDate: dayjs("2023-10-01T12:00:00Z"),
-};
+interface Props {
+  data: PaperCreateResponse;
+}
 
-const PaperCreateCompleteContainer: React.FC = () => {
-  const data = TEST_DATA;
+const PaperCreateCompleteContainer: React.FC<Props> = ({ data }) => {
+  const onCopyLink = () => {
+    const link = `${window.location.origin}/paper/join/${data.code}`;
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        Notify.success("초대 링크가 복사되었습니다.");
+      })
+      .catch(() => {
+        Notify.error("초대 링크 복사에 실패했습니다.");
+      });
+  };
+
   return (
     <>
       <Typography variant="h24" className="mt-10">
@@ -40,11 +49,16 @@ const PaperCreateCompleteContainer: React.FC = () => {
         메시지 공개 날짜
       </Typography>
       <Typography variant="b16" className="mt-2">
-        {data.openDate.format("YY년 MM월 DD일")}
+        {dayjs(data.openDate).format("YYYY년 MM월 DD일")}
       </Typography>
 
-      {/* TODO: 링크 복사  */}
-      <Button variant={"primary"} size={"large"} wide className="mt-10 mb-4">
+      <Button
+        variant={"primary"}
+        size={"large"}
+        wide
+        className="mt-10 mb-4"
+        onClick={onCopyLink}
+      >
         초대 링크 공유하기
       </Button>
       <Link href={"/paper"}>

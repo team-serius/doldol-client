@@ -1,6 +1,7 @@
 "use client";
 
 import { withAuth } from "@/components/HOC/withAuth";
+import { PaperCreateResponse } from "@/types/paper";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
@@ -19,15 +20,17 @@ const Content = {
 
 const PaperCreatePage = () => {
   const [stage, setStage] = useState<PaperCreateStage>("create");
+  const [pageInfo, setPageInfo] = useState<PaperCreateResponse | null>(null);
 
-  const onNext = () => {
+  const onNext = (data: PaperCreateResponse) => {
+    setPageInfo(data);
     setStage("complete");
   };
 
   return (
     <div className="px-6 pb-10">
       {stage === "create" && <Content.create onNext={onNext} />}
-      {stage === "complete" && <Content.complete />}
+      {stage === "complete" && pageInfo && <Content.complete data={pageInfo} />}
     </div>
   );
 };

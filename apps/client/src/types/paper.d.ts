@@ -1,7 +1,7 @@
 // import { MessageResponse } from './message';
 
 import { PaperListSort } from "@/enum/sort.enum";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 export interface Paper {
   paperId: number;
@@ -36,8 +36,8 @@ export interface PaperRequest {
 export interface PaperCreateResponse {
   name: string;
   description: string;
-  openDate: string;
-  link: string;
+  openDate: dayjs;
+  code: string;
 }
 
 // 롤링페이퍼 개별 조회 GET /papers/{id}
