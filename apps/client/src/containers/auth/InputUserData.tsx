@@ -23,7 +23,6 @@ interface Props {
 
 const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const pathname = usePathname();
-  const [currentStep, setCurrentStep] = useState<"sending">("sending");
 
   const menu = pathname.includes("find/id")
     ? ["비밀번호 초기화"]
@@ -34,7 +33,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
 
   const { mutate: onVerifyUserInfoApi, isPending: InfoPending } = useMutation({
     mutationFn: (data: ValidateUserInfoRequest) => {
-      setCurrentStep("sending");
       return postValidateUserInfo(data);
     },
     mutationKey: [
@@ -44,11 +42,9 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
       watch("name"),
     ],
     onSuccess: (res, variables) => {
-      setCurrentStep("sending");
       onSendEmailCodeApi(variables);
     },
     onError: (error: AxiosError) => {
-      setCurrentStep("sending");
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(error.response?.data.message);
       }
@@ -63,7 +59,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
       console.log("Email code sent successfully");
-      setCurrentStep("sending");
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
         onNext(variables);
@@ -71,7 +66,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     },
     onError: (error: AxiosError) => {
       console.log("Email code send error:", error);
-      setCurrentStep("sending");
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(ERROR_MESSAGES.emailCodeSentFailed);
       }
