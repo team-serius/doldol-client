@@ -14,7 +14,7 @@ export interface Paper {
 
 // 롤링페이퍼 리스트 GET /papers
 export interface PaperPagination {
-  list: Paper[];
+  data: Paper[];
   size: number;
   nextCursor: number;
   hasNext: boolean;
@@ -52,7 +52,7 @@ export interface JoinPaperRequest {
 }
 
 export interface PaperListRequest {
-  cursorId: number;
+  cursorId: number | null;
   size: number;
   sortDirection: PaperListSort;
 }

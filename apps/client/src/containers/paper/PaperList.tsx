@@ -28,12 +28,14 @@ const PaperListContainer = () => {
     queryKey: ["paperList", sort],
     queryFn: ({ pageParam = 0 }) =>
       getPaperList({
-        cursorId: pageParam,
+        cursorId: pageParam === 0 ? null : pageParam,
         size: 10,
         sortDirection:
           PaperListSort[sort as keyof typeof PaperListSort] ||
           PaperListSort.LATEST,
-      }).then((res) => res.data),
+      }).then((res) => {
+        return res.data;
+      }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       return lastPage.rollingPaper.hasNext
@@ -64,8 +66,8 @@ const PaperListContainer = () => {
     setSort(item.id);
   };
 
-  const papers = data?.pages.flatMap((page) => page.rollingPaper.list) ?? [];
-  const paperCount = data?.pages[0]?.paperCount ?? 0;
+  const papers = data?.pages.flatMap((page) => page.rollingPaper.data) ?? [];
+  const paperCount = data?.pages[0].paperCount ?? 0;
 
   return (
     <>
@@ -88,16 +90,16 @@ const PaperListContainer = () => {
         </Link>
       </div>
 
-      {paperCount > 0 && (
+      {paperCount > 0 && !isFetching && (
         <Typography variant={"b16"} className="mt-6">
           총 <b>{paperCount}개</b>의 롤링페이퍼가 있어요!
         </Typography>
       )}
 
-      {paperCount > 0 ? (
+      {paperCount > 0 && !isFetching ? (
         <div className="flex flex-col gap-4 mt-4">
-          {papers.map((paper) => (
-            <PaperBox key={paper.paperId} data={paper} />
+          {papers.map((paper, index) => (
+            <PaperBox key={paper?.paperId ?? index} data={paper} />
           ))}
           <div ref={observerRef} className="h-10" />
         </div>
