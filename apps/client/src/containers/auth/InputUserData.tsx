@@ -1,19 +1,21 @@
-import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
-import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
-import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { postSendEmailCode, postValidateUserInfo } from "@/services/auth";
-import { ValidateUserInfoRequest } from "@/types/auth";
-import { ErrorDTO } from "@/types/error";
+import { AxiosError, isAxiosError } from "axios";
+import { Button, Notify, TextField, Typography } from "@ui/components";
 import {
-  PHONE_REGEX,
   EMAIL_REGEX,
   KOREAN_NAME_REGEX,
+  PHONE_REGEX,
 } from "@libs/constants/regex";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
+import { postSendEmailCode, postValidateUserInfo } from "@/services/auth";
+
+import { ErrorDTO } from "@/types/error";
+import { FindUserInputForm } from "@/interface/auth/find.interface";
+import { ValidateUserInfoRequest } from "@/types/auth";
+import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
 import { useMutation } from "@tanstack/react-query";
-import { Button, Notify, TextField, Typography } from "@ui/components";
-import { AxiosError, isAxiosError } from "axios";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   onNext: (data?: FindUserInputForm) => void;
@@ -29,8 +31,10 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const { register, errors, handleSubmit, watch, setError } =
     useFindUserInputForm();
 
-  const { mutate: onVerifyUserInfoApi } = useMutation({
-    mutationFn: (data: ValidateUserInfoRequest) => postValidateUserInfo(data),
+  const { mutate: onVerifyUserInfoApi, isPending: InfoPending } = useMutation({
+    mutationFn: (data: ValidateUserInfoRequest) => {
+      return postValidateUserInfo(data);
+    },
     mutationKey: [
       "validateUserInfo",
       watch("email"),
@@ -49,9 +53,10 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     },
   });
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
-    mutationFn: (data: ValidateUserInfoRequest) =>
-      postSendEmailCode(data.email),
+  const { mutate: onSendEmailCodeApi, isPending: EmailPending } = useMutation({
+    mutationFn: (data: ValidateUserInfoRequest) => {
+      return postSendEmailCode(data.email);
+    },
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
       if (res) {
@@ -66,7 +71,13 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     },
   });
 
+  const isLoadingAll = InfoPending || EmailPending;
+
   const onSubmit = (data: FindUserInputForm) => {
+    if (isLoadingAll) {
+      return;
+    }
+
     onVerifyUserInfoApi(data);
   };
 
@@ -91,6 +102,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
+          disabled={isLoadingAll}
           {...register("name", {
             required: ERROR_MESSAGES.usernameInvalid,
             validate: (value) => {
@@ -109,6 +121,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
+          disabled={isLoadingAll}
           {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
@@ -127,6 +140,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
+          disabled={isLoadingAll}
           {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
@@ -147,10 +161,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
             !watch("name") ||
             !watch("phone") ||
             !watch("email") ||
+            isLoadingAll ||
             Object.keys(errors).length > 0
           }
         >
-          다음
+          {isLoadingAll ? "처리중..." : "다음"}
         </Button>
 
         <SupportMenu menu={menu as SupportMenuItem[]} className="mt-4" />
