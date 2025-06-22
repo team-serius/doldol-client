@@ -34,7 +34,7 @@ const AuthLoginContainer = () => {
           {recentLogin && (
             <div
               className={cx(
-                "absolute right-4 z-10",
+                "absolute right-2 z-10",
                 recentLogin === "email" && "top-2",
                 recentLogin === "KAKAO" && "top-20",
               )}

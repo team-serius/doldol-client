@@ -42,9 +42,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     },
     onError: (error: AxiosError) => {
       if (isAxiosError<ErrorDTO>(error)) {
-        setError("email", {
-          message: error.response?.data.message || "일치하는 정보가 없습니다.",
-        });
+        Notify.error(error.response?.data.message);
       }
     },
   });

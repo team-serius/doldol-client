@@ -1,5 +1,5 @@
 import { Button, Typography } from "@ui/components";
-import { act, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import cx from "clsx";
