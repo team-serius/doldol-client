@@ -1,13 +1,14 @@
-import { IS_DEV } from "@/lib/config/env";
-import { postOauthRegister, postRegister } from "@/services/auth";
-import { OAuthRegisterRequest, RegisterRequest } from "@/types/auth";
-import { ErrorDTO } from "@/types/error";
-import { ERROR_MESSAGES } from "@libs/utils/message";
-import { useMutation } from "@tanstack/react-query";
-import { Button, Notify, Typography } from "@ui/components";
 import { AxiosError, isAxiosError } from "axios";
+import { Button, Notify, Typography } from "@ui/components";
+import { OAuthRegisterRequest, RegisterRequest } from "@/types/auth";
+import { postOauthRegister, postRegister } from "@/services/auth";
+
+import { ERROR_MESSAGES } from "@libs/utils/message";
+import { ErrorDTO } from "@/types/error";
+import { IS_DEV } from "@/lib/config/env";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 interface Props {
   userData: RegisterRequest | OAuthRegisterRequest;
@@ -29,7 +30,7 @@ const RegisterCompleteContainer: React.FC<Props> = ({ userData, isSocial }) => {
     },
   });
 
-  const { mutate: onRegisterCommon } = useMutation({
+  const { mutate: onRegisterCommon, isPending } = useMutation({
     mutationFn: (data: RegisterRequest) => postRegister(data),
 
     mutationKey: ["commonRegister", userData],
@@ -56,13 +57,19 @@ const RegisterCompleteContainer: React.FC<Props> = ({ userData, isSocial }) => {
   return (
     <>
       <Typography variant="h24" className="my-10">
-        가입이 완료됐어요!
+        {isPending ? "가입 중입니다..." : "가입이 완료됐어요!"}
         <br />
-        돌돌과 함께 마음을 나눠봐요.
+        {!isPending && "돌돌과 함께 마음을 나눠봐요."}
       </Typography>
       <Link href={"/auth/login"} className="mt-10 w-full">
-        <Button variant={"secondary"} size={"large"} type="submit" wide>
-          로그인 하러 가기
+        <Button
+          variant={"secondary"}
+          size={"large"}
+          type="submit"
+          wide
+          disabled={isPending}
+        >
+          {isPending ? "가입 중..." : "로그인 하러 가기"}
         </Button>
       </Link>
     </>

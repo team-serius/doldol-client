@@ -32,7 +32,7 @@ export const useRegisterForm = () => {
     },
   });
 
-  const { mutate: onCheckIdApi } = useMutation({
+  const { mutate: onCheckIdApi, isPending } = useMutation({
     mutationFn: (id: string) => postCheckId(id),
     mutationKey: ["checkId", watch("id")],
     onSuccess: () => {
@@ -48,6 +48,8 @@ export const useRegisterForm = () => {
   });
 
   const onCheckIdDuplicate = async () => {
+    if (isPending) return;
+
     const id = watch("id");
     if (!id) {
       setError("id", { message: "아이디를 입력해주세요." });
@@ -91,5 +93,6 @@ export const useRegisterForm = () => {
     onToggleAll,
     onCheckIdDuplicate,
     onChangeId,
+    isPending,
   };
 };

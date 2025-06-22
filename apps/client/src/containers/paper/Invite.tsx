@@ -1,16 +1,16 @@
 "use client";
 
-import { Button, Notify, Typography } from "@ui/components";
-
-import useMe from "@/hooks/useMe";
-import { useRouter } from "next/navigation";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getPaperInvite, postJoinPaper } from "@/services/paper";
-import { HELPER_MESSAGES } from "@libs/utils/message";
 import { AxiosError, isAxiosError } from "axios";
+import { Button, Notify, Typography } from "@ui/components";
+import { getPaperInvite, postJoinPaper } from "@/services/paper";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
 import { ErrorDTO } from "@/types/error";
+import { HELPER_MESSAGES } from "@libs/utils/message";
 import Image from "next/image";
 import dayjs from "dayjs";
+import useMe from "@/hooks/useMe";
+import { useRouter } from "next/navigation";
 
 interface Props {
   code: string;
@@ -35,7 +35,7 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
     retry: false,
   });
 
-  const { mutate: onJoinPaperApi } = useMutation({
+  const { mutate: onJoinPaperApi, isPending } = useMutation({
     mutationFn: (invitationCode: string) => {
       return postJoinPaper(invitationCode);
     },
@@ -54,6 +54,7 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
   });
 
   const onClickParticipate = () => {
+    if (isPending) return;
     if (!user) {
       Notify.error("서비스를 이용하려면 로그인이 필요해요.");
       router.push("/auth/login");
@@ -118,8 +119,9 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
             wide
             className="mt-10"
             onClick={onClickParticipate}
+            disabled={isPending}
           >
-            참여하기
+            {isPending ? "참여 중..." : "참여하기"}
           </Button>
         </>
       )}

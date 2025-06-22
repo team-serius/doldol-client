@@ -47,17 +47,15 @@ const ProfileContainer = () => {
   };
 
   // 회원 탈퇴
-  const { mutate: withdrawMutation } = useMutation({
+  const { mutate: withdrawMutation, isPending } = useMutation({
     mutationFn: postWithdraw,
     onSuccess: () => {
-      console.log("탈퇴 성공");
       Notify.success("이용해주셔서 감사합니다.");
       setUserData(null);
       queryClient.clear();
       router.replace("/");
     },
     onError: (error: any) => {
-      console.error("회원 탈퇴 오류 발생:", error);
       const errorMessage = error.message || "알 수 없는 오류가 발생했습니다.";
       Notify.error(`탈퇴 실패: ${errorMessage}`);
     },
@@ -166,7 +164,7 @@ const ProfileContainer = () => {
       <Typography
         variant="b18-bold"
         className="mt-4 text-left w-full hover:text-green-1"
-        onClick={onWithdraw}
+        onClick={isPending ? undefined : onWithdraw}
       >
         탈퇴하기
       </Typography>

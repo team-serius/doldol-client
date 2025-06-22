@@ -1,15 +1,16 @@
 "use client";
 
-import { useMessageForm } from "@/hooks/form/useMessageForm";
-import { postMessage } from "@/services/message";
-import { ErrorDTO } from "@/types/error";
-import { CreateMessageRequest } from "@/types/message";
-import { HELPER_MESSAGES } from "@libs/utils/message";
-import { useMutation } from "@tanstack/react-query";
-import { Notify } from "@ui/components";
 import { AxiosError, isAxiosError } from "axios";
-import dynamic from "next/dynamic";
 import { use, useEffect, useState } from "react";
+
+import { CreateMessageRequest } from "@/types/message";
+import { ErrorDTO } from "@/types/error";
+import { HELPER_MESSAGES } from "@libs/utils/message";
+import { Notify } from "@ui/components";
+import dynamic from "next/dynamic";
+import { postMessage } from "@/services/message";
+import { useMessageForm } from "@/hooks/form/useMessageForm";
+import { useMutation } from "@tanstack/react-query";
 
 type MessageEditStage =
   | "selectPerson"
@@ -106,6 +107,8 @@ const MessageEditPage = ({
         setStage("checkMessage");
         break;
       case "checkMessage":
+        if (isPending) return;
+
         onPostMessageApi({
           paperId: Number(paperId),
           receiverId: Number(watch("receiverId")),

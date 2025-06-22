@@ -17,7 +17,7 @@ interface Props {
 const FindIdComplete: React.FC<Props> = ({ userData }) => {
   const [result, setResult] = useState<string | null>(null);
 
-  const { mutate: onFindIdApi } = useMutation({
+  const { mutate: onFindIdApi, isPending } = useMutation({
     mutationFn: (email: string) => getFindId(email),
 
     mutationKey: ["findId", userData.email],
@@ -48,12 +48,14 @@ const FindIdComplete: React.FC<Props> = ({ userData }) => {
         아이디
       </Typography>
       <Typography variant="b16" className="mt-4 mb-20">
-        {result ?? "소셜 로그인으로 가입한 회원입니다."}
+        {isPending
+          ? "아이디를 찾는 중입니다..."
+          : (result ?? "소셜 로그인으로 가입한 회원입니다.")}
       </Typography>
 
       <Link href={"/auth/login"}>
-        <Button variant={"secondary"} size={"large"} wide>
-          로그인 하러가기
+        <Button variant={"secondary"} size={"large"} wide disabled={isPending}>
+          {isPending ? "처리 중..." : "로그인 하러가기"}
         </Button>
       </Link>
     </>
