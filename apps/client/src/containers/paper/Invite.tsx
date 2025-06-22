@@ -5,11 +5,12 @@ import { Button, Notify, Typography } from "@ui/components";
 import useMe from "@/hooks/useMe";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getPaperDetail, postJoinPaper } from "@/services/paper";
+import { getPaperInvite, postJoinPaper } from "@/services/paper";
 import { HELPER_MESSAGES } from "@libs/utils/message";
 import { AxiosError, isAxiosError } from "axios";
 import { ErrorDTO } from "@/types/error";
 import Image from "next/image";
+import dayjs from "dayjs";
 
 interface Props {
   code: string;
@@ -28,7 +29,7 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
   } = useQuery({
     queryKey: ["paperInvite", code],
     queryFn: async () => {
-      const response = await getPaperDetail(code);
+      const response = await getPaperInvite(code);
       return response.data;
     },
     retry: false,
@@ -93,18 +94,22 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
           <Typography element="h3" variant="b16-medium" className="mt-4">
             단체 이름
           </Typography>
-          <Typography variant="b16-medium" className="mt-10">
+          <Typography variant="b16" className="mt-2">
+            {paperData?.name}
+          </Typography>
+
+          <Typography element="h3" variant="b16-medium" className="mt-10">
             설명
           </Typography>
           <Typography variant="b16" className="mt-2">
             {paperData?.description}
           </Typography>
 
-          <Typography variant="b16-medium" className="mt-10">
+          <Typography element="h3" variant="b16-medium" className="mt-10">
             메시지 공개 날짜
           </Typography>
           <Typography variant="b16" className="mt-2">
-            {paperData?.openDate.format("YY년 MM월 DD일")}
+            {dayjs(paperData?.openDate).format("YY년 MM월 DD일")}
           </Typography>
 
           <Button

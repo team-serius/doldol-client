@@ -18,3 +18,14 @@ export const getColorFromString = (str: string): string => {
 
   return availableColors[index];
 };
+
+export const getRandomColor = () => {
+  const colors = [
+    "bg-primary-brand",
+    "bg-green-1",
+    "bg-purple-1",
+    "bg-red-1",
+    "bg-yellow-1",
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+};

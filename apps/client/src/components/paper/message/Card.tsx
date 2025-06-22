@@ -1,5 +1,5 @@
 import { Message } from "@/types/message";
-import { getBgColorClass, getTextColor } from "@/utils/messageStyle";
+import { getTextColor } from "@/utils/messageStyle";
 import { Typography } from "@ui/components";
 import cx from "clsx";
 
@@ -10,15 +10,13 @@ interface Props {
 }
 
 export const MessageCard: React.FC<Props> = ({ data, isBlurred, isOdd }) => {
-  const bgClass = getBgColorClass(data.backgroundColor);
-  const textClass = getTextColor(data.backgroundColor);
-
   return (
     <article
       className={cx(
         "w-28 h-36 p-2 rounded-lg shadow-xl grid grid-rows-5",
-        bgClass,
-        textClass,
+        data.backgroundColor,
+        getTextColor(data.backgroundColor),
+        data.fontStyle,
         isOdd ? "-rotate-3" : "rotate-3",
         isBlurred && "blur-sm",
       )}

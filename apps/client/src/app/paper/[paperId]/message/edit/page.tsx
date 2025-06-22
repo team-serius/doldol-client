@@ -1,5 +1,13 @@
 "use client";
 
+import { useMessageForm } from "@/hooks/form/useMessageForm";
+import { postMessage } from "@/services/message";
+import { ErrorDTO } from "@/types/error";
+import { CreateMessageRequest } from "@/types/message";
+import { HELPER_MESSAGES } from "@libs/utils/message";
+import { useMutation } from "@tanstack/react-query";
+import { Notify } from "@ui/components";
+import { AxiosError, isAxiosError } from "axios";
 import dynamic from "next/dynamic";
 import { use, useEffect, useState } from "react";
 
@@ -21,10 +29,10 @@ const Content = {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
-  // checkMessage: dynamic(() => import("@/containers/paper/message/Check"), {
-  //     ssr: false,
-  //     loading: () => <div>Loading...</div>, // 스켈레톤 대체
-  // }),
+  checkMessage: dynamic(() => import("@/containers/paper/message/Check"), {
+    ssr: false,
+    loading: () => <div>Loading...</div>, // 스켈레톤 대체
+  }),
   // complete: dynamic(() => import("@/containers/paper/message/Complete"), {
   //     ssr: false,
   //     loading: () => <div>Loading...</div>, // 스켈레톤 대체
@@ -41,25 +49,72 @@ const MessageEditPage = ({
   const { paperId } = use(params);
   const { messageId } = use(searchParams);
   const [stage, setStage] = useState<MessageEditStage>("selectPerson");
-  const [targetPerson, setTargetPerson] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+
+  const { setValue, register, watch, errors } = useMessageForm();
+
+  const {
+    mutate: onPostMessageApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
+    mutationFn: (data: CreateMessageRequest) => {
+      return postMessage(data);
+    },
+    mutationKey: ["postMessage", watch("paperId"), watch("receiverId")],
+    onSuccess: (res) => {
+      if (res) {
+        Notify.success(HELPER_MESSAGES.createMessageSuccess);
+        setStage("complete");
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(error.response?.data.message);
+      }
+    },
+  });
 
   useEffect(() => {
     if (messageId) {
+      // 수정 모드
       // TODO: API 호출로 메시지 데이터 가져오기, 대상 유저 설정
-      setTargetPerson("exampleUserId"); // 예시로 설정, 실제로는 API 호출 후 설정
       setStage("editMessage");
     }
   }, [messageId]);
 
-  const onNext = (userId?: string) => {
+  const onNext = (userId?: string, userName?: string) => {
     switch (stage) {
       case "selectPerson":
         if (userId) {
-          setTargetPerson(userId);
+          setValue("receiverId", Number(userId));
           setStage("editMessage");
         }
+        if (userName) {
+          setUserName(userName);
+        }
         break;
-      // case "editMessage":
+      case "editMessage":
+        if (errors.content) {
+          Notify.error(errors.content.message);
+          return;
+        }
+        if (errors.from) {
+          Notify.error(errors.from.message);
+          return;
+        }
+        setStage("checkMessage");
+        break;
+      case "checkMessage":
+        onPostMessageApi({
+          paperId: Number(paperId),
+          receiverId: Number(watch("receiverId")),
+          content: watch("content"),
+          from: watch("from"),
+          fontStyle: watch("fontStyle"),
+          backgroundColor: watch("backgroundColor"),
+        });
+        break;
     }
   };
 
@@ -69,11 +124,21 @@ const MessageEditPage = ({
         <Content.selectPerson paperId={paperId} onNext={onNext} />
       )}
       {stage === "editMessage" && (
-        <Content.editMessage paperId={paperId} messageId={messageId} />
+        <Content.editMessage
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          onNext={onNext}
+        />
       )}
-      {/* stage === "checkMessage" && (
-            <Content.checkMessage paperId={paperId} messageId={messageId} />
-        )} */}
+      {stage === "checkMessage" && userName && (
+        <Content.checkMessage
+          watch={watch}
+          userName={userName}
+          onNext={onNext}
+          isLoading={isPending || isSuccess}
+        />
+      )}
       {/* stage === "complete" && (
             <Content.complete paperId={paperId} messageId={messageId} />
         )} */}

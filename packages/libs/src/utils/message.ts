@@ -32,6 +32,7 @@ export const ERROR_MESSAGES = {
   paperNameRequired: "롤링페이퍼 이름을 입력해주세요.",
   paperDescriptionRequired: "롤링페이퍼 설명을 입력해주세요.",
   paperOpenDateRequired: "롤링페이퍼 오픈 날짜를 입력해주세요.",
+  messageContentInvalid: "메시지 내용은 1자 이상 120자 이하로 입력해주세요.",
 
   /** 기타 */
   blockRecirect:
@@ -63,6 +64,7 @@ export const HELPER_MESSAGES = {
 
   /** 롤링페이퍼 */
   joinPaperSuccess: "새로운 롤링페이퍼에 참여했어요!",
+  createMessageSuccess: "새로운 메시지가 작성되었습니다.",
 
   /** 로그인 */
   loginSuccess: "로그인 되었습니다.",

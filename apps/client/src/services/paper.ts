@@ -34,5 +34,5 @@ export const getPaperInvite = (code: string) => {
 };
 
 export const postJoinPaper = (invitationCode: string) => {
-  return apiClient.post("/papers/join", invitationCode);
+  return apiClient.post("/papers/join", { invitationCode });
 };

@@ -4,10 +4,17 @@ export interface Participant {
   name: string;
 }
 
+export interface ParticipantRequest {
+  id: number;
+  cursorName: string | null;
+  cursorId: number | null;
+  size?: number;
+}
+
 export interface CursorPageParticipantResponse {
-  list: Participant[];
+  data: Participant[];
   size: number;
-  nextCusor: {
+  nextCursor: {
     cursorName: string;
     cursorId: number;
   };

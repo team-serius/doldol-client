@@ -1,4 +1,4 @@
-import { MessageListRequest } from "@/types/message";
+import { CreateMessageRequest, MessageListRequest } from "@/types/message";
 import { apiClient } from "./apiClient";
 
 export const getMessageList = (data: MessageListRequest) => {
@@ -11,4 +11,8 @@ export const getMessageList = (data: MessageListRequest) => {
       size: data.size ?? 10, // 기본값 설정
     },
   });
+};
+
+export const postMessage = (data: CreateMessageRequest) => {
+  return apiClient.post("/messages", data);
 };

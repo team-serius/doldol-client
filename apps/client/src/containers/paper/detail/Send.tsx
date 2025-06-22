@@ -90,14 +90,16 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
         <span className="truncate block">{paperData.name}</span>
       </Typography>
       <div className="grid grid-cols-2 gap-5 mt-4">
-        <Button
-          variant="outlined"
-          size="medium"
-          wide
-          icon={{ DefaultComponent: SendFill }}
-        >
-          메시지 작성하기
-        </Button>
+        <Link href={`/paper/${paperId}/message/edit`}>
+          <Button
+            variant="outlined"
+            size="medium"
+            wide
+            icon={{ DefaultComponent: SendFill }}
+          >
+            메시지 작성하기
+          </Button>
+        </Link>
         {paperData.isMaster && (
           <Button
             variant={"outlined"}
