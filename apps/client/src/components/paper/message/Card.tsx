@@ -7,9 +7,15 @@ interface Props {
   data: Message;
   isBlurred?: boolean;
   isOdd: boolean;
+  isSend?: boolean;
 }
 
-export const MessageCard: React.FC<Props> = ({ data, isBlurred, isOdd }) => {
+export const MessageCard: React.FC<Props> = ({
+  data,
+  isBlurred,
+  isOdd,
+  isSend,
+}) => {
   return (
     <article
       className={cx(
@@ -26,12 +32,16 @@ export const MessageCard: React.FC<Props> = ({ data, isBlurred, isOdd }) => {
           "whitespace-pre-line mb-4 text-sm leading-relaxed row-span-4 truncate",
         )}
       >
-        {isBlurred
+        {isBlurred && !isSend
           ? "아직은 메시지를 볼 수 없다 돌돌! 메시지가 오픈될 때까지 조금만 기다려달라 돌돌!"
           : data.content}
       </p>
-      <Typography element="footer" variant={"b12-bold"}>
-        To. {data.name}
+      <Typography
+        element="footer"
+        variant={"b12-bold"}
+        className="flex gap-1 items-center"
+      >
+        {isSend ? "To." : "From."} <div className="w-16 truncate"></div>
       </Typography>
     </article>
   );

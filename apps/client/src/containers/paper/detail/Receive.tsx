@@ -5,7 +5,6 @@ import Link from "next/link";
 import { MessageCard } from "@/components/paper/message/Card";
 import { PaperDetailResponse } from "@/types/paper";
 import { SendFill } from "@icons/SendFill";
-import { SettingFill } from "@icons/SettingFill";
 import dayjs from "dayjs";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMessageList } from "@/services/message";

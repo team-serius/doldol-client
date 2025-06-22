@@ -5,7 +5,6 @@ import Link from "next/link";
 import { MessageCard } from "@/components/paper/message/Card";
 import { PaperDetailResponse } from "@/types/paper";
 import { SendFill } from "@icons/SendFill";
-import { SettingFill } from "@icons/SettingFill";
 import dayjs from "dayjs";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMessageList } from "@/services/message";
@@ -112,7 +111,7 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
           </Button>
         )}
       </div>
-      {messageCount > 0 && !isFetching ? (
+      {messageCount > 0 ? (
         <>
           <Typography variant="b16" className="mt-4 text-gray-600">
             총 <b>{messageCount}개</b>의 메시지를 작성했어요!
@@ -133,6 +132,7 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
                   key={message.messageId}
                   data={message}
                   isOdd={index % 2 === 1}
+                  isSend
                 />
               </Link>
             ))}
