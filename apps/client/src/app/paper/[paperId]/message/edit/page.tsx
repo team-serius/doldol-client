@@ -33,10 +33,10 @@ const Content = {
     ssr: false,
     loading: () => <div>Loading...</div>, // 스켈레톤 대체
   }),
-  // complete: dynamic(() => import("@/containers/paper/message/Complete"), {
-  //     ssr: false,
-  //     loading: () => <div>Loading...</div>, // 스켈레톤 대체
-  // }),
+  complete: dynamic(() => import("@/containers/paper/message/Complete"), {
+    ssr: false,
+    loading: () => <div>Loading...</div>, // 스켈레톤 대체
+  }),
 };
 
 const MessageEditPage = ({
@@ -139,9 +139,9 @@ const MessageEditPage = ({
           isLoading={isPending || isSuccess}
         />
       )}
-      {/* stage === "complete" && (
-            <Content.complete paperId={paperId} messageId={messageId} />
-        )} */}
+      {stage === "complete" && userName && (
+        <Content.complete paperId={paperId} userName={userName} />
+      )}
     </div>
   );
 };

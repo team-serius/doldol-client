@@ -28,7 +28,6 @@ export interface MessagePagination {
 export interface MessageListRequest {
   paperId: number;
   messageType: "RECEIVE" | "SEND";
-  openDate: string;
   cursorId?: number | null;
   size?: number;
 }

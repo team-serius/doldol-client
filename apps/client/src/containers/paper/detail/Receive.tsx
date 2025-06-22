@@ -36,7 +36,6 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
       getMessageList({
         paperId: paperId,
         messageType: "RECEIVE", // "RECEIVE"로 고정
-        openDate: dayjs(paperData.openDate).format("YYYY-MM-DD"),
         cursorId: pageParam === 0 ? null : pageParam,
         size: 15,
       }).then((res) => {
@@ -47,6 +46,8 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
       return lastPage.message.hasNext ? lastPage.message.nextCursor : undefined;
     },
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    refetchOnWindowFocus: false, // 윈도우 포커스 시 재조회 하지 않음
+    retry: false, // 실패 시 재시도 하지 않음
   });
 
   // IntersectionObserver로 마지막 요소 감지
@@ -104,7 +105,7 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
           </Button>
         )}
       </div>
-      {messageCount > 0 && !isFetching ? (
+      {messageCount > 0 ? (
         <>
           <Typography variant="b16" className="mt-4 text-gray-600">
             {user?.name} 님에게 온 메시지가 <b>{messageCount}개</b> 있어요!
@@ -113,24 +114,33 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
             가능해요.
           </Typography>
           <div className="mt-6 grid grid-cols-3 gap-y-4">
-            {messages.map((message, index) => (
-              <Link
-                key={message.messageId}
-                href={{
-                  pathname: `/paper/${paperId}`,
-                  query: {
-                    type: message.messageType.toLowerCase(),
-                    cursor: message.messageId,
-                  },
-                }}
-              >
+            {messages.map((message, index) =>
+              dayjs(paperData.openDate).isBefore(dayjs()) ? (
+                <Link
+                  key={message.messageId}
+                  href={{
+                    pathname: `/paper/${paperId}/message/detail`,
+                    query: {
+                      type: message.messageType.toLowerCase(),
+                      index: index,
+                    },
+                  }}
+                >
+                  <MessageCard
+                    key={message.messageId}
+                    data={message}
+                    isOdd={index % 2 === 1}
+                  />
+                </Link>
+              ) : (
                 <MessageCard
                   key={message.messageId}
                   data={message}
                   isOdd={index % 2 === 1}
+                  isBlurred
                 />
-              </Link>
-            ))}
+              ),
+            )}
           </div>
           <div ref={observerRef} className="h-10" />
         </>

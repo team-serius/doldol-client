@@ -23,7 +23,11 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
     onCreatePaperApi(data);
   };
 
-  const { mutate: onCreatePaperApi } = useMutation({
+  const {
+    mutate: onCreatePaperApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: (data: PaperRequest) => postPaper(data),
 
     mutationKey: ["createPaper", watch("name"), watch("description")],
@@ -137,7 +141,9 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
             watch("name") === "" ||
             watch("description") === "" ||
             watch("openDate") === "" ||
-            Object.keys(errors).length > 0
+            Object.keys(errors).length > 0 ||
+            isPending ||
+            isSuccess
           }
         >
           새로운 롤링페이퍼 생성

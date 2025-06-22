@@ -31,7 +31,6 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
       getMessageList({
         paperId: paperId,
         messageType: "SEND", // "SEND"로 고정
-        openDate: dayjs(paperData.openDate).format("YYYY-MM-DD"),
         cursorId: pageParam === 0 ? null : pageParam,
         size: 15,
       }).then((res) => {
@@ -42,6 +41,8 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
       return lastPage.message.hasNext ? lastPage.message.nextCursor : undefined;
     },
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    refetchOnWindowFocus: false, // 윈도우 포커스 시 재조회 하지 않음
+    retry: false, // 실패 시 재시도 하지 않음
   });
 
   // IntersectionObserver로 마지막 요소 감지
@@ -121,10 +122,10 @@ const PaperDetailSendContainer: React.FC<Props> = ({ paperData, paperId }) => {
               <Link
                 key={message.messageId}
                 href={{
-                  pathname: `/paper/${paperId}`,
+                  pathname: `/paper/${paperId}/message/detail`,
                   query: {
                     type: message.messageType.toLowerCase(),
-                    cursor: message.messageId,
+                    index: index,
                   },
                 }}
               >
