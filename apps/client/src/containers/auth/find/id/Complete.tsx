@@ -1,13 +1,14 @@
 "use client";
 
-import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { getFindId } from "@/services/auth";
-import { ErrorDTO } from "@/types/error";
-import { useMutation } from "@tanstack/react-query";
-import { Button, Notify, Typography } from "@ui/components";
 import { AxiosError, isAxiosError } from "axios";
-import Link from "next/link";
+import { Button, Notify, Typography } from "@ui/components";
 import { useEffect, useState } from "react";
+
+import { ErrorDTO } from "@/types/error";
+import { FindUserInputForm } from "@/interface/auth/find.interface";
+import Link from "next/link";
+import { getFindId } from "@/services/auth";
+import { useMutation } from "@tanstack/react-query";
 
 interface Props {
   userData: FindUserInputForm;

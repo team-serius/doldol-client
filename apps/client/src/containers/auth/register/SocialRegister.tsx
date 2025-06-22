@@ -1,26 +1,27 @@
-import { useSocialRegisterForm } from "@/hooks/form/useSocialRegisterForm";
-import { RegisterSocialForm } from "@/interface/auth/register.interface";
-import { postSendEmailCode } from "@/services/auth";
-import { ErrorDTO } from "@/types/error";
-import { ArrowSLineRight } from "@icons/ArrowSLineRight";
+import { AxiosError, isAxiosError } from "axios";
 import {
-  PHONE_REGEX,
-  EMAIL_REGEX,
-  KOREAN_NAME_REGEX,
-} from "@libs/constants/regex";
-import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
-import { useMutation } from "@tanstack/react-query";
-import {
-  Typography,
-  TextField,
   Button,
   Checkbox,
   Notify,
+  TextField,
+  Typography,
 } from "@ui/components";
+import {
+  EMAIL_REGEX,
+  KOREAN_NAME_REGEX,
+  PHONE_REGEX,
+} from "@libs/constants/regex";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+
+import { ArrowSLineRight } from "@icons/ArrowSLineRight";
+import { ErrorDTO } from "@/types/error";
 import { Icon } from "@ui/components/Icon";
-import { AxiosError, isAxiosError } from "axios";
 import Link from "next/link";
+import { RegisterSocialForm } from "@/interface/auth/register.interface";
+import { postSendEmailCode } from "@/services/auth";
 import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useSocialRegisterForm } from "@/hooks/form/useSocialRegisterForm";
 
 interface Props {
   onNext: (data?: RegisterSocialForm) => void;
@@ -43,7 +44,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
     onAddSocialData,
   } = useSocialRegisterForm();
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
+  const { mutate: onSendEmailCodeApi, isPending } = useMutation({
     mutationFn: (data: RegisterSocialForm) => postSendEmailCode(data.email),
 
     mutationKey: ["sendEmailCode", watch("email")],
@@ -61,6 +62,9 @@ const SocialRegisterContainer: React.FC<Props> = ({
   });
 
   const onSubmit = (data: RegisterSocialForm) => {
+    if (isPending) {
+      return;
+    }
     onSendEmailCodeApi(data);
   };
 
@@ -88,6 +92,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
+          disabled={isPending}
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
             validate: (value) => {
@@ -106,6 +111,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
+          disabled={isPending}
           {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
@@ -124,6 +130,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
+          disabled={isPending}
           {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
@@ -146,6 +153,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
             watch("privacyPolicy") &&
             watch("isOlderThan14")
           }
+          disabled={isPending}
         />
         <div className="my-2 border-b border-gray-3" />
         <div className="flex justify-between items-center">
@@ -154,6 +162,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
             label="개인정보 수집 및 이용에 동의합니다. (필수)"
             onToggle={onToggle}
             checked={watch("termsOfUse")}
+            disabled={isPending}
           />
           <Link href={"/policy/privacy"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
@@ -167,6 +176,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
             onToggle={onToggle}
             checked={watch("privacyPolicy")}
             classes={{ root: "mt-2" }}
+            disabled={isPending}
           />
           <Link href={"/policy/use"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
@@ -179,6 +189,7 @@ const SocialRegisterContainer: React.FC<Props> = ({
           onToggle={onToggle}
           checked={watch("isOlderThan14")}
           classes={{ root: "mt-2" }}
+          disabled={isPending}
         />
         <Button
           variant={"secondary"}
@@ -194,11 +205,12 @@ const SocialRegisterContainer: React.FC<Props> = ({
             !watch("isOlderThan14") ||
             !watch("socialId") ||
             !watch("socialType") ||
+            isPending ||
             Object.keys(errors).length > 0
           }
           wide
         >
-          다음
+          {isPending ? "처리중..." : "다음"}
         </Button>
       </form>
     </div>

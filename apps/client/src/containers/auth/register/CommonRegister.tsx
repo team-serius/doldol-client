@@ -1,27 +1,28 @@
-import { useRegisterForm } from "@/hooks/form/useRegisterForm";
-import { RegisterForm } from "@/interface/auth/register.interface";
-import { postSendEmailCode } from "@/services/auth";
-import { ErrorDTO } from "@/types/error";
-import { ArrowSLineRight } from "@icons/ArrowSLineRight";
+import { AxiosError, isAxiosError } from "axios";
 import {
-  PASSWORD_REGEX,
-  PHONE_REGEX,
-  EMAIL_REGEX,
-  KOREAN_NAME_REGEX,
-} from "@libs/constants/regex";
-import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
-import { useMutation } from "@tanstack/react-query";
-import {
-  Typography,
-  TextField,
   Button,
-  PasswordField,
   Checkbox,
   Notify,
+  PasswordField,
+  TextField,
+  Typography,
 } from "@ui/components";
+import {
+  EMAIL_REGEX,
+  KOREAN_NAME_REGEX,
+  PASSWORD_REGEX,
+  PHONE_REGEX,
+} from "@libs/constants/regex";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+
+import { ArrowSLineRight } from "@icons/ArrowSLineRight";
+import { ErrorDTO } from "@/types/error";
 import { Icon } from "@ui/components/Icon";
-import { AxiosError, isAxiosError } from "axios";
 import Link from "next/link";
+import { RegisterForm } from "@/interface/auth/register.interface";
+import { postSendEmailCode } from "@/services/auth";
+import { useMutation } from "@tanstack/react-query";
+import { useRegisterForm } from "@/hooks/form/useRegisterForm";
 
 interface Props {
   onNext: (data?: RegisterForm) => void;
@@ -39,7 +40,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
     onChangeId,
   } = useRegisterForm();
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
+  const { mutate: onSendEmailCodeApi, isPending } = useMutation({
     mutationFn: (data: RegisterForm) => postSendEmailCode(data.email),
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
@@ -56,6 +57,9 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
   });
 
   const onSubmit = (data: RegisterForm) => {
+    if (isPending) {
+      return;
+    }
     onSendEmailCodeApi(data);
   };
 
@@ -83,13 +87,14 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
               watch("idCheck") ? "사용 가능한 아이디입니다." : undefined
             }
             gutterBottom
+            disabled={isPending}
             onChange={(e) => onChangeId(e)}
           />
           <Button
             className="shrink-0"
             variant={"primary"}
             size={"medium"}
-            disabled={!watch("id") || watch("idCheck")}
+            disabled={!watch("id") || watch("idCheck") || isPending}
             type="button"
             onClick={onCheckIdDuplicate}
           >
@@ -105,6 +110,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.password ? true : false}
           errorMessage={errors.password?.message}
           gutterBottom
+          disabled={isPending}
           {...register("password", {
             required: ERROR_MESSAGES.passwordRequired,
             validate: (value) => {
@@ -123,6 +129,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.passwordConfirm ? true : false}
           errorMessage={errors.passwordConfirm?.message}
           gutterBottom
+          disabled={isPending}
           {...register("passwordConfirm", {
             required: ERROR_MESSAGES.passwordRequired,
             validate: (value) => {
@@ -141,6 +148,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
+          disabled={isPending}
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
             validate: (value) => {
@@ -159,6 +167,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
+          disabled={isPending}
           {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
@@ -177,6 +186,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
+          disabled={isPending}
           {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
@@ -199,6 +209,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             watch("privacyPolicy") &&
             watch("isOlderThan14")
           }
+          disabled={isPending}
         />
         <div className="my-2 border-b border-gray-3" />
         <div className="flex justify-between items-center">
@@ -207,6 +218,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             label="개인정보 수집 및 이용에 동의합니다. (필수)"
             onToggle={onToggle}
             checked={watch("termsOfUse")}
+            disabled={isPending}
           />
           <Link href={"/policy/privacy"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
@@ -220,6 +232,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             onToggle={onToggle}
             checked={watch("privacyPolicy")}
             classes={{ root: "mt-2" }}
+            disabled={isPending}
           />
           <Link href={"/policy/use"} target="_blank" className="ml-auto">
             <Icon icon={ArrowSLineRight} size={20} />
@@ -232,6 +245,7 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
           onToggle={onToggle}
           checked={watch("isOlderThan14")}
           classes={{ root: "mt-2" }}
+          disabled={isPending}
         />
         <Button
           variant={"secondary"}
@@ -250,10 +264,11 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             !watch("termsOfUse") ||
             !watch("privacyPolicy") ||
             !watch("isOlderThan14") ||
+            isPending ||
             Object.keys(errors).length > 0
           }
         >
-          다음
+          {isPending ? "처리중..." : "다음"}
         </Button>
       </form>
     </div>
