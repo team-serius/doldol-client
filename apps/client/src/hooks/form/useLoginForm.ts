@@ -8,6 +8,7 @@ import { setTokens } from "@/utils/token";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { Notify } from "@ui/components";
 
 // hooks/useLoginForm.ts
 
@@ -19,7 +20,6 @@ export const useLoginForm = () => {
     handleSubmit,
     watch,
     setError,
-    clearErrors,
     formState: { errors },
   } = useForm<CommonLoginForm>({
     mode: "onChange",
@@ -42,11 +42,7 @@ export const useLoginForm = () => {
     },
     onError: (error: AxiosError) => {
       if (isAxiosError<ErrorDTO>(error)) {
-        setError("password", {
-          message:
-            error.response?.data.message ||
-            "아이디 혹은 비밀번호가 일치하지 않습니다.",
-        });
+        Notify.error("아이디 혹은 비밀번호가 일치하지 않습니다.");
       }
     },
   });
@@ -66,6 +62,5 @@ export const useLoginForm = () => {
     watch,
     errors,
     onSubmit,
-    clearErrors,
   };
 };

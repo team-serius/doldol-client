@@ -2,18 +2,9 @@ import { SupportMenu } from "@/components/auth/SupportMenu";
 import { useLoginForm } from "@/hooks/form/useLoginForm";
 import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Typography, TextField, PasswordField, Button } from "@ui/components";
-import { useEffect } from "react";
 
 const AuthLoginIdContainer = () => {
-  const { register, handleSubmit, watch, errors, onSubmit, clearErrors } =
-    useLoginForm();
-
-  const ID = watch("id");
-  useEffect(() => {
-    if (ID) {
-      clearErrors("password");
-    }
-  }, [ID]);
+  const { register, handleSubmit, watch, errors, onSubmit } = useLoginForm();
 
   return (
     <div>
