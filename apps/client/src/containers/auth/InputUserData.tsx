@@ -15,7 +15,6 @@ import { ValidateUserInfoRequest } from "@/types/auth";
 import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
 import { useMutation } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 interface Props {
   onNext: (data?: FindUserInputForm) => void;
@@ -58,13 +57,13 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
       console.log("Email code sent successfully");
+
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
         onNext(variables);
       }
     },
     onError: (error: AxiosError) => {
-      console.log("Email code send error:", error);
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(ERROR_MESSAGES.emailCodeSentFailed);
       }
@@ -77,13 +76,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     if (isLoadingAll) {
       return;
     }
-
     onVerifyUserInfoApi(data);
-  };
-
-  const getButtonText = () => {
-    if (isLoadingAll) return "처리중...";
-    return "다음";
   };
 
   return (
@@ -107,7 +100,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
-          disabled={isLoadingAll}
           {...register("name", {
             required: ERROR_MESSAGES.usernameInvalid,
             validate: (value) => {
@@ -126,7 +118,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.phone ? true : false}
           errorMessage={errors.phone?.message}
           gutterBottom
-          disabled={isLoadingAll}
           {...register("phone", {
             required: ERROR_MESSAGES.phoneNumberRequired,
             validate: (value) => {
@@ -145,7 +136,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.email ? true : false}
           errorMessage={errors.email?.message}
           gutterBottom
-          disabled={isLoadingAll}
           {...register("email", {
             required: ERROR_MESSAGES.emailRequired,
             validate: (value) => {
@@ -166,7 +156,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
             !watch("name") ||
             !watch("phone") ||
             !watch("email") ||
-            isLoadingAll ||
             Object.keys(errors).length > 0
           }
         >
