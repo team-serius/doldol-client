@@ -1,16 +1,16 @@
-import { AxiosError, isAxiosError } from "axios";
 import { Button, Notify, TextField, Typography } from "@ui/components";
-import { PaperCreateResponse, PaperRequest } from "@/types/paper";
 
 import { ERROR_MESSAGES } from "@libs/utils/message";
-import { ErrorDTO } from "@/types/error";
 import { Icon } from "@ui/components/Icon";
+import { PaperCreateResponse, PaperRequest } from "@/types/paper";
 import PopOver from "@ui/components/PopOver/PopOver";
 import { QuestionFill } from "@icons/QuestionFill";
 import cx from "clsx";
-import { postPaper } from "@/services/paper";
 import { useCreatePaperForm } from "@/hooks/form/useCreatePaperForm";
+import { postPaper } from "@/services/paper";
+import { ErrorDTO } from "@/types/error";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError, isAxiosError } from "axios";
 
 interface Props {
   onNext: (data: PaperCreateResponse) => void;
@@ -18,6 +18,10 @@ interface Props {
 
 const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
   const { register, handleSubmit, watch, errors } = useCreatePaperForm();
+
+  const onSubmit = async (data: PaperRequest) => {
+    onCreatePaperApi(data);
+  };
 
   const {
     mutate: onCreatePaperApi,
@@ -40,11 +44,6 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
     },
   });
 
-  const onSubmit = async (data: PaperRequest) => {
-    if (isPending) return;
-    onCreatePaperApi(data);
-  };
-
   return (
     <>
       <Typography variant="h24" className="mt-10">
@@ -66,7 +65,6 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
-          disabled={isPending}
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
             validate: (value) => {
@@ -88,7 +86,6 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
           error={errors.description ? true : false}
           errorMessage={errors.description?.message}
           gutterBottom
-          disabled={isPending}
           {...register("description", {
             required: ERROR_MESSAGES.paperDescriptionRequired,
             validate: (value) => {
@@ -119,7 +116,6 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
           type="date"
           className={cx("w-48 mt-2 px-4 py-2 border rounded-lg shadow-lg")}
           min={new Date().toISOString().split("T")[0]} // 오늘 날짜 이후로 선택 가능
-          disabled={isPending}
           {...register("openDate", {
             required: ERROR_MESSAGES.paperOpenDateRequired,
             validate: (value) => {
@@ -150,7 +146,7 @@ const PaperCreateContainer: React.FC<Props> = ({ onNext }) => {
             isSuccess
           }
         >
-          {isPending ? "생성 중..." : "새로운 롤링페이퍼 생성"}
+          새로운 롤링페이퍼 생성
         </Button>
       </form>
     </>

@@ -1,14 +1,16 @@
+import { IS_DEV } from "./../../lib/config/env";
 import { AxiosError, isAxiosError } from "axios";
 
 import { CommonLoginForm } from "@/interface/auth/login.interface";
 import { ErrorDTO } from "@/types/error";
-import { IS_DEV } from "./../../lib/config/env";
-import { Notify } from "@ui/components";
 import { postLogin } from "@/services/auth";
 import { setTokens } from "@/utils/token";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { Notify } from "@ui/components";
+
+// hooks/useLoginForm.ts
 
 export const useLoginForm = () => {
   const router = useRouter();
@@ -27,7 +29,7 @@ export const useLoginForm = () => {
     },
   });
 
-  const { mutate: onLoginApi, isPending } = useMutation({
+  const { mutate: onLoginApi } = useMutation({
     mutationFn: (data: CommonLoginForm) => postLogin(data),
 
     mutationKey: ["login", watch("id"), watch("password")],
@@ -46,7 +48,6 @@ export const useLoginForm = () => {
   });
 
   const onSubmit = async (data: CommonLoginForm) => {
-    if (isPending) return;
     if (!data.id || !data.password) {
       setError("id", { message: "아이디를 입력해주세요." });
       setError("password", { message: "비밀번호를 입력해주세요." });
@@ -61,6 +62,5 @@ export const useLoginForm = () => {
     watch,
     errors,
     onSubmit,
-    isPending,
   };
 };
