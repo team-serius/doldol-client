@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowSLineDown } from '@icons/ArrowSLineDown';
+import { ArrowSLineUp } from '@icons/ArrowSLineUp';
 import { Icon } from '../Icon';
 import React from 'react';
 import { Typography } from '../Typography';
