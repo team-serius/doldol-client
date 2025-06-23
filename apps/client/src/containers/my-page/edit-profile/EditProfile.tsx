@@ -1,6 +1,5 @@
 "use client";
 
-import { AxiosError, isAxiosError } from "axios";
 import {
   Button,
   Notify,
@@ -11,25 +10,27 @@ import {
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
-import { ErrorDTO } from "@/types/error";
 import { Icon } from "@ui/components/Icon";
 import Image from "next/image";
 import { KakaoSymbolLogo } from "@icons/KakaoSymbolLogo";
 import { PASSWORD_REGEX } from "@libs/constants/regex";
 import { SocialType } from "@/enum/social.enum";
-import { UpdateUserInfoRequest } from "@/types/user";
 import { patchUserInfo } from "@/services/user";
 import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
+import { useRouter } from "next/navigation";
+
 import useMe from "@/hooks/useMe";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { ErrorDTO } from "@/types/error";
+import { AxiosError, isAxiosError } from "axios";
+import { UpdateUserInfoRequest } from "@/types/user";
 
 const EditProfileContainer = () => {
   const { register, handleSubmit, watch, errors } = useEditProfileForm();
   const router = useRouter();
   const { refetch } = useMe();
 
-  const { mutate: onEditProfileApi, isPending } = useMutation({
+  const { mutate: onEditProfileApi } = useMutation({
     mutationFn: (data: UpdateUserInfoRequest) => patchUserInfo(data),
     mutationKey: ["updateInfo", watch("name"), watch("password")],
     onSuccess: (res) => {
@@ -47,7 +48,6 @@ const EditProfileContainer = () => {
   });
 
   const onSubmit = (data: EditProfileInputForm) => {
-    if (isPending) return;
     const payload: UpdateUserInfoRequest = isSocialUser
       ? { name: data.name }
       : { name: data.name, password: data.password };
@@ -93,7 +93,6 @@ const EditProfileContainer = () => {
           error={errors.name ? true : false}
           errorMessage={errors.name?.message}
           gutterBottom
-          disabled={isPending}
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
           })}
@@ -108,7 +107,6 @@ const EditProfileContainer = () => {
               error={errors.password ? true : false}
               errorMessage={errors.password?.message}
               gutterBottom
-              disabled={isPending}
               {...register("password", {
                 required: ERROR_MESSAGES.passwordRequired,
                 validate: (value) => {
@@ -126,7 +124,6 @@ const EditProfileContainer = () => {
               error={errors.passwordConfirm ? true : false}
               errorMessage={errors.passwordConfirm?.message}
               gutterBottom
-              disabled={isPending}
               {...register("passwordConfirm", {
                 required: ERROR_MESSAGES.passwordRequired,
                 validate: (value) => {
@@ -145,9 +142,9 @@ const EditProfileContainer = () => {
           wide
           className="mt-10"
           type="submit"
-          disabled={!isFormValid || Object.keys(errors).length > 0 || isPending}
+          disabled={!isFormValid || Object.keys(errors).length > 0}
         >
-          {isPending ? "처리 중..." : "완료"}
+          완료
         </Button>
       </form>
     </>
