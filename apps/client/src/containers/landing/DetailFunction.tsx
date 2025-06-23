@@ -46,7 +46,7 @@ export function DetailFunctions() {
               className="w-48 h-auto rounded-xl shadow-md"
             />
           )}
-          <div className="text-center flex-grow">
+          <div className="text-left flex-grow">
             <Typography variant="b15" className="mt-32">
               {current.description}
             </Typography>

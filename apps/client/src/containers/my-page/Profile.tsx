@@ -98,21 +98,14 @@ const ProfileContainer = () => {
             <Icon icon={ArrowSLineRight} color="black" />
           </div>
         </Link>
-        <div className="grid grid-cols-2 gap-4 mt-5 px-6">
-          <Link href={"/paper/create"}>
-            <Button
-              variant="outlined"
-              size="medium"
-              wide
-              icon={{ DefaultComponent: PlusLine }}
-            >
-              새로 만들기
-            </Button>
-          </Link>
-          <Button variant="outlined" size="medium" wide>
-            작성한 페이퍼
-          </Button>
-        </div>
+        <Link href={"/paper/create"}>
+          <div className="flex justify-between px-6 mt-4">
+            <div className="flex gap-10">
+              <Typography variant="b18-bold">새로 만들기</Typography>
+            </div>
+            <Icon icon={ArrowSLineRight} color="black" />
+          </div>
+        </Link>
       </div>
 
       <Typography
