@@ -1,17 +1,16 @@
-import { AxiosError, isAxiosError } from "axios";
-import { Button, Notify, TextField, Typography } from "@ui/components";
-import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
+import { FindUserInputForm } from "@/interface/auth/find.interface";
 import {
   RegisterForm,
   RegisterSocialForm,
 } from "@/interface/auth/register.interface";
-
+import { postVerifyEmailCode } from "@/services/auth";
 import { EmailCodeVerifyRequest } from "@/types/auth";
 import { ErrorDTO } from "@/types/error";
-import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { postVerifyEmailCode } from "@/services/auth";
-import { useForm } from "react-hook-form";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 import { useMutation } from "@tanstack/react-query";
+import { Button, Notify, TextField, Typography } from "@ui/components";
+import { AxiosError, isAxiosError } from "axios";
+import { useForm } from "react-hook-form";
 
 interface Props {
   onNext: (data?: any) => void;
@@ -26,7 +25,7 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
     formState: { errors },
   } = useForm<EmailCodeVerifyRequest>();
 
-  const { mutate: onVerifyEmailCodeApi, isPending } = useMutation({
+  const { mutate: onVerifyEmailCodeApi } = useMutation({
     mutationFn: (data: EmailCodeVerifyRequest) => {
       console.log("onVerifyEmailCodeApi", data);
       return postVerifyEmailCode(data);
@@ -68,7 +67,6 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
           error={errors.code ? true : false}
           errorMessage={errors.code?.message}
           gutterBottom
-          disabled={isPending}
           {...register("code", {
             required: ERROR_MESSAGES.phoneNumberCodeInvalid,
           })}
@@ -77,11 +75,11 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
           className="shrink-0"
           variant={"primary"}
           size={"medium"}
-          disabled={!watch("code") || isPending}
+          disabled={!watch("code")}
           type="button"
           onClick={handleSubmit(onSubmit)}
         >
-          {isPending ? "인증 중..." : "인증 완료"}
+          인증 완료
         </Button>
       </div>
     </div>
