@@ -57,7 +57,6 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
       console.log("Email code sent successfully");
-
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
         onNext(variables);
