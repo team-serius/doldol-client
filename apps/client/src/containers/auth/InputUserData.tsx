@@ -23,6 +23,7 @@ interface Props {
 
 const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const pathname = usePathname();
+  const [currentStep, setCurrentStep] = useState<"sending">("sending");
 
   const menu = pathname.includes("find/id")
     ? ["비밀번호 초기화"]
@@ -42,9 +43,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
       watch("name"),
     ],
     onSuccess: (res, variables) => {
+      setCurrentStep("sending");
       onSendEmailCodeApi(variables);
     },
     onError: (error: AxiosError) => {
+      setCurrentStep("sending");
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(error.response?.data.message);
       }
@@ -57,12 +60,16 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     },
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
+      console.log("Email code sent successfully");
+      setCurrentStep("sending");
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
         onNext(variables);
       }
     },
     onError: (error: AxiosError) => {
+      console.log("Email code send error:", error);
+      setCurrentStep("sending");
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(ERROR_MESSAGES.emailCodeSentFailed);
       }
@@ -77,6 +84,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     }
 
     onVerifyUserInfoApi(data);
+  };
+
+  const getButtonText = () => {
+    if (isLoadingAll) return "처리중...";
+    return "다음";
   };
 
   return (
