@@ -154,7 +154,7 @@ const MessageDetailContainer: React.FC<Props> = ({
                   </div>
 
                   <div className="border-b-2 p-2 w-full block border-gray-3 max-w-60 truncate">
-                    {message.name}
+                    {messageType === "SEND" ? message.toName : message.fromName}
                   </div>
                 </Typography>
               </div>

@@ -1,4 +1,3 @@
-import { withAuth } from "@/components/HOC/withAuth";
 import PrivacyPolicyContent from "@/components/serviceinfo/PrivacyPolicy";
 
 const PrivacyPolicyPage = () => {
@@ -8,4 +7,4 @@ const PrivacyPolicyPage = () => {
     </div>
   );
 };
-export default withAuth(PrivacyPolicyPage, true);
+export default PrivacyPolicyPage;

@@ -1,3 +1,5 @@
+"use client";
+
 import { withAuth } from "@/components/HOC/withAuth";
 import PaperInviteContainer from "@/containers/paper/Invite";
 import { use } from "react";

@@ -1,4 +1,3 @@
-import { withAuth } from "@/components/HOC/withAuth";
 import TermsOfServiceContent from "@/components/serviceinfo/TermsOfService";
 
 const TermsOfServicePage = () => {
@@ -8,4 +7,4 @@ const TermsOfServicePage = () => {
     </div>
   );
 };
-export default withAuth(TermsOfServicePage, true);
+export default TermsOfServicePage;

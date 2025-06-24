@@ -42,7 +42,9 @@ export const MessageCard: React.FC<Props> = ({
         className="flex gap-1 items-center"
       >
         {isSend ? "To." : "From."}{" "}
-        <div className="w-16 truncate">{data.name}</div>
+        <div className="w-16 truncate">
+          {isSend ? data.toName : data.fromName}
+        </div>
       </Typography>
     </article>
   );

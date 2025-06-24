@@ -68,7 +68,7 @@ const MessageEditPage = ({
     mutationKey: ["getMessageDetail", messageId],
     onSuccess: (res) => {
       if (res) {
-        setValue("from", res.data.name);
+        setValue("from", res.data.fromName);
         setValue("backgroundColor", res.data.backgroundColor);
         setValue("content", res.data.content);
         setValue("fontStyle", res.data.fontStyle);

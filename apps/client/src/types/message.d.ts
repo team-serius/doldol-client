@@ -11,7 +11,8 @@ export interface Message {
   fontStyle: string;
   backgroundColor: string;
   isDeleted: boolean;
-  name: string;
+  toName: string;
+  fromName: string;
   createdAt: Dayjs;
   updatedAt: Dayjs;
 }
