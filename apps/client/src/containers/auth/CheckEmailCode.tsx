@@ -25,7 +25,11 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
     formState: { errors },
   } = useForm<EmailCodeVerifyRequest>();
 
-  const { mutate: onVerifyEmailCodeApi } = useMutation({
+  const {
+    mutate: onVerifyEmailCodeApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: (data: EmailCodeVerifyRequest) => {
       console.log("onVerifyEmailCodeApi", data);
       return postVerifyEmailCode(data);
@@ -51,6 +55,8 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
     }
   };
 
+  const isLoading = isPending || isSuccess;
+
   return (
     <div>
       <Typography variant="h24" className="mt-10">
@@ -75,11 +81,11 @@ const CheckEmailCodeContainer: React.FC<Props> = ({ onNext, userData }) => {
           className="shrink-0"
           variant={"primary"}
           size={"medium"}
-          disabled={!watch("code")}
+          disabled={!watch("code") || isLoading}
           type="button"
           onClick={handleSubmit(onSubmit)}
         >
-          인증 완료
+          {isLoading ? "로딩 중..." : "인증 완료"}
         </Button>
       </div>
     </div>

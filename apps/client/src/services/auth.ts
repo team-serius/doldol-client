@@ -46,5 +46,5 @@ export const getFindId = (email: string) => {
 };
 
 export const patchResetPassword = (email: string) => {
-  return apiClient.patch("/auth/reset/password", { email });
+  return apiClient.patch(`/auth/reset/password?email=${email}`);
 };

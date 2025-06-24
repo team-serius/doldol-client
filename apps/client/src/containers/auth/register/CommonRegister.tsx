@@ -39,7 +39,11 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
     onChangeId,
   } = useRegisterForm();
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
+  const {
+    mutate: onSendEmailCodeApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: (data: RegisterForm) => postSendEmailCode(data.email),
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
@@ -58,6 +62,8 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
   const onSubmit = (data: RegisterForm) => {
     onSendEmailCodeApi(data);
   };
+
+  const isLoading = isPending || isSuccess;
 
   return (
     <div>
@@ -250,7 +256,8 @@ const CommonRegisterContainer: React.FC<Props> = ({ onNext }) => {
             !watch("termsOfUse") ||
             !watch("privacyPolicy") ||
             !watch("isOlderThan14") ||
-            Object.keys(errors).length > 0
+            Object.keys(errors).length > 0 ||
+            isLoading
           }
         >
           다음

@@ -43,7 +43,11 @@ const SocialRegisterContainer: React.FC<Props> = ({
     onAddSocialData,
   } = useSocialRegisterForm();
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
+  const {
+    mutate: onSendEmailCodeApi,
+    isSuccess,
+    isPending,
+  } = useMutation({
     mutationFn: (data: RegisterSocialForm) => postSendEmailCode(data.email),
 
     mutationKey: ["sendEmailCode", watch("email")],
@@ -67,6 +71,8 @@ const SocialRegisterContainer: React.FC<Props> = ({
   useEffect(() => {
     onAddSocialData(socialId, socialType);
   }, [socialId, socialType, onAddSocialData]);
+
+  const isLoading = isPending || isSuccess;
 
   return (
     <div>
@@ -194,7 +200,8 @@ const SocialRegisterContainer: React.FC<Props> = ({
             !watch("isOlderThan14") ||
             !watch("socialId") ||
             !watch("socialType") ||
-            Object.keys(errors).length > 0
+            Object.keys(errors).length > 0 ||
+            isLoading
           }
           wide
         >

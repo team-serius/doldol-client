@@ -4,7 +4,17 @@ import { ERROR_MESSAGES } from "@libs/utils/message";
 import { Typography, TextField, PasswordField, Button } from "@ui/components";
 
 const AuthLoginIdContainer = () => {
-  const { register, handleSubmit, watch, errors, onSubmit } = useLoginForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    errors,
+    onSubmit,
+    isPending,
+    isSuccess,
+  } = useLoginForm();
+
+  const isLoading = isPending || isSuccess;
 
   return (
     <div>
@@ -41,10 +51,13 @@ const AuthLoginIdContainer = () => {
           className="mt-10"
           wide
           disabled={
-            !watch("id") || !watch("password") || Object.keys(errors).length > 0
+            !watch("id") ||
+            !watch("password") ||
+            Object.keys(errors).length > 0 ||
+            isLoading
           }
         >
-          로그인
+          {isLoading ? "로딩 중..." : "로그인"}
         </Button>
       </form>
       <SupportMenu className="mt-4" />

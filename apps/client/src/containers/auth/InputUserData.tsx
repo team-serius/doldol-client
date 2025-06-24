@@ -29,7 +29,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const { register, errors, handleSubmit, watch, setError } =
     useFindUserInputForm();
 
-  const { mutate: onVerifyUserInfoApi } = useMutation({
+  const {
+    mutate: onVerifyUserInfoApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: (data: ValidateUserInfoRequest) => postValidateUserInfo(data),
     mutationKey: [
       "validateUserInfo",
@@ -47,7 +51,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     },
   });
 
-  const { mutate: onSendEmailCodeApi } = useMutation({
+  const {
+    mutate: onSendEmailCodeApi,
+    isPending: isEmailLoading,
+    isSuccess: isSendEmailSuccess,
+  } = useMutation({
     mutationFn: (data: ValidateUserInfoRequest) =>
       postSendEmailCode(data.email),
     mutationKey: ["sendEmailCode", watch("email")],
@@ -67,6 +75,9 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   const onSubmit = (data: FindUserInputForm) => {
     onVerifyUserInfoApi(data);
   };
+
+  const isLoading =
+    isPending || isSuccess || isEmailLoading || isSendEmailSuccess;
 
   return (
     <>
@@ -145,10 +156,11 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
             !watch("name") ||
             !watch("phone") ||
             !watch("email") ||
-            Object.keys(errors).length > 0
+            Object.keys(errors).length > 0 ||
+            isLoading
           }
         >
-          다음
+          {isLoading ? "로딩 중..." : "다음"}
         </Button>
 
         <SupportMenu menu={menu as SupportMenuItem[]} className="mt-4" />
