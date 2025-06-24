@@ -11,13 +11,8 @@ function Home() {
   return (
     <CommonLayout isLogoVisible isFullWidth>
       <IntroSection />
-
       <DetailFunctions />
-
-      {/* 사용자 후기 섹션 */}
-
       <ReviewSectionContainer />
-
       <FAQSection />
     </CommonLayout>
   );
