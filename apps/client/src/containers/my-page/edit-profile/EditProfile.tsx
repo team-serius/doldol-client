@@ -8,30 +8,33 @@ import {
   Typography,
 } from "@ui/components";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
-
 import { EditProfileInputForm } from "@/interface/my-page/edit-profile/edit.interface";
 import { Icon } from "@ui/components/Icon";
-import Image from "next/image";
 import { KakaoSymbolLogo } from "@icons/KakaoSymbolLogo";
 import { PASSWORD_REGEX } from "@libs/constants/regex";
 import { SocialType } from "@/enum/social.enum";
 import { patchUserInfo } from "@/services/user";
 import { useEditProfileForm } from "@/hooks/form/useEditProfileForm";
 import { useRouter } from "next/navigation";
-
 import useMe from "@/hooks/useMe";
 import { useMutation } from "@tanstack/react-query";
 import { ErrorDTO } from "@/types/error";
 import { AxiosError, isAxiosError } from "axios";
 import { UpdateUserInfoRequest } from "@/types/user";
 import { KOREAN_NAME_REGEX } from "@libs/constants/regex";
+import Chip from "@ui/components/Chip/Chip";
+import { getColorFromString } from "@/utils/color";
 
 const EditProfileContainer = () => {
   const { register, handleSubmit, watch, errors } = useEditProfileForm();
   const router = useRouter();
   const { refetch } = useMe();
 
-  const { mutate: onEditProfileApi } = useMutation({
+  const {
+    mutate: onEditProfileApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: (data: UpdateUserInfoRequest) => patchUserInfo(data),
     mutationKey: ["updateInfo", watch("name"), watch("password")],
     onSuccess: (res) => {
@@ -67,17 +70,16 @@ const EditProfileContainer = () => {
     ? isNameValid
     : isNameValid && isPasswordFieldValid;
 
+  const isLoading = isPending || isSuccess;
+
   return (
     <>
       <div className="flex justify-between items-center w-96 h-20 my-8 mx-auto">
-        <div className="flex items-center justify-center bg-gray-3 rounded-full p-2 w-16 h-16">
-          <Image
-            src="/assets/logos/symbol-incase.png"
-            alt="Logo"
-            width={100}
-            height={100}
-          />
-        </div>
+        <Chip
+          src="/assets/logos/symbol-incase-small.png"
+          size={56}
+          bgColor={getColorFromString(user?.email ?? "")}
+        />
         {isSocialUser && (
           <div className="flex items-center justify-center w-8 h-8 bg-[#FEE500] rounded-full ml-4">
             <Icon icon={KakaoSymbolLogo} className="w-6 h-6" />
@@ -148,7 +150,7 @@ const EditProfileContainer = () => {
           wide
           className="mt-10"
           type="submit"
-          disabled={!isFormValid || Object.keys(errors).length > 0}
+          disabled={!isFormValid || Object.keys(errors).length > 0 || isLoading}
         >
           완료
         </Button>

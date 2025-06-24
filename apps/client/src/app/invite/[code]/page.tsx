@@ -1,3 +1,4 @@
+import { withAuth } from "@/components/HOC/withAuth";
 import PaperInviteContainer from "@/containers/paper/Invite";
 import { use } from "react";
 
@@ -10,4 +11,4 @@ const InvitedPaperPage = ({
   return <PaperInviteContainer code={code} />;
 };
 
-export default InvitedPaperPage;
+export default withAuth(InvitedPaperPage, true);

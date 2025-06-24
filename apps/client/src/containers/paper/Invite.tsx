@@ -21,12 +21,7 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
 
   const { user } = useMe();
 
-  const {
-    data: paperData,
-    refetch,
-    error,
-    isLoading,
-  } = useQuery({
+  const { data: paperData, isLoading } = useQuery({
     queryKey: ["paperInvite", code],
     queryFn: async () => {
       const response = await getPaperInvite(code);
@@ -35,7 +30,11 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
     retry: false,
   });
 
-  const { mutate: onJoinPaperApi } = useMutation({
+  const {
+    mutate: onJoinPaperApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: (invitationCode: string) => {
       return postJoinPaper(invitationCode);
     },
@@ -62,6 +61,8 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
       onJoinPaperApi(code);
     }
   };
+
+  const isLoadingAll = isSuccess || isPending;
 
   return (
     <>
@@ -118,6 +119,7 @@ const PaperInviteContainer: React.FC<Props> = ({ code }) => {
             wide
             className="mt-10"
             onClick={onClickParticipate}
+            disabled={isLoadingAll}
           >
             참여하기
           </Button>

@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
-import { SocialType } from "@/enum/social.enum";
 import { withAuth } from "@/components/HOC/withAuth";
 const Content = {
   input: dynamic(
@@ -15,12 +14,7 @@ const Content = {
 };
 
 const EditProfilePage = () => {
-  // const dummyUser = {
-  //   name: "홍길동",
-  //   socialType: SocialType.Kakao,
-  // };
-
-  return <>{<Content.input />}</>;
+  return <Content.input />;
 };
 
 export default withAuth(EditProfilePage);
