@@ -24,6 +24,7 @@ import { useMutation } from "@tanstack/react-query";
 import { ErrorDTO } from "@/types/error";
 import { AxiosError, isAxiosError } from "axios";
 import { UpdateUserInfoRequest } from "@/types/user";
+import { KOREAN_NAME_REGEX } from "@libs/constants/regex";
 
 const EditProfileContainer = () => {
   const { register, handleSubmit, watch, errors } = useEditProfileForm();
@@ -95,6 +96,11 @@ const EditProfileContainer = () => {
           gutterBottom
           {...register("name", {
             required: ERROR_MESSAGES.usernameRequired,
+            validate: (value) => {
+              if (!KOREAN_NAME_REGEX.test(value)) {
+                return ERROR_MESSAGES.usernameInvalid;
+              }
+            },
           })}
         />
         {!isSocialUser && (
