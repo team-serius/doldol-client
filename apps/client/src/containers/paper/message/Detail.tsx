@@ -32,11 +32,7 @@ const MessageDetailContainer: React.FC<Props> = ({
   const [activeIndex, setActiveIndex] = useState(index);
   const swiperRef = useRef<SwiperClass | null>(null);
 
-  const {
-    mutate: onDeleteMessageApi,
-    isPending,
-    isSuccess,
-  } = useMutation({
+  const { mutate: onDeleteMessageApi, isPending } = useMutation({
     mutationFn: (messageId: number) => deleteMessage(messageId),
     mutationKey: ["postMessage", paperId, messages[activeIndex]?.messageId],
     onSuccess: (res, variables) => {
@@ -89,7 +85,7 @@ const MessageDetailContainer: React.FC<Props> = ({
     }
   };
 
-  const isLoading = isPending || isSuccess;
+  const isLoading = isPending;
 
   return (
     <div className="relative px-8 mt-8">

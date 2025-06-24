@@ -63,6 +63,7 @@ export const HELPER_MESSAGES = {
   joinPaperSuccess: '새로운 롤링페이퍼에 참여했어요!',
   createMessageSuccess: '새로운 메시지가 작성되었습니다.',
   messageDeleteSuccess: '메시지가 삭제되었습니다.',
+  messageUpdateSuccess: '메시지가 수정되었습니다.',
 
   /** 로그인 */
   loginSuccess: '로그인 되었습니다.',

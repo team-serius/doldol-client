@@ -25,7 +25,7 @@ const PaperDetailPage = ({
 }: {
   params: Promise<{ paperId: string }>;
 }) => {
-  const [tab, setTab] = useState("보낸 메시지");
+  const [tab, setTab] = useState("받은 메시지");
   const { paperId } = use(params);
 
   const { data: paperData } = useQuery({
@@ -59,7 +59,7 @@ const PaperDetailPage = ({
         icon={{ DefaultComponent: ArrowSLineUp }}
       />
       <TabMenu
-        menuItems={["보낸 메시지", "받은 메시지"]}
+        menuItems={["받은 메시지", "보낸 메시지"]}
         activeItem={tab}
         onItemClick={onTabClick}
       />

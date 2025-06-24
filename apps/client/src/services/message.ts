@@ -1,7 +1,9 @@
 import {
   CreateMessageRequest,
+  Message,
   MessageListRequest,
   MessageListResponse,
+  UpdateMessageRequest,
 } from "@/types/message";
 import { apiClient } from "./apiClient";
 
@@ -14,6 +16,14 @@ export const getMessageList = (data: MessageListRequest) => {
       size: data.size ?? 10, // 기본값 설정
     },
   });
+};
+
+export const getMessageDetail = (messageId: number) => {
+  return apiClient.get<Message>(`/messages/${messageId}`);
+};
+
+export const onPatchMessage = (data: UpdateMessageRequest) => {
+  return apiClient.patch("/messages", data);
 };
 
 export const postMessage = (data: CreateMessageRequest) => {
