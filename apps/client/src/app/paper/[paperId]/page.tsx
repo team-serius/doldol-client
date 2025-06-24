@@ -1,11 +1,11 @@
 "use client";
 
 import { TabMenu } from "@/components/common/TabMenu";
+import { withAuth } from "@/components/HOC/withAuth";
 import { getPaperDetail } from "@/services/paper";
 import { ArrowSLineUp } from "@icons/ArrowSLineUp";
-import { ShareFill } from "@icons/ShareFill";
 import { useQuery } from "@tanstack/react-query";
-import { Button, Notify } from "@ui/components";
+import { Button } from "@ui/components";
 import dynamic from "next/dynamic";
 import { use, useState } from "react";
 
@@ -28,12 +28,7 @@ const PaperDetailPage = ({
   const [tab, setTab] = useState("보낸 메시지");
   const { paperId } = use(params);
 
-  const {
-    data: paperData,
-    refetch,
-    error,
-    isLoading,
-  } = useQuery({
+  const { data: paperData } = useQuery({
     queryKey: ["paperDetail", paperId],
     queryFn: async () => {
       const response = await getPaperDetail(paperId);
@@ -79,4 +74,4 @@ const PaperDetailPage = ({
     </>
   );
 };
-export default PaperDetailPage;
+export default withAuth(PaperDetailPage);

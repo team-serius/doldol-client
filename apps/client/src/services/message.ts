@@ -19,3 +19,7 @@ export const getMessageList = (data: MessageListRequest) => {
 export const postMessage = (data: CreateMessageRequest) => {
   return apiClient.post("/messages", data);
 };
+
+export const deleteMessage = (messageId: number) => {
+  return apiClient.delete("/messages", { data: { messageId: messageId } });
+};

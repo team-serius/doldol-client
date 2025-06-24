@@ -1,17 +1,21 @@
-import { Button, Typography } from "@ui/components";
+import { Button, Notify, Typography } from "@ui/components";
 import { useRef, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import cx from "clsx";
 import { getTextColor } from "@/utils/messageStyle";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getMessageList } from "@/services/message";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { deleteMessage, getMessageList } from "@/services/message";
 import { Message } from "@/types/message";
 import { PenFill } from "@icons/PenFill";
 import { DeleteFill } from "@icons/DeleteFill";
 import { ArrowSLineLeft } from "@icons/ArrowSLineLeft";
 import { ArrowSLineRight } from "@icons/ArrowSLineRight";
 import dayjs from "dayjs";
+import Link from "next/link";
+import { HELPER_MESSAGES } from "@libs/utils/message";
+import { ErrorDTO } from "@/types/error";
+import { AxiosError, isAxiosError } from "axios";
 
 interface Props {
   paperId: string;
@@ -27,6 +31,34 @@ const MessageDetailContainer: React.FC<Props> = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [activeIndex, setActiveIndex] = useState(index);
   const swiperRef = useRef<SwiperClass | null>(null);
+
+  const {
+    mutate: onDeleteMessageApi,
+    isPending,
+    isSuccess,
+  } = useMutation({
+    mutationFn: (messageId: number) => deleteMessage(messageId),
+    mutationKey: ["postMessage", paperId, messages[activeIndex]?.messageId],
+    onSuccess: (res, variables) => {
+      if (res) {
+        Notify.success(HELPER_MESSAGES.messageDeleteSuccess);
+        setMessages((prev) =>
+          prev.filter((msg) => msg.messageId !== variables),
+        );
+        if (activeIndex >= messages.length - 1) {
+          setActiveIndex(messages.length - 2);
+        }
+        if (swiperRef.current) {
+          swiperRef.current.slideTo(activeIndex);
+        }
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(error.response?.data.message);
+      }
+    },
+  });
 
   useInfiniteQuery({
     queryKey: ["messageList", "send", paperId],
@@ -51,20 +83,13 @@ const MessageDetailContainer: React.FC<Props> = ({
     },
   });
 
-  // FIXME: 페이지 불러오는 로직을 어떻게 구성할지 고민
-  // const onNextSlide = () => {
-  //   if (!swiperRef.current) return;
-  //   if (
-  //     hasNextPage &&
-  //     !isFetchingNextPage &&
-  //     !isFetching &&
-  //     swiperRef.current.activeIndex + 2 === messages.length
-  //   ) {
-  //     console.log("Fetching next page");
-  //     fetchNextPage();
-  //   }
-  //   swiperRef.current?.slideNext();
-  // };
+  const onDeleteMessage = (messageId: number) => {
+    if (confirm("메시지를 삭제하시겠습니까?")) {
+      onDeleteMessageApi(messageId);
+    }
+  };
+
+  const isLoading = isPending || isSuccess;
 
   return (
     <div className="relative px-8 mt-8">
@@ -101,7 +126,7 @@ const MessageDetailContainer: React.FC<Props> = ({
         {messages.map((message) => (
           <SwiperSlide key={message.messageId}>
             <Typography variant={"h24-bold"} className="mt-10 text-center">
-              {dayjs(message.updatedAt).format("YY.MM.DD HH:ss")}
+              {dayjs(message.updatedAt).format("YY.MM.DD HH:mm")}
             </Typography>
             <div
               className={cx(
@@ -128,7 +153,9 @@ const MessageDetailContainer: React.FC<Props> = ({
                     getTextColor(message.backgroundColor),
                   )}
                 >
-                  <div className="p-2">From.</div>
+                  <div className="p-2">
+                    {messageType === "SEND" ? "To." : "From."}
+                  </div>
 
                   <div className="border-b-2 p-2 w-full block border-gray-3 max-w-60 truncate">
                     {message.name}
@@ -139,28 +166,32 @@ const MessageDetailContainer: React.FC<Props> = ({
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="grid grid-cols-2 gap-2 mt-10">
-        {/* TODO: swiper.activeIndex, messages[activeIndex] 이용해서, 어떤 메시지 수정 삭제인지 분리 */}
-        <Button
-          variant={"outlined"}
-          size={"medium"}
-          wide
-          icon={{ DefaultComponent: PenFill }}
-          onClick={() => {
-            console.log(activeIndex, messages[activeIndex]);
-          }}
-        >
-          수정하기
-        </Button>
-        <Button
-          variant={"outlined"}
-          size={"medium"}
-          wide
-          icon={{ DefaultComponent: DeleteFill }}
-        >
-          삭제하기
-        </Button>
-      </div>
+      {messages[activeIndex] && (
+        <div className="grid grid-cols-2 gap-2 mt-10">
+          <Link
+            href={`/paper/${paperId}/message/edit?messageId=${messages[activeIndex].messageId}`}
+          >
+            <Button
+              variant={"outlined"}
+              size={"medium"}
+              wide
+              icon={{ DefaultComponent: PenFill }}
+            >
+              수정하기
+            </Button>
+          </Link>
+          <Button
+            variant={"outlined"}
+            size={"medium"}
+            wide
+            icon={{ DefaultComponent: DeleteFill }}
+            onClick={() => onDeleteMessage(messages[activeIndex]?.messageId)}
+            disabled={isLoading}
+          >
+            삭제하기
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { withAuth } from "@/components/HOC/withAuth";
 import MessageDetailContainer from "@/containers/paper/message/Detail";
 import { useRouter } from "next/navigation";
 import { use, useEffect } from "react";
@@ -34,4 +35,4 @@ const MessageDetailPage = ({
   );
 };
 
-export default MessageDetailPage;
+export default withAuth(MessageDetailPage);
