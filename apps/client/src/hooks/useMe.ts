@@ -1,25 +1,20 @@
-import { getRecentLogin, setRecentLogin } from "@/utils/recentLogin";
-import { removeTokens } from "@/utils/token";
 import {
   QueryObserverResult,
   RefetchOptions,
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { getRecentLogin, setRecentLogin } from "@/utils/recentLogin";
 
-import { HELPER_MESSAGES } from "@libs/utils/message";
 import { IS_DEV } from "@/lib/config/env";
 import { MyInfoResponse } from "src/types/user";
-import { Notify } from "@ui/components";
 import { getUserInfo } from "@/services/user";
 import { isClient } from "src/utils/client";
 import { useAuthStore } from "src/lib/store/auth";
-import { useRouter } from "next/navigation";
 
 interface UseMe {
   user: MyInfoResponse | null;
   error: unknown;
-  onLogout(): void;
   isLoading: boolean;
   refetch: (
     options?: RefetchOptions,
@@ -28,7 +23,6 @@ interface UseMe {
 
 const useMe = (): UseMe => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const { user, setUserData } = useAuthStore();
 
   const { data, refetch, error, isLoading } = useQuery({
@@ -56,20 +50,9 @@ const useMe = (): UseMe => {
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
   });
 
-  const onLogout = () => {
-    // TODO: 로그아웃 API 호출
-    if (!isClient) return;
-    router.replace("/auth/login");
-    setUserData(null);
-    removeTokens();
-    queryClient.clear();
-    Notify.success(HELPER_MESSAGES.logoutSuccess);
-  };
-
   return {
     user,
     error,
-    onLogout,
     isLoading,
     refetch,
   };

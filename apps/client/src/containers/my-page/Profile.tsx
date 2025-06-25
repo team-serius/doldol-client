@@ -1,4 +1,5 @@
 import { Button, Typography } from "@ui/components";
+
 import { ArrowSLineRight } from "@icons/ArrowSLineRight";
 import Chip from "@ui/components/Chip/Chip";
 import { Icon } from "@ui/components/Icon";
@@ -7,6 +8,7 @@ import { Modal } from "@ui/components";
 import PrivacyPolicyContent from "@/components/serviceinfo/PrivacyPolicy";
 import TermsOfServiceContent from "@/components/serviceinfo/TermsOfService";
 import { getColorFromString } from "@/utils/color";
+import useLogoutForm from "@/hooks/form/useLogoutForm";
 import useMe from "@/hooks/useMe";
 import { useState } from "react";
 
@@ -15,7 +17,8 @@ type ModalType = "PrivacyPolicy" | "TermsOfService" | null;
 const ProfileContainer = () => {
   const [openModal, setOpenModal] = useState<ModalType>(null);
 
-  const { user, onLogout } = useMe();
+  const { user } = useMe();
+  const { onLogoutApi } = useLogoutForm();
 
   // 모달 열기
   const OpenModal = (target: ModalType) => {
@@ -64,7 +67,6 @@ const ProfileContainer = () => {
           </div>
         </Link>
       </div>
-
       <Typography
         variant="b14-bold"
         className="mt-10 text-left text-gray-2 w-full"
@@ -85,7 +87,6 @@ const ProfileContainer = () => {
           서비스 이용 약관
         </Typography>
       </div>
-
       {openModal === "PrivacyPolicy" && (
         <Modal isOpen={true} onClose={CloseModal}>
           <PrivacyPolicyContent />
@@ -96,7 +97,6 @@ const ProfileContainer = () => {
           <TermsOfServiceContent />
         </Modal>
       )}
-
       {/* 로그아웃 */}
       <Typography
         variant="b14-bold"
@@ -107,7 +107,7 @@ const ProfileContainer = () => {
       <Typography
         variant="b18-bold"
         className="mt-5 text-left w-full hover:text-green-1"
-        onClick={onLogout}
+        onClick={() => onLogoutApi()}
       >
         로그아웃
       </Typography>
