@@ -1,0 +1,5 @@
+// THIS FILE IS AUTO GENERATED
+import { GenIcon, IconBaseProps } from '../IconBase'
+export function AlertFill (props: IconBaseProps) {
+   return GenIcon({"tag":"svg","attr":{"xmlns":"http://www.w3.org/2000/svg","fill":"none","viewBox":"0 0 20 20"},"child":[{"tag":"path","attr":{"fill":"currentColor","d":"M10.8337 9.1665H9.16699V4.1665H10.8337M10.8337 12.4998H9.16699V10.8332H10.8337M16.667 1.6665H3.33366C2.41699 1.6665 1.66699 2.4165 1.66699 3.33317V18.3332L5.00033 14.9998H16.667C17.5837 14.9998 18.3337 14.2498 18.3337 13.3332V3.33317C18.3337 2.4165 17.5837 1.6665 16.667 1.6665Z"},"child":[]}]})(props);
+}

@@ -16,6 +16,7 @@ import Link from "next/link";
 import { HELPER_MESSAGES } from "@libs/utils/message";
 import { ErrorDTO } from "@/types/error";
 import { AxiosError, isAxiosError } from "axios";
+import { AlertFill } from "@icons/AlertFill";
 
 interface Props {
   paperId: string;
@@ -164,18 +165,34 @@ const MessageDetailContainer: React.FC<Props> = ({
       </Swiper>
       {messages[activeIndex] && (
         <div className="grid grid-cols-2 gap-2 mt-10">
-          <Link
-            href={`/paper/${paperId}/message/edit?messageId=${messages[activeIndex].messageId}`}
-          >
-            <Button
-              variant={"outlined"}
-              size={"medium"}
-              wide
-              icon={{ DefaultComponent: PenFill }}
+          {messageType === "SEND" ? (
+            <Link
+              href={`/paper/${paperId}/message/edit?messageId=${messages[activeIndex].messageId}`}
             >
-              수정하기
-            </Button>
-          </Link>
+              <Button
+                variant={"outlined"}
+                size={"medium"}
+                wide
+                icon={{ DefaultComponent: PenFill }}
+              >
+                수정하기
+              </Button>
+            </Link>
+          ) : (
+            <Link
+              href={`/paper/${paperId}/message/edit?messageId=${messages[activeIndex].messageId}`}
+            >
+              <Button
+                variant={"outlined"}
+                size={"medium"}
+                wide
+                icon={{ DefaultComponent: AlertFill }}
+              >
+                신고하기
+              </Button>
+            </Link>
+          )}
+
           <Button
             variant={"outlined"}
             size={"medium"}

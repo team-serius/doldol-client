@@ -1,4 +1,5 @@
 // THIS FILE IS AUTO GENERATED
+export { AlertFill } from "./AlertFill";
 export { ArrowSLineDown } from "./ArrowSLineDown";
 export { ArrowSLineLeft } from "./ArrowSLineLeft";
 export { ArrowSLineRight } from "./ArrowSLineRight";
