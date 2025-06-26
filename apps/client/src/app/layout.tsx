@@ -3,8 +3,6 @@ import "@/styles";
 import type { Metadata } from "next";
 import Providers from "./providers";
 
-const OG_IMAGE_URL = "/assets/logos/symbol-incase-small.png";
-
 const BASE_URL = "https://doldol.wha1eson.co.kr";
 
 export const metadata: Metadata = {
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "돌돌",
     images: [
       {
-        url: OG_IMAGE_URL,
+        url: "https://i.ibb.co/MDQCjxbJ/symbol-incase-small.png",
         width: 1200,
         height: 630,
         alt: "돌돌 온라인 롤링페이퍼 메인 이미지",
