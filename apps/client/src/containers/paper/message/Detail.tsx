@@ -1,5 +1,6 @@
+"use client";
 import { Button, Notify, Typography } from "@ui/components";
-import { useRef, useState } from "react";
+import { act, useRef, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import cx from "clsx";
@@ -13,17 +14,20 @@ import { ArrowSLineLeft } from "@icons/ArrowSLineLeft";
 import { ArrowSLineRight } from "@icons/ArrowSLineRight";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { HELPER_MESSAGES } from "@libs/utils/message";
+import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 import { ErrorDTO } from "@/types/error";
 import { AxiosError, isAxiosError } from "axios";
 import { AlertFill } from "@icons/AlertFill";
+import { ReportRequest } from "@/types/report";
+import { postReport } from "@/services/report";
+import { error } from "console";
+import { useRouter } from "next/navigation";
 
 interface Props {
   paperId: string;
   index: number;
   messageType: "SEND" | "RECEIVE";
 }
-
 const MessageDetailContainer: React.FC<Props> = ({
   paperId,
   index,
@@ -32,18 +36,22 @@ const MessageDetailContainer: React.FC<Props> = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [activeIndex, setActiveIndex] = useState(index);
   const swiperRef = useRef<SwiperClass | null>(null);
+  const router = useRouter();
 
   const { mutate: onDeleteMessageApi, isPending } = useMutation({
     mutationFn: (messageId: number) => deleteMessage(messageId),
-    mutationKey: ["postMessage", paperId, messages[activeIndex]?.messageId],
+    mutationKey: ["deleteMessage", paperId, messages[activeIndex]?.messageId],
     onSuccess: (res, variables) => {
       if (res) {
         Notify.success(HELPER_MESSAGES.messageDeleteSuccess);
         setMessages((prev) =>
-          prev.filter((msg) => msg.messageId !== variables),
+          prev.filter((msg) => msg.messageId !== activeIndex),
         );
         if (activeIndex >= messages.length - 1) {
           setActiveIndex(messages.length - 2);
+        }
+        if (messages.length <= 1) {
+          router.replace(`/paper/${paperId}`);
         }
         if (swiperRef.current) {
           swiperRef.current.slideTo(activeIndex);
@@ -53,6 +61,32 @@ const MessageDetailContainer: React.FC<Props> = ({
     onError: (error: AxiosError) => {
       if (isAxiosError<ErrorDTO>(error)) {
         Notify.error(error.response?.data.message);
+      }
+    },
+  });
+
+  const { mutate: onReportMessageApi } = useMutation({
+    mutationFn: (data: ReportRequest) => postReport(data),
+    onSuccess: (res, variables) => {
+      if (res) {
+        Notify.success(HELPER_MESSAGES.reportSuccess);
+        setMessages((prev) =>
+          prev.filter((msg) => msg.messageId !== variables.messageId),
+        );
+        if (activeIndex >= messages.length - 1) {
+          setActiveIndex(messages.length - 2);
+        }
+        if (messages.length <= 1) {
+          router.replace(`/paper/${paperId}`);
+        }
+        if (swiperRef.current) {
+          swiperRef.current.slideTo(activeIndex);
+        }
+      }
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(ERROR_MESSAGES.reportFailure);
       }
     },
   });
@@ -83,6 +117,14 @@ const MessageDetailContainer: React.FC<Props> = ({
   const onDeleteMessage = (messageId: number) => {
     if (confirm("메시지를 삭제하시겠습니까?")) {
       onDeleteMessageApi(messageId);
+    }
+  };
+
+  const onReportMessage = () => {
+    if (confirm("이 메시지를 신고하시겠습니까?")) {
+      onReportMessageApi({
+        messageId: messages[activeIndex].messageId,
+      });
     }
   };
 
@@ -179,18 +221,15 @@ const MessageDetailContainer: React.FC<Props> = ({
               </Button>
             </Link>
           ) : (
-            <Link
-              href={`/paper/${paperId}/message/edit?messageId=${messages[activeIndex].messageId}`}
+            <Button
+              variant={"outlined"}
+              size={"medium"}
+              wide
+              icon={{ DefaultComponent: AlertFill }}
+              onClick={onReportMessage}
             >
-              <Button
-                variant={"outlined"}
-                size={"medium"}
-                wide
-                icon={{ DefaultComponent: AlertFill }}
-              >
-                신고하기
-              </Button>
-            </Link>
+              신고하기
+            </Button>
           )}
 
           <Button
