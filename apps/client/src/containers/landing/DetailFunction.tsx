@@ -25,7 +25,7 @@ export function DetailFunctions() {
       />
 
       {current && (
-        <div className="flex gap-8 mt-8 mx-4">
+        <div className="flex gap-8 mt-8 mx-4 relative">
           {current.type === "video" ? (
             <video
               src={current.videoPath}
@@ -46,11 +46,18 @@ export function DetailFunctions() {
               className="w-48 h-auto rounded-xl shadow-md"
             />
           )}
-          <div className="text-left flex-grow">
+          <div className="text-left flex-grow relative">
             <Typography variant="b15" className="mt-32">
               {current.description}
             </Typography>
           </div>
+          <Image
+            src="/assets/images/jw.png"
+            alt="FAQ Icon"
+            width={112}
+            height={112}
+            className="absolute right-0 top-3/4 "
+          />
         </div>
       )}
     </div>
