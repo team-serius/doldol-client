@@ -14,11 +14,6 @@ export const FAQSection = () => {
           className="w-40 absolute left-0 top-1/2 transform -translate-y-1/2"
         />
         <Typography variant={"h32-bold"}>FAQ</Typography>
-        <img
-          src="/assets/images/jw.png"
-          alt="FAQ Icon"
-          className="w-40 absolute right-0 top-1/2 transform -translate-y-1/2"
-        />
       </div>
 
       {FAQ_LIST.map((faqItem) => (
