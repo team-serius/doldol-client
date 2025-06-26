@@ -1,4 +1,4 @@
-import { Button, Typography } from "@ui/components";
+import { Button, Notify, Typography } from "@ui/components";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -75,6 +75,18 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
   const messages = data?.pages.flatMap((page) => page.message.data) || [];
   const messageCount = data?.pages[0].messageCount ?? 0;
 
+  const onCopyLink = () => {
+    const link = `${window.location.origin}/invite/${paperData.code}`;
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        Notify.success("초대 링크가 복사되었습니다.");
+      })
+      .catch(() => {
+        Notify.error("초대 링크 복사에 실패했습니다.");
+      });
+  };
+
   return (
     <section className="mt-6">
       <Typography element="h2" variant="h24-bold" className="w-full">
@@ -98,6 +110,7 @@ const PaperDetailReceiveContainer: React.FC<Props> = ({
             size={"medium"}
             wide
             icon={{ DefaultComponent: ShareFill }}
+            onClick={onCopyLink}
           >
             롤링페이퍼 공유
           </Button>
