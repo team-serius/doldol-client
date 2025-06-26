@@ -1,13 +1,35 @@
-import type { Metadata } from "next";
 import "@/styles";
+
+import type { Metadata } from "next";
 import Providers from "./providers";
 
+const OG_IMAGE_URL = "/assets/logos/symbol-incase-small.png";
+
+const BASE_URL = "https://doldol.wha1eson.co.kr";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+
   title: "모이면 완성되는 마음의 종이, 돌돌",
   description:
     "돌돌은 모두가 함께 만드는 온라인 롤링페이퍼입니다. 생일, 졸업, 이별, 감사의 순간을 따뜻하게 기억하세요.",
   icons: {
     icon: "/favicon/favicon.ico",
+  },
+  openGraph: {
+    title: "돌돌: 모이면 완성되는 마음의 종이",
+    url: BASE_URL,
+    siteName: "돌돌",
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: "돌돌 온라인 롤링페이퍼 메인 이미지",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
   },
 };
 
