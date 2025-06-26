@@ -118,7 +118,7 @@ const MessageEditContainer: React.FC<Props> = ({
           </Typography>
           <input
             className={cx(
-              "border-b-2 border-gray-3 px-1 py-2 flex-1 text-[18px] font-bold",
+              "border-b-2 border-gray-3 px-1 py-2 flex-1 text-[18px] font-bold max-w-[200px]",
               getTextColor(watch("backgroundColor")),
             )}
             placeholder="이름 입력"
