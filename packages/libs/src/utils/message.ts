@@ -40,6 +40,8 @@ export const ERROR_MESSAGES = {
   forbidden: '접근 권한이 없습니다.',
 
   updateFailure: '수정에 실패하였습니다.',
+
+  reportFailure: '신고 접수에 실패하였습니다.',
 };
 
 export const HELPER_MESSAGES = {
@@ -70,4 +72,6 @@ export const HELPER_MESSAGES = {
   logoutSuccess: '로그아웃 되었습니다.',
 
   userInfoUpdateSuccess: '유저 정보 수정이 완료되었습니다.',
+
+  reportSuccess: '신고가 정상적으로 접수되었습니다',
 };
