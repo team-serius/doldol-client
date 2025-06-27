@@ -1,12 +1,11 @@
 import "@/styles";
 
+import GoogleAnalytics from "@/lib/GA";
 import type { Metadata } from "next";
 import Providers from "./providers";
 import Script from "next/script";
 
 const BASE_URL = "https://doldol.wha1eson.co.kr";
-
-import GoogleAnalytics from "@/lib/GA";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -42,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <meta name="google-site-verification" content="Vycz5yefLMTxwxBupannWuFhhEaLpwDJHqAkhJHSyC8" />
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
           <>
             <Script
