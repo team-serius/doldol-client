@@ -42,8 +42,6 @@ const PaperListContainer = () => {
         ? lastPage.rollingPaper.nextCursor
         : undefined;
     },
-    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
-    refetchOnWindowFocus: false, // 윈도우 포커스 시 재조회 방지
   });
 
   // IntersectionObserver로 마지막 요소 감지
