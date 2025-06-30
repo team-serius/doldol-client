@@ -146,6 +146,12 @@ const MessageSelectPersonContainer: React.FC<Props> = ({ paperId, onNext }) => {
             </Typography>
           </div>
         )}
+        <div
+          ref={observerRef}
+          className={cx("h-10", {
+            "animate-pulse": isFetchingNextPage,
+          })}
+        />
       </ul>
     </>
   );
