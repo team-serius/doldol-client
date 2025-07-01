@@ -14,8 +14,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/auth/", "/paper/", "/my-page/"],
+      disallow: ["/auth/", "/paper/", "/my-page/", "/invite/"],
     },
-    sitemap: "https://doldol.wha1eson.co.kr//sitemap.xml",
+    sitemap: "https://doldol.wha1eson.co.kr/sitemap.xml",
   };
 }

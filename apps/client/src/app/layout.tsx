@@ -1,6 +1,6 @@
 import "@/styles";
 
-import GoogleAnalytics from "@/lib/GA";
+import { GA_TRACKING_ID } from "@/lib/config/env";
 import type { Metadata } from "next";
 import Providers from "./providers";
 import Script from "next/script";
@@ -41,8 +41,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <meta name="google-site-verification" content="Vycz5yefLMTxwxBupannWuFhhEaLpwDJHqAkhJHSyC8" />
-        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+        {process.env.NODE_ENV !== "development" && (
+          <meta
+            name="google-site-verification"
+            content="Vycz5yefLMTxwxBupannWuFhhEaLpwDJHqAkhJHSyC8"
+          />
+        )}
+        {GA_TRACKING_ID && (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
