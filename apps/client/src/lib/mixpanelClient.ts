@@ -10,7 +10,6 @@ export const initMixpanel = () => {
   }
 
   if (!MIXPANEL_TOKEN) {
-    console.warn("Mixpanel token is missing! Check your .env file.");
     return null;
   }
 
@@ -22,10 +21,6 @@ export const initMixpanel = () => {
   });
 
   mixpanelInstance = mixpanel;
-
-  if (isDevelopment && mixpanelInstance.has_opted_in_tracking()) {
-    console.log("Mixpanel debug mode is active. Check console for events.");
-  }
 
   return mixpanelInstance;
 };
