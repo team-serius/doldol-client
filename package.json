@@ -11,6 +11,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@types/mixpanel-browser": "^2.60.0",
     "husky": "^9.1.7",
     "prettier": "^3.5.3",
     "turbo": "^2.5.3",
@@ -23,5 +24,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "mixpanel-browser": "^2.65.0"
+  }
 }

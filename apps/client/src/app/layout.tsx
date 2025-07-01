@@ -2,6 +2,7 @@ import "@/styles";
 
 import { GA_TRACKING_ID } from "@/lib/config/env";
 import type { Metadata } from "next";
+import MixpanelInitializer from "./MixpanelInitializer";
 import Providers from "./providers";
 import Script from "next/script";
 
@@ -78,6 +79,7 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
+          <MixpanelInitializer />
           {children}
           <div id="modal-root"></div>
         </Providers>

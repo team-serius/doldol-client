@@ -11,3 +11,6 @@ export const REVALIDATE_SECRET_KEY = process.env.REVALIDATE_SECRET_KEY ?? "";
 
 export const ACCESS_TOKEN = process.env.ACCESS_TOKEN ?? "";
 export const REFRESH_TOKEN = process.env.REFRESH_TOKEN ?? "";
+
+export const NEXT_PUBLIC_MIXPANEL_TOKEN =
+  process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? "";
