@@ -17,7 +17,9 @@ export const metadata: Metadata = {
     icon: "/favicon/favicon.ico",
   },
   openGraph: {
-    title: "돌돌: 모이면 완성되는 마음의 종이",
+    title: "모이면 완성되는 마음의 종이, 돌돌",
+    description:
+      "돌돌은 모두가 함께 만드는 온라인 롤링페이퍼입니다. 생일, 졸업, 이별, 감사의 순간을 따뜻하게 기억하세요.",
     url: BASE_URL,
     siteName: "돌돌",
     images: [
@@ -42,10 +44,16 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         {process.env.NODE_ENV !== "development" && (
-          <meta
-            name="google-site-verification"
-            content="Vycz5yefLMTxwxBupannWuFhhEaLpwDJHqAkhJHSyC8"
-          />
+          <>
+            <meta
+              name="google-site-verification"
+              content="Vycz5yefLMTxwxBupannWuFhhEaLpwDJHqAkhJHSyC8"
+            />
+            <meta
+              name="naver-site-verification"
+              content="4c866ffc8b459473303fac6e927343ab9eb30cf6"
+            />
+          </>
         )}
         {GA_TRACKING_ID && (
           <>
