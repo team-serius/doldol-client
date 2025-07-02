@@ -17,7 +17,7 @@ export const initMixpanel = () => {
 
   mixpanel.init(MIXPANEL_TOKEN, {
     autocapture: true,
-    debug: false,
+    debug: isDevelopment,
   });
 
   mixpanelInstance = mixpanel;
