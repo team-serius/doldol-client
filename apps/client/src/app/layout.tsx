@@ -1,10 +1,9 @@
 import "@/styles";
 
-import { GA_TRACKING_ID } from "@/lib/config/env";
+import GoogleAnalytics from "@/lib/GA";
 import type { Metadata } from "next";
 import MixpanelInitializer from "./MixpanelInitializer";
 import Providers from "./providers";
-import Script from "next/script";
 
 const BASE_URL = "https://doldol.wha1eson.co.kr";
 
@@ -54,27 +53,13 @@ export default function RootLayout({
               name="naver-site-verification"
               content="4c866ffc8b459473303fac6e927343ab9eb30cf6"
             />
+            {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+              <GoogleAnalytics
+                gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+              />
+            )}
           </>
         )}
-
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-            strategy="afterInteractive"
-          />
-          <Script
-            id="gtag-init"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
-                `,
-            }}
-          />
-        </>
       </head>
       <body>
         <Providers>
