@@ -13,7 +13,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({
   title,
-  isLogoVisible = false,
+  isLogoVisible = true,
   isBlockRedirect,
 }) => {
   const router = useRouter();
