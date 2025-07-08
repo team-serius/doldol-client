@@ -3,6 +3,7 @@ import {
   LoginSuccessResponse,
   OAuthRegisterRequest,
   RegisterRequest,
+  ValidatePasswordInfoRequest,
   ValidateUserInfoRequest,
 } from "@/types/auth";
 
@@ -47,4 +48,12 @@ export const getFindId = (email: string) => {
 
 export const patchResetPassword = (email: string) => {
   return apiClient.patch(`/auth/reset/password?email=${email}`);
+};
+
+export const postCheckEmail = (email: string) => {
+  return apiClient.post(`/auth/check-email?email=${email}`);
+};
+
+export const postCheckPasswordInfo = (data: ValidatePasswordInfoRequest) => {
+  return apiClient.post("/auth/check-password-info", data);
 };

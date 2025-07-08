@@ -1,5 +1,4 @@
 export interface FindUserInputForm {
-  name: string;
-  phone: string;
+  id?: string;
   email: string;
 }

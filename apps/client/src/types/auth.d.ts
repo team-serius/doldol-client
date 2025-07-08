@@ -88,3 +88,8 @@ export interface ValidateUserInfoRequest {
   phone: string;
   email: string;
 }
+
+export interface ValidatePasswordInfoRequest {
+  id: string;
+  email: string;
+}

@@ -1,14 +1,15 @@
 import { SupportMenu, SupportMenuItem } from "@/components/auth/SupportMenu";
 import { useFindUserInputForm } from "@/hooks/form/useFindIdForm";
 import { FindUserInputForm } from "@/interface/auth/find.interface";
-import { postSendEmailCode, postValidateUserInfo } from "@/services/auth";
-import { ValidateUserInfoRequest } from "@/types/auth";
-import { ErrorDTO } from "@/types/error";
 import {
-  PHONE_REGEX,
-  EMAIL_REGEX,
-  KOREAN_NAME_REGEX,
-} from "@libs/constants/regex";
+  postCheckEmail,
+  postCheckPasswordInfo,
+  postSendEmailCode,
+  postValidateUserInfo,
+} from "@/services/auth";
+import { ValidatePasswordInfoRequest } from "@/types/auth";
+import { ErrorDTO } from "@/types/error";
+import { EMAIL_REGEX } from "@libs/constants/regex";
 import { ERROR_MESSAGES, HELPER_MESSAGES } from "@libs/utils/message";
 import { useMutation } from "@tanstack/react-query";
 import { Button, Notify, TextField, Typography } from "@ui/components";
@@ -30,19 +31,32 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     useFindUserInputForm();
 
   const {
-    mutate: onVerifyUserInfoApi,
-    isPending,
-    isSuccess,
+    mutate: onCheckEmailApi,
+    isPending: isCheckEmailLoading,
+    isSuccess: isCheckEmailSuccess,
   } = useMutation({
-    mutationFn: (data: ValidateUserInfoRequest) => postValidateUserInfo(data),
-    mutationKey: [
-      "validateUserInfo",
-      watch("email"),
-      watch("phone"),
-      watch("name"),
-    ],
+    mutationFn: (email: string) => postCheckEmail(email),
+    mutationKey: ["validateEmail", watch("email")],
     onSuccess: (res, variables) => {
       onSendEmailCodeApi(variables);
+    },
+    onError: (error: AxiosError) => {
+      if (isAxiosError<ErrorDTO>(error)) {
+        Notify.error(error.response?.data.message);
+      }
+    },
+  });
+
+  const {
+    mutate: onCheckPasswordInfo,
+    isPending: isCheckPasswordInfoPending,
+    isSuccess: isCheckPasswordInfoSuccess,
+  } = useMutation({
+    mutationFn: (data: ValidatePasswordInfoRequest) =>
+      postCheckPasswordInfo(data),
+    mutationKey: ["validateEmailID", watch("email"), watch("id")],
+    onSuccess: (res, variables) => {
+      onSendEmailCodeApi(variables.email);
     },
     onError: (error: AxiosError) => {
       if (isAxiosError<ErrorDTO>(error)) {
@@ -56,13 +70,12 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
     isPending: isEmailLoading,
     isSuccess: isSendEmailSuccess,
   } = useMutation({
-    mutationFn: (data: ValidateUserInfoRequest) =>
-      postSendEmailCode(data.email),
+    mutationFn: (email: string) => postSendEmailCode(email),
     mutationKey: ["sendEmailCode", watch("email")],
     onSuccess: (res, variables) => {
       if (res) {
         Notify.success(HELPER_MESSAGES.emailCodeSentSuccess);
-        onNext(variables);
+        onNext({ email: variables });
       }
     },
     onError: (error: AxiosError) => {
@@ -73,11 +86,23 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
   });
 
   const onSubmit = (data: FindUserInputForm) => {
-    onVerifyUserInfoApi(data);
+    if (pathname.includes("find/id")) {
+      onCheckEmailApi(data.email);
+    } else {
+      if (data.id) {
+        onCheckPasswordInfo({ id: data.id, email: data.email });
+      }
+      Notify.error("오류가 발생했습니다.");
+    }
   };
 
   const isLoading =
-    isPending || isSuccess || isEmailLoading || isSendEmailSuccess;
+    isCheckPasswordInfoPending ||
+    isCheckPasswordInfoSuccess ||
+    isCheckEmailLoading ||
+    isCheckEmailSuccess ||
+    isEmailLoading ||
+    isSendEmailSuccess;
 
   return (
     <>
@@ -92,42 +117,22 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           계정 정보
         </Typography>
 
-        <Typography variant="b16" className="mt-10">
-          이름
-        </Typography>
-        <TextField
-          placeholder="친구들에게 보여질 이름을 정확히 입력해주세요."
-          error={errors.name ? true : false}
-          errorMessage={errors.name?.message}
-          gutterBottom
-          {...register("name", {
-            required: ERROR_MESSAGES.usernameInvalid,
-            validate: (value) => {
-              if (!KOREAN_NAME_REGEX.test(value)) {
-                return ERROR_MESSAGES.usernameInvalid;
-              }
-            },
-          })}
-        />
-
-        <Typography variant="b16" className="mt-10">
-          휴대 전화 번호
-        </Typography>
-        <TextField
-          placeholder="휴대 전화 번호를 입력해주세요."
-          error={errors.phone ? true : false}
-          errorMessage={errors.phone?.message}
-          gutterBottom
-          {...register("phone", {
-            required: ERROR_MESSAGES.phoneNumberRequired,
-            validate: (value) => {
-              if (!PHONE_REGEX.test(value)) {
-                return ERROR_MESSAGES.phoneNumberInvalid;
-              }
-            },
-          })}
-        />
-
+        {!pathname.includes("find/id") && (
+          <>
+            <Typography variant="b16" className="mt-10">
+              아이디
+            </Typography>
+            <TextField
+              placeholder="아이디를 입력해주세요."
+              error={errors.id ? true : false}
+              errorMessage={errors.id?.message}
+              gutterBottom
+              {...register("id", {
+                required: ERROR_MESSAGES.emailCheckInvalid,
+              })}
+            />
+          </>
+        )}
         <Typography variant="b16" className="mt-10">
           이메일
         </Typography>
@@ -153,11 +158,7 @@ const AuthInputUserDataContainer: React.FC<Props> = ({ onNext }) => {
           className="mt-10"
           type="submit"
           disabled={
-            !watch("name") ||
-            !watch("phone") ||
-            !watch("email") ||
-            Object.keys(errors).length > 0 ||
-            isLoading
+            !watch("email") || Object.keys(errors).length > 0 || isLoading
           }
         >
           {isLoading ? "로딩 중..." : "다음"}

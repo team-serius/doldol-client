@@ -11,8 +11,7 @@ export const useFindUserInputForm = () => {
   } = useForm<FindUserInputForm>({
     mode: "onChange",
     defaultValues: {
-      name: "",
-      phone: "",
+      id: "",
       email: "",
     },
   });
