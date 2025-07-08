@@ -1,5 +1,9 @@
+"use client";
+
+import { usePathname, useRouter } from "next/navigation";
 import { Header } from "./Header";
 import cx from "clsx";
+import { useEffect } from "react";
 
 interface Props {
   className?: string;
@@ -18,6 +22,16 @@ export const CommonLayout: React.FC<Props> = ({
   isBlockRedirect = false,
   isFullWidth = false,
 }) => {
+  // FIXME: 긴급 수정 이후 삭제
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      router.replace("/");
+    }
+  }, [pathname, router]);
+
   return (
     <div className={`flex flex-col min-h-screen ${className}`}>
       <Header isLogoVisible={isLogoVisible} isBlockRedirect={isBlockRedirect} />
