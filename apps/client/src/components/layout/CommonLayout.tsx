@@ -5,22 +5,28 @@ interface Props {
   className?: string;
   children?: React.ReactNode;
   isFooterVisible?: boolean;
-  isLogoVisible?: boolean;
   isBlockRedirect?: boolean;
+  isBackButton?: boolean;
+  uplink?: string;
   isFullWidth?: boolean;
 }
 
 export const CommonLayout: React.FC<Props> = ({
   className,
   children,
-  isLogoVisible = false,
   isFooterVisible,
   isBlockRedirect = false,
+  isBackButton = true,
+  uplink,
   isFullWidth = false,
 }) => {
   return (
     <div className={`flex flex-col min-h-screen ${className}`}>
-      <Header isLogoVisible={isLogoVisible} isBlockRedirect={isBlockRedirect} />
+      <Header
+        isBlockRedirect={isBlockRedirect}
+        isBackButton={isBackButton}
+        uplink={uplink}
+      />
       <main
         className={cx(
           "max-w-md w-full mx-auto pt-[66px]",

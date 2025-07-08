@@ -6,6 +6,6 @@ interface Props {
 }
 
 const MyLayout = async ({ children }: Props) => {
-  return <CommonLayout>{children}</CommonLayout>;
+  return <CommonLayout uplink="/">{children}</CommonLayout>;
 };
 export default MyLayout;
