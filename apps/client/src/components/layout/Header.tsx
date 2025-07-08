@@ -1,8 +1,8 @@
 "use client";
 
-import { Logo } from "../common/Logo";
-import { Icon } from "@ui/components/Icon";
 import { ArrowSLineLeft } from "@icons/ArrowSLineLeft";
+import { Icon } from "@ui/components/Icon";
+import { Logo } from "../common/Logo";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -36,6 +36,13 @@ export const Header: React.FC<Props> = ({
         {!isLogoVisible && (
           <Icon icon={ArrowSLineLeft} onClick={onClickBack} color="black" />
         )}
+        <div className="flex items-center">
+          {!isLogoVisible && (
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <Logo size="small" />
+            </div>
+          )}
+        </div>
       </div>
       {title && <h1 className="text-xl">{title}</h1>}
     </header>
